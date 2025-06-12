@@ -7,7 +7,6 @@ import 'flowbite';
 import   Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
-
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 

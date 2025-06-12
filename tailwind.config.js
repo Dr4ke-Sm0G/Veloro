@@ -1,13 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
-  content: ["./src/**/*.{ts,tsx}",
-            "./node_modules/flowbite/**/*.js",
-            "./node_modules/flowbite-react/**/*.js"],
-  theme: { extend: {} },
-  corePlugins: {
-    preflight: true, // Active les styles de base (équivalent de @tailwind base)
-    mode: 'jit',
+  content: [
+    "./src/**/*.{ts,tsx}",
+    "./node_modules/flowbite/**/*.js",
+    "./node_modules/flowbite-react/**/*.js"
+  ],
+  theme: {
+    extend: {},
   },
-  plugins: [  require('flowbite/plugin')],
+  corePlugins: {
+    preflight: true,
+  },
+  plugins: [require('flowbite/plugin')],
 };
