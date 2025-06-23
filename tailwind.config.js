@@ -4,9 +4,13 @@ module.exports = {
   content: ["./src/**/*.{ts,tsx}",
             "./node_modules/flowbite/**/*.js",
             "./node_modules/flowbite-react/**/*.js"],
-  theme: { extend: {} },
+  theme: { extend: {
+    fontFamily: {
+      walsheim: ['"GT Walsheim"', 'sans-serif'],
+    },
+  } },
   corePlugins: {
-    preflight: true, // Active les styles de base (équivalent de @tailwind base)
+    preflight: true,
     mode: 'jit',
   },
   plugins: [  require('flowbite/plugin')],

@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "tailwindcss/preflight";
+@tailwind utilities;
 
 @custom-variant dark (&:is(.dark *));
 
@@ -121,3 +122,8 @@
     @apply bg-background text-foreground;
   }
 }
+@font-face {
+  font-family: "GT Walsheim";
+  src: url("/public/fonts/GT-Walsheim-Black-Oblique-Trial.otf");
+}
+
