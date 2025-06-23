@@ -1,18 +1,16 @@
 import Image from "next/image";
-import { ChevronRight } from "lucide-react"; // ou un <svg> custom
+import { ChevronRight } from "lucide-react";
 
 export default function CarCardSkeleton() {
   return (
-<div className="bg-gray-200 rounded-xl w-full max-w-sm h-[450px] p-4 flex flex-col justify-between">
-      {/* Contenu principal */}
-      <div className="space-y-3">
-        {/* Titre */}
-        <h3 className="!px-4 !mt-4 text-black !font-bold">Volkswagen ID.4</h3>
-        {/* Variante */}
-        <div className="!px-4 text-sm text-gray-700">Match Pure</div>
-
-        {/* Specs list inline */}
-        <div className="!px-4 text-sm text-gray-600 flex flex-wrap gap-x-2 items-center">
+    <div className="bg-gray-200 rounded-xl w-full max-w-sm aspect-square shadow-md flex flex-col p-3">
+      {/* Haut : texte */}
+      <div className="flex flex-col gap-1 text-sm text-black flex-shrink">
+        <h3 className="text-xl font-bold ">
+          Volkswagen ID.4
+        </h3>
+        <p className="text-sm text-gray-700">Match Pure</p>
+        <div className="text-sm text-gray-600 flex flex-wrap gap-x-2 items-center">
           <span>170 BHP</span>
           <span>•</span>
           <span>Automatic</span>
@@ -21,52 +19,49 @@ export default function CarCardSkeleton() {
           <span>•</span>
           <span>5 doors</span>
         </div>
+      </div>
 
-        {/* Image */}
-        <div className="relative w-full h-60 rounded-lg overflow-hidden">
-          <Image
-            src="/images/vw.png"
-            alt="Volkswagen ID.4"
-            fill
-            sizes="(max-width: 768px) 100vw, 400px"
-            placeholder="blur"
-            blurDataURL="/images/vw-blur.png"
-            className="object-cover"
-            onError={(e) => {
-              const target = e.target as HTMLImageElement;
-              target.src = "/images/fallback.png"; // ajoute cette image si souhaité
-            }}
-          />
+      {/* Image */}
+      <div className="relative w-full h-[70%] rounded-lg overflow-hidden my-2">
+        <Image
+          src="/images/vw.png"
+          alt="Volkswagen ID.4"
+          fill
+          sizes="(max-width: 768px) 100vw, 400px"
+          placeholder="blur"
+          blurDataURL="/images/vw-blur.png"
+          className="object-cover"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.src = "/images/fallback.png";
+          }}
+        />
+      </div>
+
+      {/* Bloc prix */}
+      <div className="bg-[#eeeeee] rounded-2xl flex justify-between items-center px-3 py-1 flex-shrink">
+        <div className="text-xs flex flex-col gap-1">
+          <div className="flex gap-1 items-center">
+            <span className="bg-[#00e0b8] text-black text-xs font-semibold px-2 py-[2px] rounded-l-md">
+              Amazing deal
+            </span>
+            <span className="bg-black text-white text-[10px] font-bold px-2 py-[2px] rounded-r-md">
+              9.6
+            </span>
+          </div>
+          <div className="text-black font-medium">Buy Volkswagen ID.4</div>
+          <div className=" text-black font-bold text-base">£49,590</div>
         </div>
-        {/* Score + prix */}
-        <div className="!ml-3 !mr-3 !pl-5 bg-[#eeeeee] rounded-2xl flex items-center justify-between">
-          <div>
-            {/* Étiquette + note */}
-            <div className="flex items-center !gap-1 !mb-2">
-              <div className="bg-[#00e0b8] text-black text-xs font-semibold !px-2 !py-0.5 rounded-l-md">
-                Amazing deal
-              </div>
-              <div className="bg-black text-white text-xs font-bold !px-2 !py-0.5 rounded-r-md">
-                9.6
-              </div>
-            </div>
 
-            {/* Texte + prix */}
-            <div className=" text-xs text-black">
-              Buy Volkswagen ID.4
-            </div>
-            <div className=" text-lg font-bold text-black">
-              £49,590
-            </div>
-          </div>
-
-          {/* Flèche dans rond */}
-          <div className="!mr-4 w-12 h-12 bg-black rounded-full flex items-center justify-center">
-            <ChevronRight className="text-white w-5 h-5" />
-          </div>
+        <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center">
+          <ChevronRight className="text-white w-4 h-4" />
         </div>
       </div>
-      <a className="text-center underline font-semibold !text-black !pb-4">Buying details</a>
+
+      {/* Footer lien */}
+      <div className="pt-2 text-center text-xs font-semibold underline text-black">
+        BUYING DETAILS
+      </div>
     </div>
   );
 }
