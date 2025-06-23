@@ -14,238 +14,221 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Modèle utilisateur
-model User {
-  id            String    @id @default(cuid())
-  email         String    @unique
-  name          String?
-  password      String?
-  image         String?
-  role          Role      @default(USER)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  favorites     Favorite[]
-  reviews       Review[]
-  searches      SavedSearch[]
-  carListings   CarListing[]
-}
-
-enum Role {
-  USER
-  DEALER
-  ADMIN
-}
 
 model Brand {
   id     String  @id @default(cuid())
   name   String  @unique
+  logo   String?
   models Model[]
 }
 
 model Model {
-  id            String            @id @default(cuid())
-  name          String
-  brandId       String
-  brand         Brand             @relation(fields: [brandId], references: [id])
+  id       String   @id @default(cuid())
+  name     String
+  brand    Brand    @relation(fields: [brandId], references: [id])
+  brandId  String
+  variants Variant[]
 
-  technical     TechnicalSpec?   @relation("ModelToTechnicalSpec")
-  dimensions    DimensionSpec?   @relation("ModelToDimensionSpec")
-  consumption   ConsumptionSpec? @relation("ModelToConsumptionSpec")
-
-  createdAt     DateTime          @default(now())
-  variants      Variant[]
-  reviews       Review[]
+  @@unique([name, brandId])
 }
 
-
-
-model TechnicalSpec {
-  id        String @id @default(cuid())
-  modelId   String @unique
-  model     Model  @relation("ModelToTechnicalSpec", fields: [modelId], references: [id])
-  engineType      String?
-  fuelType        String?
-  transmission    String?
-  driveType       String?
-  horsepower      String?
-  torque          String?
-  acceleration    String?
-  topSpeed        String?
-}
-
-
-
-
-model DimensionSpec {
-  id        String @id @default(cuid())
-  modelId   String @unique
-  model     Model  @relation("ModelToDimensionSpec", fields: [modelId], references: [id])
-  length          String?
-  width           String?
-  height          String?
-  wheelbase       String?
-  trunkCapacity   String?
-  weight          String?
-  groundClearance String?
-}
-
-
-model ConsumptionSpec {
-  id        String @id @default(cuid())
-  modelId   String @unique
-  model     Model  @relation("ModelToConsumptionSpec", fields: [modelId], references: [id])
-  fuelConsumption  String?
-  co2Emissions     String?
-  emissionStandard String?
-  fuelTankCapacity String?
-  rangeWLTP        String?
-}
-
-
-
-// Modèle de variante de voiture
 model Variant {
-  id            String    @id @default(cuid())
-  name          String
-  model         Model     @relation(fields: [modelId], references: [id])
-  modelId       String
-  year          Int
-  bodyType      String
-  fuelType      String
-  transmission  String
-  price         Float
-  specs         Json
-  cars          Car[]
-  
+  id       String   @id @default(cuid())
+  name     String
+  model    Model    @relation(fields: [modelId], references: [id])
+  modelId  String
+
+  year       Int?
+  bodyType   String?
+  drive      String?   // e.g. "FWD", "RWD", "AWD"
+
+  /// 1‑to‑1 spec relations
+  batterySpec        BatterySpec?
+  chargingSpec       ChargingSpec?
+  performanceSpec    PerformanceSpec?
+  efficiencySpec     EfficiencySpec?
+  realConsumption    RealConsumptionSpec?
+  dimensionSpec      DimensionSpec?
+  safetyRating       SafetyRating?
+  v2xSpec            V2XSpec?
+  availability       Availability?
+
+  /// 1‑to‑N relations
+  prices             Price[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@unique([name, modelId, year])
 }
 
-// Modèle de voiture (instance spécifique)
-model Car {
-  id            String    @id @default(cuid())
-  variant       Variant   @relation(fields: [variantId], references: [id])
-  variantId     String
-  condition     Condition
-  mileage       Int?
-  color         String?
-  images        CarImage[]
-  features      Feature[]
-  carListings   CarListing[]
-  favorites     Favorite[]
+/// ---------------------------------
+/// Commercial data
+/// ---------------------------------
+
+model Price {
+  id        String   @id @default(cuid())
+  variant   Variant  @relation(fields: [variantId], references: [id])
+  variantId String
+
+  country   String   // ISO country name ("Germany")
+  price     Decimal
+  validFrom DateTime?
+  validTo   DateTime?
+
+  @@index([variantId, country])
 }
 
-enum Condition {
-  NEW
-  USED
+model Availability {
+  id        String   @id @default(cuid())
+  variant   Variant  @relation(fields: [variantId], references: [id])
+  variantId String   @unique
+
+  availableFrom DateTime?
+  availableTo   DateTime?
 }
 
-// Modèle d'image de voiture
-model CarImage {
-  id            String    @id @default(cuid())
-  url           String
-  car           Car       @relation(fields: [carId], references: [id])
-  carId         String
-  isPrimary     Boolean   @default(false)
+/// ---------------------------------
+/// Technical specification blocks (1‑to‑1 with Variant)
+/// ---------------------------------
+
+model BatterySpec {
+  id        String   @id @default(cuid())
+  variant   Variant  @relation(fields: [variantId], references: [id])
+  variantId String   @unique
+
+  nominalCapacity      Decimal? // kWh
+  useableCapacity      Decimal? // kWh
+  batteryType          String?
+  architecture         String?  // "400 V" / "800 V"
+  cathodeMaterial      String?
+  packConfiguration    String?
+  nominalVoltage       Decimal?
+  formFactor           String?
+  warrantyPeriod       String?
+  warrantyMileage      String?
 }
 
-// Modèle de caractéristique de voiture
-model Feature {
-  id            String    @id @default(cuid())
-  name          String
-  category      String
-  cars          Car[]
+model ChargingSpec {
+  id        String   @id @default(cuid())
+  variant   Variant  @relation(fields: [variantId], references: [id])
+  variantId String   @unique
+
+  acPortType              String?
+  acPowerKW               Decimal?
+  acChargeTime            String? // formatted string "9h45m"
+  acChargeSpeedKmH        Int?
+
+  dcPortType              String?
+  dcMaxPowerKW            Decimal?
+  dcPower10to80KW         Decimal?
+  dcChargeSpeedKmH        Int?
+
+  portLocation            String?
+  autochargeSupported     Boolean?
+  plugAndChargeSupported  Boolean?
+  iso15118Supported       Boolean?
+  preconditioningPossible Boolean?
+  preconditioningNav      Boolean?
 }
 
-// Modèle d'annonce de voiture
-model CarListing {
-  id            String    @id @default(cuid())
-  car           Car       @relation(fields: [carId], references: [id])
-  carId         String
-  seller        User      @relation(fields: [sellerId], references: [id])
-  sellerId      String
-  price         Float
-  description   String?
-  status        ListingStatus
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+model PerformanceSpec {
+  id        String   @id @default(cuid())
+  variant   Variant  @relation(fields: [variantId], references: [id])
+  variantId String   @unique
+
+  acceleration0100Sec  Decimal?
+  topSpeedKmh          Int?
+  electricRangeKm      Int?
+  totalPowerKw         Decimal?
+  totalTorqueNm        Decimal?
+  drive                String?
 }
 
-enum ListingStatus {
-  ACTIVE
-  SOLD
-  EXPIRED
+model EfficiencySpec {
+  id        String   @id @default(cuid())
+  variant   Variant  @relation(fields: [variantId], references: [id])
+  variantId String   @unique
+
+  rangeKm                  Int?
+  vehicleConsumptionWhKm   Int?
+  ratedConsumptionWhKm     Int?
+  vehicleFuelEqL100km      Decimal?
+  ratedFuelEqL100km        Decimal?
+  co2EmissionsGKm          Int?
 }
 
-// Modèle d'avis
-model Review {
-  id            String    @id @default(cuid())
-  rating        Int
-  title         String?
-  content       String?
-  author        User      @relation(fields: [authorId], references: [id])
-  authorId      String
-  model         Model     @relation(fields: [modelId], references: [id])
-  modelId       String
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+model RealConsumptionSpec {
+  id        String   @id @default(cuid())
+  variant   Variant  @relation(fields: [variantId], references: [id])
+  variantId String   @unique
+
+  cityColdWhKm        Int?
+  highwayColdWhKm     Int?
+  combinedColdWhKm    Int?
+  cityMildWhKm        Int?
+  highwayMildWhKm     Int?
+  combinedMildWhKm    Int?
 }
 
-// Modèle de favoris
-model Favorite {
-  id            String    @id @default(cuid())
-  user          User      @relation(fields: [userId], references: [id])
-  userId        String
-  car           Car       @relation(fields: [carId], references: [id])
-  carId         String
-  createdAt     DateTime  @default(now())
-  
-  @@unique([userId, carId])
+model DimensionSpec {
+  id        String   @id @default(cuid())
+  variant   Variant  @relation(fields: [variantId], references: [id])
+  variantId String   @unique
+
+  lengthMm             Int?
+  widthMm              Int?
+  widthWithMirrorsMm   Int?
+  heightMm             Int?
+  wheelbaseMm          Int?
+  weightUnladenKg      Int?
+  grossVehicleWeightKg Int?
+  maxPayloadKg         Int?
+
+  cargoVolumeL         Int?
+  cargoVolumeMaxL      Int?
+  frunkVolumeL         Int?
+
+  roofLoadKg           Int?
+  towHitchPossible     Boolean?
+  towingWeightUnbrakedKg Int?
+  towingWeightBrakedKg   Int?
+  verticalLoadMaxKg    Int?
+
+  seats                Int?
+  isofix               Boolean?
+  turningCircleM       Decimal?
+
+  platform             String?
+  evDedicatedPlatform  Boolean?
+  carBody              String?
+  segment              String?
+  roofRails            Boolean?
+  heatPump             Boolean?
 }
 
-// Modèle de recherche sauvegardée
-model SavedSearch {
-  id            String    @id @default(cuid())
-  name          String?
-  criteria      Json
-  user          User      @relation(fields: [userId], references: [id])
-  userId        String
-  createdAt     DateTime  @default(now())
+model SafetyRating {
+  id        String   @id @default(cuid())
+  variant   Variant  @relation(fields: [variantId], references: [id])
+  variantId String   @unique
+
+  ratingYear             Int?
+  adultOccupantPercent   Int?
+  childOccupantPercent   Int?
+  vulnerableRoadUsersPct Int?
+  safetyAssistPercent    Int?
 }
 
-// Modèle de concessionnaire
-model Dealer {
-  id            String    @id @default(cuid())
-  name          String
-  address       String?
-  city          String?
-  postcode      String?
-  phone         String?
-  email         String?
-  website       String?
-  logo          String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-}
+model V2XSpec {
+  id        String   @id @default(cuid())
+  variant   Variant  @relation(fields: [variantId], references: [id])
+  variantId String   @unique
 
-// Modèle d'article de blog
-model Article {
-  id            String    @id @default(cuid())
-  title         String
-  slug          String    @unique
-  content       String
-  excerpt       String?
-  coverImage    String?
-  published     Boolean   @default(false)
-  publishedAt   DateTime?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  categories    Category[]
-}
-
-// Modèle de catégorie d'article
-model Category {
-  id            String    @id @default(cuid())
-  name          String    @unique
-  slug          String    @unique
-  articles      Article[]
+  v2lSupported      Boolean?
+  exteriorOutlet    String?
+  interiorOutlet    String?
+  v2hAcSupported    Boolean?
+  v2hDcSupported    Boolean?
+  v2gAcSupported    Boolean?
+  v2gDcSupported    Boolean?
 }
