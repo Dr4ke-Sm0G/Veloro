@@ -1,8 +1,10 @@
 // src/server/trpc.ts
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
+import { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 
 import type { Context } from "./context"; // ⬅️ le vrai Context avec prisma + session
+import { AppRouter } from "./api/root";
 
 /**
  * Initialise tRPC avec le contexte commun à tout le backend.
@@ -38,3 +40,7 @@ export const publicProcedure = t.procedure;
  * `protectedProcedure` — accessible seulement si l'utilisateur est connecté.
  */
 export const protectedProcedure = t.procedure.use(isAuthed);
+
+/* Types aides pour React Query */
+export type RouterInputs = inferRouterInputs<AppRouter>;
+export type RouterOutputs = inferRouterOutputs<AppRouter>;

@@ -25,6 +25,16 @@ const extractBrandAndModel = (fullName: string) => {
   };
 };
 
+function extractSeatsFromLongdistance(longdistance: any[]): number | null {
+  if (!Array.isArray(longdistance)) return null;
+
+  const obj = longdistance.find((entry) => entry.Seats);
+  if (!obj?.Seats) return null;
+
+  const match = obj.Seats.match(/\d+/); // extrait "5" depuis "5 people"
+  return match ? parseInt(match[0], 10) : null;
+}
+
 const importLog: { variant: string; brand: string; status: string; message?: string }[] = [];
 
 async function importCars(filePath: string) {
@@ -113,6 +123,9 @@ async function importCars(filePath: string) {
 
           dimensionSpec: {
             create: {
+              seats: parseNumber(
+                car.longdistance?.find((b: any) => b['Seats'])?.['Seats']
+              ),
               lengthMm: parseNumber(car.dimensions?.[0]?.['Length']),
               widthMm: parseNumber(car.dimensions?.[0]?.['Width']),
               heightMm: parseNumber(car.dimensions?.[0]?.['Height']),
@@ -140,10 +153,10 @@ async function importCars(filePath: string) {
           const price = parseNumber(val);
           return price !== undefined
             ? {
-                country,
-                price,
-                variantId: variant.id,
-              }
+              country,
+              price,
+              variantId: variant.id,
+            }
             : null;
         })
         .filter((p): p is { country: string; price: number; variantId: string } => p !== null);

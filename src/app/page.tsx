@@ -1,34 +1,33 @@
 "use client";
 
-import { trpc } from "@/lib/trpc";
+import { trpc } from "@/lib/trpc";            // client tRPC
+import CarCard from "@/components/cars/CarCard";   // carte dynamique
 import type { inferRouterOutputs } from "@trpc/server";
 import type { AppRouter } from "@/server/api/root";
-import CarCardSkeleton from "@/components/cars/CarCardSkeleton";
 
-type RouterOutput = inferRouterOutputs<AppRouter>;
-type ModelOutput = RouterOutput["model"]["getAll"][number];
+/** Type d’un élément renvoyé par listPreview */
+type VariantPreview =
+  inferRouterOutputs<AppRouter>["variant"]["listPreview"][number];
 
 export default function Home() {
-  const { data = [], refetch } = trpc.model.getAll.useQuery();
-
-  const create = trpc.model.createWithSpecs.useMutation({
-    onSuccess: () => {
-      void refetch();
-    },
+  /* ────────────── tRPC : 7 voitures pour la grille ────────────── */
+  const { data = [], isLoading } = trpc.variant.listPreview.useQuery({
+    limit: 7,
   });
 
-
   return (
-    <main className="flex justify-center items-center min-h-screen bg-gray-100 p-6">
-    <div className="max-w-screen-xl mx-auto px-4 pt-[100px] pb-8">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <CarCardSkeleton />
-        <CarCardSkeleton />
-        <CarCardSkeleton />
-        <CarCardSkeleton />
-      </div>
-    </div>
-      
+    <main className="container mx-auto py-8 px-4">
+      <h1 className="text-2xl font-bold mb-6">Featured electric cars</h1>
+
+      {isLoading ? (
+        <p>Loading…</p>
+      ) : (
+        <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {data.map((car: VariantPreview) => (
+            <CarCard key={car.id} car={car} />
+          ))}
+        </ul>
+      )}
     </main>
   );
 }

@@ -22,7 +22,7 @@ export default function CarCardSkeleton() {
       </div>
 
       {/* Image */}
-      <div className="relative w-full h-[60%] rounded-lg overflow-hidden my-2">
+      <div className="relative w-full h-[80%] rounded-lg overflow-hidden my-2">
         <Image
           src="/images/vw.png"
           alt="Volkswagen ID.4"
@@ -41,15 +41,15 @@ export default function CarCardSkeleton() {
       {/* Bloc prix */}
       <div className="bg-[#eeeeee] rounded-2xl flex justify-between items-center px-3 py-1 flex-shrink">
         <div className="text-xs flex flex-col gap-1">
-          <div className="flex gap-1 items-center">
-            <span className="bg-[#00e0b8] text-black text-xs font-semibold px-2 py-[2px] rounded-l-md">
+          <div className="flex items-center">
+            <span className="bg-[#00e0b8] text-black text-sm font-semibold px-2 py-[2px] rounded-l-md">
               Amazing deal
             </span>
-            <span className="bg-black text-white text-[10px] font-bold px-2 py-[2px] rounded-r-md">
+            <span className="bg-black text-white text-sm font-bold px-2 py-[2px] rounded-r-md">
               9.6
             </span>
           </div>
-          <div className="text-black font-medium">Buy Volkswagen ID.4</div>
+          <div className="text-black text-sm">Buy Volkswagen ID.4</div>
           <div className=" text-black font-bold text-base">£49,590</div>
         </div>
 
