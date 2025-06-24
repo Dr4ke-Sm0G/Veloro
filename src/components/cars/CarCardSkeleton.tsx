@@ -3,7 +3,7 @@ import { ChevronRight } from "lucide-react";
 
 export default function CarCardSkeleton() {
   return (
-    <div className="bg-gray-200 rounded-xl w-full max-w-sm aspect-square shadow-md flex flex-col p-3">
+    <div className="bg-gray-200 rounded-xl w-full max-w-lg aspect-square h-[400px] shadow-md flex flex-col p-3">
       {/* Haut : texte */}
       <div className="flex flex-col gap-1 text-sm text-black flex-shrink">
         <h3 className="text-xl font-bold ">
@@ -22,7 +22,7 @@ export default function CarCardSkeleton() {
       </div>
 
       {/* Image */}
-      <div className="relative w-full h-[70%] rounded-lg overflow-hidden my-2">
+      <div className="relative w-full h-[60%] rounded-lg overflow-hidden my-2">
         <Image
           src="/images/vw.png"
           alt="Volkswagen ID.4"

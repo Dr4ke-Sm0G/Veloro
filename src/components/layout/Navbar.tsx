@@ -11,10 +11,9 @@ export default function Navbar() {
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900 shadow-sm z-50 w-full fixed top-0 left-0">
       <div
-        className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto"
-        style={{ paddingTop: '25px', paddingBottom: '25px', paddingLeft: '20px' }}
-      >        {/* Logo */}
-        <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+        className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-6 pl-5">
+        {/* Logo */}
+        <a href="/" className="flex items-center space-x-3">
           <img
             src="https://flowbite.com/docs/images/logo.svg"
             className="h-8"
@@ -26,7 +25,7 @@ export default function Navbar() {
         </a>
 
         {/* Langues et burger */}
-        <div className="flex items-center md:order-2 space-x-3 rtl:space-x-reverse">
+        <div className="flex items-center md:order-2 space-x-3">
           {/* Dropdown langue */}
           <div className="relative">
             <button
