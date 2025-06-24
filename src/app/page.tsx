@@ -16,18 +16,8 @@ export default function Home() {
   });
 
   return (
-    <main className="container mx-auto py-8 px-4">
+    <main className="container mx-auto py-20 px-4">
       <h1 className="text-2xl font-bold mb-6">Featured electric cars</h1>
-
-      {isLoading ? (
-        <p>Loading…</p>
-      ) : (
-        <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {data.map((car: VariantPreview) => (
-            <CarCard key={car.id} car={car} />
-          ))}
-        </ul>
-      )}
     </main>
   );
 }

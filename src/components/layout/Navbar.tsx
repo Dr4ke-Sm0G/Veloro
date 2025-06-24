@@ -1,16 +1,28 @@
 "use client";
 
-import { useEffect } from "react";
-
+import { useEffect, useState } from "react";
 export default function Navbar() {
   useEffect(() => {
     // Active Flowbite si disponible (pour dropdowns)
     import("flowbite");
   }, []);
+    const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <nav className="bg-white border-gray-200 dark:bg-gray-900 shadow-sm z-50 w-full fixed top-0 left-0">
-      <div
+    <nav className={`border-gray-200 z-50 w-full fixed top-0 left-0 transition-colors duration-300 ${
+      scrolled 
+        ? "bg-white dark:bg-gray-900 shadow-sm" 
+        : "bg-transparent dark:bg-transparent"
+    }`}>
+              <div
         className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-6 pl-5">
         {/* Logo */}
         <a href="/" className="flex items-center space-x-3">
