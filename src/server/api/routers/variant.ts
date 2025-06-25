@@ -95,6 +95,9 @@ export const variantRouter = router({
           img: `/images/cars/${v.id}.webp`,
           score: 9.6,
           dealTag: "Amazing deal",
+          /* Pour routing */
+          brandName: v.model.brand.name,
+          modelName: v.model.name,
         };
       });
     }),
