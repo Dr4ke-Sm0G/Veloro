@@ -32,39 +32,38 @@ export default function FAQSection() {
   };
 
   return (
-    <section className="bg-[#e9e7e4] py-16">
-      <div className="max-w-3xl mx-53">
-        <h2 className="text-2xl font-bold mb-6 text-black">FAQ</h2>
-        <div className="bg-white rounded-xl shadow overflow-hidden divide-y divide-gray-200">
-          {faqs.map((item, index) => {
-            const isOpen = openIndexes.includes(index);
-            return (
-              <div key={index}>
-                <button
-                  onClick={() => toggle(index)}
-                  className="w-full text-left px-6 py-4 flex items-center justify-between font-semibold text-black hover:bg-gray-50"
-                >
-                  {item.question}
-                  <ChevronDown
-                    className={`w-5 h-5 transform transition-transform duration-300 ${
-                      isOpen ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-                <div
-                  className={`overflow-hidden transition-all duration-300 ${
-                    isOpen ? "max-h-96 px-6 py-4" : "max-h-0 px-6 py-0"
-                  } text-gray-700`}
-                >
-                  <p className="transition-opacity duration-300">
-                    {item.answer}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
+<section className="bg-[#e9e7e4] py-16">
+  <div className="max-w-3xl mx-auto px-6 ">
+    <h2 className="text-2xl font-bold mb-6 text-black">FAQ</h2>
+    <div className="bg-white rounded-xl shadow overflow-hidden divide-y divide-gray-200">
+      {faqs.map((item, index) => {
+        const isOpen = openIndexes.includes(index);
+        return (
+          <div key={index}>
+            <button
+              onClick={() => toggle(index)}
+              className="w-full text-left px-6 py-4 flex items-center justify-between font-semibold text-black hover:bg-gray-50"
+            >
+              {item.question}
+              <ChevronDown
+                className={`w-5 h-5 transform transition-transform duration-300 ${
+                  isOpen ? "rotate-180" : ""
+                }`}
+              />
+            </button>
+            <div
+              className={`overflow-hidden transition-all duration-300 ${
+                isOpen ? "max-h-96 px-6 py-4" : "max-h-0 px-6 py-0"
+              } text-gray-700`}
+            >
+              <p className="transition-opacity duration-300">{item.answer}</p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
   );
 }

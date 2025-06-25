@@ -34,7 +34,6 @@ export default function Home() {
       {/* Deals section */}
       <DealsSection />
 
-
       {/* Testimonials section */}
       <Testimonials />
 
@@ -46,7 +45,7 @@ export default function Home() {
         buttonHref="/news"
         items={[
           {
-            img: "/hero2.jpg",
+            img: "/hero3.jpg",
             title: "3 things you should NEVER say when taking out finance",
             href: "#",
           },
@@ -56,10 +55,33 @@ export default function Home() {
             href: "#",
           },
           {
-            img: "/hero2.jpg",
+            img: "/hero3.jpg",
             title: "Where To Charge Your EV For Free",
             href: "#",
           },
+                    {
+            img: "/hero3.jpg",
+            title: "Where To Charge Your EV For Free",
+            href: "#",
+          },
+                    {
+            img: "/hero3.jpg",
+            title: "Where To Charge Your EV For Free",
+            href: "#",
+          },
+                              {
+            img: "/hero3.jpg",
+            title: "Where To Charge Your EV For Free",
+            href: "#",
+          },
+                              {
+            img: "/hero3.jpg",
+            title: "Where To Charge Your EV For Free",
+            href: "#",
+          },
+
+          
+          
         ]}
       />
       {/* Reviews section */}
@@ -69,6 +91,12 @@ export default function Home() {
         buttonLabel="Read more reviews"
         buttonHref="/reviews"
         items={[
+                    {
+            img: "images/daciaspring.jpg",
+            title: "Dacia Spring",
+            href: "#",
+            badge: "9/10",
+          },
           {
             img: "images/daciaspring.jpg",
             title: "Dacia Spring",
@@ -87,6 +115,8 @@ export default function Home() {
             href: "#",
             badge: "9/10",
           },
+
+
 
         ]}
       />

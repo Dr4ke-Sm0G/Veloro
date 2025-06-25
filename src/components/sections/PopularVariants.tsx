@@ -13,7 +13,7 @@ function slugify(str: string): string {
 
 export default function PopularVariants() {
     const { data = [], isLoading } = trpc.variant.listPreview.useQuery({
-        limit: 28,
+        limit: 20,
     });
 
     if (isLoading) return null;
