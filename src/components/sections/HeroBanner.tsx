@@ -10,11 +10,8 @@ export default function HeroBanner() {
           CAR-CHANGE?<br />CARWOW.
         </h1>
         <div className="mt-8 flex gap-4 flex-wrap">
-          <a href="/sell-my-car" className="bg-cyan-400 hover:bg-cyan-500 text-black font-semibold px-6 py-3 rounded-lg transition">
-            Sell my car
-          </a>
           <a href="/search" className="bg-cyan-400 hover:bg-cyan-500 text-black font-semibold px-6 py-3 rounded-lg transition">
-            Find a car
+            Find Your Perfect Car
           </a>
         </div>
       </div>

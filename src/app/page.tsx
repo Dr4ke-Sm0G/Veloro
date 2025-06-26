@@ -3,18 +3,15 @@
 import { trpc } from "@/lib/trpc";
 import type { inferRouterOutputs } from "@trpc/server";
 import type { AppRouter } from "@/server/api/root";
-import TypeFilters from "@/components/sections/TypeFilters";
-import ElectricSlider from "@/components/sections/ElectricSlider";
+import TypeFilters from "@/components/filters/TypeFilters";
 import BrandGrid from "@/components/sections/BrandGrid";
 import PopularVariants from "@/components/sections/PopularVariants";
 import FAQSection from "@/components/sections/FAQSection";
 import ContentGridSection from "@/components/sections/ContentGridSection";
-import VideoGallery from "@/components/sections/VideoGallery";
 import HeroBanner from "@/components/sections/HeroBanner";
 import QuickCategories from "@/components/sections/QuickCategories";
 import DealsSection from "@/components/sections/DealsSection";
 import Testimonials from "@/components/sections/Testimonials";
-
 
 /** Type d’un élément renvoyé par listPreview */
 type VariantPreview = inferRouterOutputs<AppRouter>["variant"]["listPreview"][number];
@@ -120,27 +117,77 @@ export default function Home() {
 
         ]}
       />
-      <VideoGallery
-        videos={[
-          {
-            id: "u2SZ5FZfF6s",
-            title: "I blew up a BMW, Audi & Merc: which lasted longest?",
-            thumbnail: "https://img.youtube.com/vi/u2SZ5FZfF6s/hqdefault.jpg",
-          },
-          {
-            id: "aBcDeFg1234",
-            title: "This AMG has something the BMW M5 doesn't...",
-            thumbnail: "https://img.youtube.com/vi/aBcDeFg1234/hqdefault.jpg",
-          },
-          {
-            id: "ZyXwVuT9876",
-            title: "Are new SUVs pointless ?",
-            thumbnail: "https://img.youtube.com/vi/ZyXwVuT9876/hqdefault.jpg",
-          },
-        ]}
-      />
-      <ElectricSlider />
-      <TypeFilters />
+<ContentGridSection
+  title="Latest videos"
+  bg="dark"
+  buttonLabel="Watch more videos"
+  buttonHref="https://www.youtube.com/@carwow"
+  carousel
+  items={[
+    {
+      img: "https://img.youtube.com/vi/lO4rVikAslM/hqdefault.jpg",
+      title: "Best EV cars 2025 (Don't buy those...) | Which car ? ",
+      href: "https://www.youtube.com/watch?v=lO4rVikAslM",
+      videoId: "lO4rVikAslM",
+    },
+    {
+      img: "https://img.youtube.com/vi/9vmCYY6TzyQ/hqdefault.jpg",
+      title: " Is Living With an EV Worth it? My Honest Thoughts.",
+      href: "https://www.youtube.com/watch?v=9vmCYY6TzyQ",
+      videoId: "9vmCYY6TzyQ",
+    },
+    {
+      img: "https://img.youtube.com/vi/xNZR4wB-T80/hqdefault.jpg",
+      title: " Electric Cars For DUMMIES: Absolutely EVerything Explained ",
+      href: "https://youtu.be/xNZR4wB-T80",
+      videoId: "xNZR4wB-T80",
+    },
+  ]}
+/>
+
+      
+<ContentGridSection
+  icon={            <svg
+              className="w-6 h-6"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M13 2L3 14h9l-1 8L21 10h-9l1-8z" />
+            </svg>}
+  title="Join the electric revolution!"
+  description="Check out our electric car tools and other helpful advice"
+  bg="light"
+  buttonLabel="Compare the best electric cars"
+  buttonHref="/search?fuel=electric"
+  carousel
+  items={[
+    {
+      img: "/charging-map.png",
+      title: "Electric car charging point map",
+      href: "#",
+    },
+    {
+      img: "/charging-kid.png",
+      title: "Electric car costs comparison",
+      href: "#",
+    },
+    {
+      img: "/charging-honda.png",
+      title: "Find out how much it costs to charge an electric car",
+      href: "#",
+    },
+    {
+      img: "/charging-kid.png",
+      title: "How long does it take to charge a car?",
+      href: "#",
+    },
+    {
+      img: "/charging-kid.png",
+      title: "EV charger types explained",
+      href: "#",
+    },
+  ]}
+/>    <TypeFilters />
       <BrandGrid />
       <PopularVariants />
       <FAQSection />

@@ -12,7 +12,7 @@ export default function TypeFilters() {
   return (
 <section className="w-full bg-[#e9e7e4] py-10">
   <div className="max-w-6xl mx-auto px-4">
-    <h3 className="text-xl font-bold mb-4">Browse by body type</h3>
+        <h2 className="text-2xl font-bold mb-8 text-black">Browse by body type</h2>
     <div className="flex overflow-x-auto gap-3">
       {bodyTypes.map(({ label, value, icon }) => (
         <a
