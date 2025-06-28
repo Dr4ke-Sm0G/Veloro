@@ -24,6 +24,14 @@ const extractBrandAndModel = (fullName: string) => {
     model: fullName.replace(parts[0], '').trim(),
   };
 };
+function slugify(str: string): string {
+  return str
+    .toLowerCase()
+    .normalize('NFD') // pour enlever accents
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-') // remplace espaces et caractères spéciaux par -
+    .replace(/(^-|-$)/g, ''); // enlève les - en début/fin
+}
 
 function extractSeatsFromLongdistance(longdistance: any[]): number | null {
   if (!Array.isArray(longdistance)) return null;
@@ -45,12 +53,18 @@ async function importCars(filePath: string) {
     try {
       const { brand, model } = extractBrandAndModel(car.model);
 
+      const brandSlug = slugify(brand);
+
       const brandRecord = await prisma.brand.upsert({
         where: { name: brand },
         update: {},
-        create: { name: brand },
+        create: {
+          name: brand,
+          slug: brandSlug,
+        },
       });
-
+      const modelSlug = slugify(model);
+      const variantSlug = slugify(car.model);
       const modelRecord = await prisma.model.upsert({
         where: {
           name_brandId: {
@@ -58,16 +72,19 @@ async function importCars(filePath: string) {
             brandId: brandRecord.id,
           },
         },
-        update: {},
+        update: {
+          slug: modelSlug, // en cas de mise à jour
+        },
         create: {
           name: model,
+          slug: modelSlug,
           brandId: brandRecord.id,
         },
       });
-
       const variant = await prisma.variant.create({
         data: {
           name: car.model,
+          slug: variantSlug,
           modelId: modelRecord.id,
           year: parseInt(car.availability?.match(/\d{4}/)?.[0] || '2020'),
 
@@ -96,7 +113,8 @@ async function importCars(filePath: string) {
                 const top = parseNumber(car.performance?.[0]?.['Top Speed']);
                 return top !== undefined ? Math.round(top) : null;
               })(),
-              electricRangeKm: parseNumber(car.performance?.[0]?.['Electric Range']) || parseNumber(car.summary_icons?.['Real Range']),
+              electricRangeKm: parseNumber(car.performance?.[0]?.['Electric Range']) ||
+                parseNumber(car.summary_icons?.['Real Range']),
               totalPowerKw: parseNumber(car.performance?.[1]?.['Total Power']),
               totalTorqueNm: parseNumber(car.performance?.[1]?.['Total Torque']),
               drive: car.performance?.[1]?.['Drive'],
@@ -144,7 +162,6 @@ async function importCars(filePath: string) {
           },
         },
       });
-
       // Ajouter les prix par pays
       const prices = car.pricing?.[0] ?? {};
       const priceRecords = Object.entries(prices)
