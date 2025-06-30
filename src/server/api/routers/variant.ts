@@ -44,6 +44,8 @@ export const variantRouter = router({
           efficiencySpec: true,
           chargingSpec: true,
           dimensionSpec: true,
+          safetyRating: true, 
+          v2xSpec: true,      
           prices: {
             where: {
               country: { in: ["Germany", "Netherlands", "United Kingdom"] },
@@ -125,6 +127,8 @@ export const variantRouter = router({
           realConsumption: true,
           dimensionSpec: true,
           availability: true,
+           safetyRating: true,
+           v2xSpec: true,
           prices: {
             orderBy: {
               country: "asc",

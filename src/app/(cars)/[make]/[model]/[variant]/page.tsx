@@ -2,18 +2,41 @@
 import { serverClient } from "@/lib/trpc/server";
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import CarFeaturesSection from "@/components/sections/CarFeaturesSection";
 
 type Props = {
   params: { make: string; model: string; variant: string };
 };
-  function toNumber(value?: any): number | undefined {
-    if (!value) return undefined;
-    if (typeof value === "number") return value;
-    if (typeof value.toNumber === "function") return value.toNumber();
-    return undefined;
+function toNumber(value?: any): number | undefined {
+  if (!value) return undefined;
+  if (typeof value === "number") return value;
+  if (typeof value.toNumber === "function") return value.toNumber();
+  return undefined;
+}
+
+function serializeDecimal(value: any): any {
+  if (Array.isArray(value)) {
+    return value.map(serializeDecimal);
   }
+
+  if (value && typeof value === "object") {
+    if (typeof value.toNumber === "function") {
+      return value.toNumber(); // Prisma.Decimal
+    }
+
+    // Recurse inside object
+    return Object.fromEntries(
+      Object.entries(value).map(([key, val]) => [key, serializeDecimal(val)])
+    );
+  }
+
+  return value;
+}
+
+
 export default async function VariantPage({ params }: Props) {
   // 👉 on résout la Promise params AVANT de s’en servir
+  
   const { make, model, variant } = await params;
 
   const caller = await serverClient();
@@ -25,8 +48,20 @@ export default async function VariantPage({ params }: Props) {
 
   if (!data) return notFound();
 
-  const { model: modelData, batterySpec, performanceSpec, efficiencySpec, dimensionSpec, prices } = data;
-  const brand = modelData.brand;
+const {
+  model: modelData,
+  batterySpec,
+  chargingSpec,
+  performanceSpec,
+  efficiencySpec,
+  realConsumption,
+  dimensionSpec,
+  safetyRating,
+  v2xSpec,
+  prices
+} = data;
+
+const brand = modelData.brand;
 
   const title = `${brand.name} ${modelData.name} ${data.name}`;
   const priceStr =
@@ -34,7 +69,7 @@ export default async function VariantPage({ params }: Props) {
       ? `${prices[0].country === "United Kingdom" ? "£" : "€"}${Number(prices[0].price).toLocaleString()}`
       : "Non disponible";
 
-return (
+  return (
     <div className="bg-white text-black">
       <div className="max-w-7xl mx-auto px-6 py-6">
         <nav className="text-sm text-gray-500 mb-6">
@@ -78,7 +113,7 @@ return (
             </section>
 
             {/* Spécifications */}
- {/* Spécifications principales */}
+            {/* Spécifications principales */}
             <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
               <div>
                 <h2 className="text-xl font-semibold mb-2">Spécifications principales</h2>
@@ -101,74 +136,20 @@ return (
                 </ul>
               </div>
             </div>
-
-            {/* ⚡ Ajout de la section Leasing + Spécifications supplémentaires */}
-            <div className="mt-12 border-t pt-8 space-y-8 text-sm">
-              <div>
-                <h2 className="text-xl font-semibold mb-3">Leasing & conditions</h2>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <ul className="space-y-1">
-                    <li><strong>Durée :</strong> 48 mois</li>
-                    <li><strong>Paiement mensuel :</strong> £229.33</li>
-                    <li><strong>Premier versement :</strong> £3,046.96 (incl. £295 de frais)</li>
-                  </ul>
-                  <ul className="space-y-1">
-                    <li><strong>Kilométrage annuel :</strong> 5,000 miles</li>
-                    <li><strong>Entretien inclus :</strong> Non</li>
-                    <li><strong>Peinture métallisée incluse :</strong> Non</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div>
-                <h2 className="text-xl font-semibold mb-3">Ce que l’offre inclut</h2>
-                <ul className="grid grid-cols-2 md:grid-cols-3 gap-2 text-green-700 font-medium">
-                  <li>✅ Prix route compris</li>
-                  <li>✅ Taxe routière</li>
-                  <li>✅ Voiture neuve</li>
-                  <li>✅ TVA incluse</li>
-                  <li>✅ Plaques d’immatriculation</li>
-                  <li>✅ Garantie constructeur</li>
-                </ul>
-              </div>
-
-              <div>
-                <h2 className="text-xl font-semibold mb-3">Infos clés</h2>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <ul className="space-y-1">
-                    <li><strong>Kilométrage :</strong> Neuf</li>
-                    <li><strong>Moteur :</strong> 1.5 litres</li>
-                    <li><strong>Puissance :</strong> 150 bhp</li>
-                    <li><strong>Boîte :</strong> Automatique</li>
-                  </ul>
-                  <ul className="space-y-1">
-                    <li><strong>Carburant :</strong> Essence</li>
-                    <li><strong>Portes :</strong> 5</li>
-                    <li><strong>Places :</strong> 5</li>
-                    <li><strong>Garantie :</strong> 3 ans / 60,000 miles</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div>
-                <h2 className="text-xl font-semibold mb-3">Stats & performance</h2>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <ul className="space-y-1">
-                    <li><strong>Émissions CO2 :</strong> 134 g/km</li>
-                    <li><strong>Norme :</strong> euro-6</li>
-                    <li><strong>Taxe 1ère année :</strong> £540</li>
-                    <li><strong>Groupe assurance :</strong> 24E</li>
-                  </ul>
-                  <ul className="space-y-1">
-                    <li><strong>0–100 km/h :</strong> 8.2 sec</li>
-                    <li><strong>Vitesse max :</strong> 132 mph</li>
-                    <li><strong>Consommation moyenne :</strong> 48.7 mpg</li>
-                    <li><strong>Coffre :</strong> 440 L</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+            <CarFeaturesSection
+  data={{
+    batterySpec: serializeDecimal(batterySpec),
+    chargingSpec: serializeDecimal(chargingSpec),
+    performanceSpec: serializeDecimal(performanceSpec),
+    efficiencySpec: serializeDecimal(efficiencySpec),
+    realConsumption: serializeDecimal(realConsumption),
+    dimensionSpec: serializeDecimal(dimensionSpec),
+    safetyRating: serializeDecimal(safetyRating),
+    v2xSpec: serializeDecimal(v2xSpec)
+  }}
+/>
           </div>
+
 
           {/* Colonne droite sticky */}
           <div className="w-full lg:w-96">
@@ -209,11 +190,17 @@ return (
                 </p>
               </div>
             </div>
+            
           </div>
+          
         </div>
+
       </div>
+      
     </div>
+    
   );
+  
 }
 
 /* même principe pour generateMetadata si tu l’utilises */
