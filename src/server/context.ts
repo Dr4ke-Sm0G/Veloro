@@ -30,3 +30,17 @@ export async function createContext(
 
   return { prisma, session, ip };
 }
+
+/** ----------------------------------------------------------------
+ * Contexte interne pour les appels serveurs (createCaller)
+ * ---------------------------------------------------------------- */
+export function createInnerTRPCContext(opts: {
+  session: Session | null;
+  ip?: string;
+}): Context {
+  return {
+    prisma,
+    session: opts.session,
+    ip: opts.ip,
+  };
+}

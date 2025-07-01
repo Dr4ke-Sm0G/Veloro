@@ -1,25 +1,21 @@
-/* --------------------------------------------------------------------------
- * components/CarCard.tsx
- * ------------------------------------------------------------------------ */
-
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import { ChevronRight } from "lucide-react";
 import type { RouterOutputs } from "@/types/trpc";
 
-/** Le type renvoyé par listPreview (un seul élément) */
 type CarPreview = RouterOutputs["variant"]["listPreview"][number];
 
 interface CarCardProps {
-  car: CarPreview;
+  variant: CarPreview;
 }
 
-export default function CarCard({ car }: CarCardProps) {
+export default function CarCard({ variant }: CarCardProps) {
   const {
     id,
-    name,          // ex. "Volkswagen ID.4"
-    trim,          // ex. "Match Pure"
+    name,
+    trim,
     rangeKm,
     powerHp,
     powerKw,
@@ -29,9 +25,8 @@ export default function CarCard({ car }: CarCardProps) {
     img,
     score,
     dealTag,
-  } = car;
+  } = variant;
 
-  /* Helpers pour la ligne de specs */
   const specs: (string | null)[] = [
     rangeKm ? `${rangeKm} km range` : null,
     powerHp ? `${powerHp} HP${powerKw ? ` (${powerKw} kW)` : ""}` : null,
@@ -39,12 +34,11 @@ export default function CarCard({ car }: CarCardProps) {
     dcChargeKmH ? `${dcChargeKmH} km/h DC` : null,
   ].filter(Boolean);
 
+  const [src, setSrc] = useState(img || "/images/fallback.png");
+
   return (
-    <div
-      className="bg-gray-200 rounded-xl w-full max-w-lg aspect-square h-[400px] 
-                 shadow-md flex flex-col p-3"
-    >
-      {/* ────────── Haut : titre & specs ────────── */}
+    <div className="bg-gray-200 rounded-xl w-full max-w-lg aspect-square h-[400px] shadow-md flex flex-col p-3">
+      {/* ────────── Haut ────────── */}
       <div className="flex flex-col gap-1 text-sm text-black flex-shrink">
         <h3 className="text-xl font-bold">{name}</h3>
         <p className="text-sm text-gray-700">{trim}</p>
@@ -62,20 +56,18 @@ export default function CarCard({ car }: CarCardProps) {
       {/* ────────── Image ────────── */}
       <div className="relative w-full h-[80%] rounded-lg overflow-hidden my-2">
         <Image
-          src={img || "/images/fallback.png"}
+          src={src}
           alt={name}
           fill
           sizes="(max-width: 768px) 100vw, 400px"
           placeholder="blur"
           blurDataURL="/images/fallback.png"
           className="object-cover"
-          onError={(e) => {
-            (e.target as HTMLImageElement).src = "/images/fallback.png";
-          }}
+          onError={() => setSrc("/images/vw.png")}
         />
       </div>
 
-      {/* ────────── Bloc prix & score ────────── */}
+      {/* ────────── Prix ────────── */}
       <div className="bg-[#eeeeee] rounded-2xl flex justify-between items-center px-3 py-1 flex-shrink">
         <div className="text-xs flex flex-col gap-1">
           <div className="flex items-center">
@@ -86,7 +78,6 @@ export default function CarCard({ car }: CarCardProps) {
               {score.toFixed(1)}
             </span>
           </div>
-
           <div className="text-black text-sm">Buy {name}</div>
           <div className="text-black font-bold text-base">{price}</div>
         </div>
@@ -96,7 +87,6 @@ export default function CarCard({ car }: CarCardProps) {
         </div>
       </div>
 
-      {/* ────────── Footer ────────── */}
       <div className="pt-2 text-center text-xs font-semibold underline text-black">
         BUYING DETAILS
       </div>

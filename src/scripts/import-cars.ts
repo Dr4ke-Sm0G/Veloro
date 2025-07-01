@@ -16,6 +16,14 @@ const parseNumber = (val?: unknown): number | undefined => {
   return isNaN(cleaned) ? undefined : cleaned;
 };
 
+function getField(obj: any, key: string): string | undefined {
+  return obj?.[`${key} *`] ?? obj?.[key];
+}
+
+const getRealConsumption = (obj: any, key: string): number | undefined => {
+  return parseNumber(obj?.[`${key} *`] ?? obj?.[key]);
+};
+
 const extractBrandAndModel = (fullName: string) => {
   const parts = fullName.split(' ');
   if (parts.length < 2) throw new Error(`Invalid model name: ${fullName}`);
@@ -25,14 +33,42 @@ const extractBrandAndModel = (fullName: string) => {
   };
 };
 
-function extractSeatsFromLongdistance(longdistance: any[]): number | null {
-  if (!Array.isArray(longdistance)) return null;
+function slugify(str: string): string {
+  return str
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
 
-  const obj = longdistance.find((entry) => entry.Seats);
-  if (!obj?.Seats) return null;
+function mergeObjectArray(arr: any[]): Record<string, string> {
+  return arr.reduce((acc, obj) => ({ ...acc, ...obj }), {});
+}
+function extractEfficiencyDetails(eff: any[]): Record<string, number | undefined> {
+  if (!Array.isArray(eff)) return {};
+  const merged = Object.assign({}, ...eff);
 
-  const match = obj.Seats.match(/\d+/); // extrait "5" depuis "5 people"
-  return match ? parseInt(match[0], 10) : null;
+  return {
+    rangeKm: parseNumber(merged['Range']),
+    vehicleConsumptionWhKm: parseNumber(merged['Vehicle Consumption']),
+    ratedConsumptionWhKm: parseNumber(merged['Rated Consumption']),
+    co2EmissionsGKm: parseNumber(merged['CO2 Emissions']),
+    ratedFuelEqL100km: parseNumber(merged['Rated Fuel Equivalent']),
+    vehicleFuelEqL100km: parseNumber(merged['Vehicle Fuel Equivalent']),
+  };
+}
+function extractSafetyRating(car: any): Record<string, number | null> {
+  const data = car.longdistance?.find((entry: any) => entry['Adult Occupant'] || entry['Safety Assist']) ?? {};
+  const percent = (val: string) => parseInt(val?.replace('%', '').trim(), 10) || null;
+
+  return {
+    ratingYear: parseInt(data['Year']) || null,
+    adultOccupantPercent: percent(data['Adult Occupant']),
+    childOccupantPercent: percent(data['Child Occupant']),
+    vulnerableRoadUsersPct: percent(data['Vulnerable Road Users']),
+    safetyAssistPercent: percent(data['Safety Assist']),
+  };
 }
 
 const importLog: { variant: string; brand: string; status: string; message?: string }[] = [];
@@ -48,7 +84,7 @@ async function importCars(filePath: string) {
       const brandRecord = await prisma.brand.upsert({
         where: { name: brand },
         update: {},
-        create: { name: brand },
+        create: { name: brand, slug: slugify(brand) },
       });
 
       const modelRecord = await prisma.model.upsert({
@@ -58,9 +94,10 @@ async function importCars(filePath: string) {
             brandId: brandRecord.id,
           },
         },
-        update: {},
+        update: { slug: slugify(model) },
         create: {
           name: model,
+          slug: slugify(model),
           brandId: brandRecord.id,
         },
       });
@@ -68,72 +105,114 @@ async function importCars(filePath: string) {
       const variant = await prisma.variant.create({
         data: {
           name: car.model,
+          slug: slugify(car.model),
           modelId: modelRecord.id,
           year: parseInt(car.availability?.match(/\d{4}/)?.[0] || '2020'),
 
           batterySpec: {
             create: {
-              nominalCapacity: parseNumber(car.summary_icons?.['Useable Battery']),
-              useableCapacity: parseNumber(car.summary_icons?.['Useable Battery']),
+              nominalCapacity: parseNumber(getField(car.battery?.[0], 'Nominal Capacity')),
+              useableCapacity:
+                parseNumber(getField(car.battery?.[1], "Useable Capacity")) ??
+                parseNumber(getField(car.battery?.[0], "Useable Capacity")) ??
+                parseNumber(car.summary_icons?.['Useable Battery']) ??
+                parseNumber(car.longdistance?.find((b: any) => b['Useable Capacity'])?.['Useable Capacity']),
+              batteryType: getField(car.battery?.[0], 'Battery Type'),
+              architecture: getField(car.battery?.[0], 'Architecture'),
+              cathodeMaterial: getField(car.battery?.[1], 'Cathode Material'),
+              packConfiguration: getField(car.battery?.[1], 'Pack Configuration'),
+              nominalVoltage: parseNumber(getField(car.battery?.[1], 'Nominal Voltage')),
+              formFactor: getField(car.battery?.[1], 'Form Factor'),
+              warrantyPeriod: getField(car.battery?.[0], 'Warranty Period'),
+              warrantyMileage: getField(car.battery?.[0], 'Warranty Mileage'),
             },
           },
 
           chargingSpec: {
-            create: {
-              acPortType: car.charging?.[0]?.['Charge Port'] || undefined,
-              portLocation: car.charging?.[0]?.['Port Location'] || undefined,
-              acPowerKW: parseNumber(car.charging?.[0]?.['Charge Power']),
-            },
+            create: (() => {
+              const merged = mergeObjectArray(car.charging || []);
+              return {
+                acPortType: merged['Charge Port'],
+                portLocation: merged['Port Location'],
+                acPowerKW: parseNumber(merged['Charge Power']),
+                acChargeTime: merged['Charge Time (0->235 km)'],
+                acChargeSpeedKmH: parseNumber(merged['Charge Speed']),
+                dcPortType: merged['Charge Port'],
+                dcMaxPowerKW: parseNumber(merged['Charge Power (max)']),
+                dcPower10to80KW: parseNumber(merged['Charge Power (10-80%)']),
+                dcChargeSpeedKmH: parseNumber(merged['Charge Speed']),
+                plugAndChargeSupported: merged['Plug & Charge Supported'] === 'Yes',
+                autochargeSupported: merged['Autocharge Supported'] === 'Yes',
+                iso15118Supported: merged['Supported Protocol']?.includes('ISO 15118') ?? false,
+                preconditioningPossible: merged['Preconditioning Possible'] === 'Yes',
+                preconditioningNav: merged['Automatically using Navigation'] === 'Yes',
+              };
+            })(),
           },
 
           performanceSpec: {
             create: {
-              acceleration0100Sec: parseNumber(
-                car.performance?.[0]?.['Acceleration 0 - 100 km/h'] ||
-                car.performance?.[0]?.['Acceleration 0 - 100 km/h *']
-              ),
-              topSpeedKmh: (() => {
-                const top = parseNumber(car.performance?.[0]?.['Top Speed']);
-                return top !== undefined ? Math.round(top) : null;
-              })(),
-              electricRangeKm: parseNumber(car.performance?.[0]?.['Electric Range']) || parseNumber(car.summary_icons?.['Real Range']),
-              totalPowerKw: parseNumber(car.performance?.[1]?.['Total Power']),
-              totalTorqueNm: parseNumber(car.performance?.[1]?.['Total Torque']),
-              drive: car.performance?.[1]?.['Drive'],
+              acceleration0100Sec: parseNumber(getField(car.performance?.[0], 'Acceleration 0 - 100 km/h')),
+              topSpeedKmh: Math.round(parseNumber(getField(car.performance?.[0], 'Top Speed')) ?? 0),
+              electricRangeKm: parseNumber(getField(car.performance?.[0], 'Electric Range')) ?? parseNumber(car.summary_icons?.['Real Range']),
+              totalPowerKw: parseNumber(getField(car.performance?.[1], 'Total Power')),
+              totalTorqueNm: parseNumber(getField(car.performance?.[1], 'Total Torque')),
+              drive: getField(car.performance?.[1], 'Drive'),
             },
           },
 
           efficiencySpec: {
             create: {
-              rangeKm: parseNumber(car.summary_icons?.['Real Range']),
-              vehicleConsumptionWhKm: parseNumber(car.summary_icons?.['Efficiency']),
+              ...extractEfficiencyDetails(car.efficiency),
             },
           },
 
           realConsumption: {
             create: {
-              cityColdWhKm: parseNumber(car['real-consumption']?.[0]?.['City - Cold Weather']),
-              highwayColdWhKm: parseNumber(car['real-consumption']?.[0]?.['Highway - Cold Weather']),
-              combinedColdWhKm: parseNumber(car['real-consumption']?.[0]?.['Combined - Cold Weather']),
-              cityMildWhKm: parseNumber(car['real-consumption']?.[1]?.['City - Mild Weather']),
-              highwayMildWhKm: parseNumber(car['real-consumption']?.[1]?.['Highway - Mild Weather']),
-              combinedMildWhKm: parseNumber(car['real-consumption']?.[1]?.['Combined - Mild Weather']),
+              cityColdWhKm: getRealConsumption(car['real-consumption']?.[0], 'City - Cold Weather'),
+              highwayColdWhKm: getRealConsumption(car['real-consumption']?.[0], 'Highway - Cold Weather'),
+              combinedColdWhKm: getRealConsumption(car['real-consumption']?.[0], 'Combined - Cold Weather'),
+              cityMildWhKm: getRealConsumption(car['real-consumption']?.[1], 'City - Mild Weather'),
+              highwayMildWhKm: getRealConsumption(car['real-consumption']?.[1], 'Highway - Mild Weather'),
+              combinedMildWhKm: getRealConsumption(car['real-consumption']?.[1], 'Combined - Mild Weather'),
             },
           },
 
           dimensionSpec: {
+            create: (() => {
+              const dim = mergeObjectArray(car.dimensions || []);
+              return {
+                seats: parseNumber(car.longdistance?.find((b: any) => b['Seats'])?.['Seats']),
+                lengthMm: parseNumber(dim['Length']),
+                widthMm: parseNumber(dim['Width']),
+                widthWithMirrorsMm: parseNumber(dim['Width with mirrors']),
+                heightMm: parseNumber(dim['Height']),
+                wheelbaseMm: parseNumber(dim['Wheelbase']),
+                weightUnladenKg: parseNumber(dim['Weight Unladen (EU)']),
+                grossVehicleWeightKg: parseNumber(dim['Gross Vehicle Weight (GVWR)']),
+                maxPayloadKg: parseNumber(dim['Max. Payload']),
+                cargoVolumeL: parseNumber(dim['Cargo Volume']),
+                cargoVolumeMaxL: parseNumber(dim['Cargo Volume Max']),
+                towingWeightBrakedKg: parseNumber(dim['Towing Weight Braked']),
+                roofRails: dim['Roof Rails'] === 'Yes',
+                heatPump: dim['Heat pump (HP)'] === 'Yes',
+              };
+            })(),
+          },
+
+          v2xSpec: {
             create: {
-              seats: parseNumber(
-                car.longdistance?.find((b: any) => b['Seats'])?.['Seats']
-              ),
-              lengthMm: parseNumber(car.dimensions?.[0]?.['Length']),
-              widthMm: parseNumber(car.dimensions?.[0]?.['Width']),
-              heightMm: parseNumber(car.dimensions?.[0]?.['Height']),
-              wheelbaseMm: parseNumber(car.dimensions?.[0]?.['Wheelbase']),
-              weightUnladenKg: parseNumber(car.dimensions?.[0]?.['Weight Unladen (EU)']),
-              grossVehicleWeightKg: parseNumber(car.dimensions?.[0]?.['Gross Vehicle Weight (GVWR)']),
-              maxPayloadKg: parseNumber(car.dimensions?.[0]?.['Max. Payload']),
+              v2lSupported: car.v2x?.some((v: any) => v['V2L Supported'] === 'Yes'),
+              exteriorOutlet: getField(car.v2x?.[1], 'Exterior Outlet(s)'),
+              interiorOutlet: getField(car.v2x?.[1], 'Interior Outlet(s)'),
+              v2hAcSupported: car.v2x?.some((v: any) => v['V2H via AC Supported'] === 'Yes'),
+              v2hDcSupported: car.v2x?.some((v: any) => v['V2H via DC Supported'] === 'Yes'),
+              v2gAcSupported: car.v2x?.some((v: any) => v['V2G via AC Supported'] === 'Yes'),
+              v2gDcSupported: car.v2x?.some((v: any) => v['V2G via DC Supported'] === 'Yes'),
             },
+          },
+          safetyRating: {
+            create: extractSafetyRating(car),
           },
 
           availability: {
@@ -145,19 +224,12 @@ async function importCars(filePath: string) {
         },
       });
 
-      // Ajouter les prix par pays
       const prices = car.pricing?.[0] ?? {};
       const priceRecords = Object.entries(prices)
         .filter(([_, val]) => typeof val === 'string' && !val.includes('Not Available'))
         .map(([country, val]) => {
           const price = parseNumber(val);
-          return price !== undefined
-            ? {
-              country,
-              price,
-              variantId: variant.id,
-            }
-            : null;
+          return price !== undefined ? { country, price, variantId: variant.id } : null;
         })
         .filter((p): p is { country: string; price: number; variantId: string } => p !== null);
 
@@ -173,7 +245,6 @@ async function importCars(filePath: string) {
     }
   }
 
-  // Générer le fichier CSV de log
   const logWriter = createObjectCsvWriter({
     path: path.resolve(__dirname, '../../import-log.csv'),
     header: [
@@ -188,11 +259,13 @@ async function importCars(filePath: string) {
 }
 
 const inputPath = path.resolve(__dirname, '../../data/ev-database.json');
-importCars(inputPath).then(() => {
-  console.log('✅ Import complete');
-  prisma.$disconnect();
-}).catch(e => {
-  console.error('❌ Import failed:', e);
-  prisma.$disconnect();
-  process.exit(1);
-});
+importCars(inputPath)
+  .then(() => {
+    console.log('✅ Import complete');
+    prisma.$disconnect();
+  })
+  .catch((e) => {
+    console.error('❌ Import failed:', e);
+    prisma.$disconnect();
+    process.exit(1);
+  });

@@ -28,7 +28,7 @@
   - Création des composants de layout principaux
   - Configuration du système de thème
 
-### Jour 3: Import de données et composants UI de base (5 juin)
+### Jour 3 ✅: Import de données et composants UI de base (5 juin)
 - **Base de données**:
   - Développement du script d'import pour les données JSON de voitures
   - Test d'import avec un échantillon de données
@@ -36,7 +36,7 @@
   - Création des composants UI réutilisables (boutons, cartes, formulaires)
   - Mise en place du système de navigation
 
-### Jour 4: Navigation et structure de base (6 juin)
+### Jour 4 ✅: Navigation et structure de base (6 juin)
 - **Frontend**:
   - Implémentation de la barre de navigation principale
   - Création des pages principales (accueil, recherche, détail)

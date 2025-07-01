@@ -19,6 +19,7 @@ model Brand {
   id     String  @id @default(cuid())
   name   String  @unique
   logo   String?
+  slug   String  @unique
   models Model[]
 }
 
@@ -27,9 +28,10 @@ model Model {
   name     String
   brand    Brand    @relation(fields: [brandId], references: [id])
   brandId  String
+  slug   String  @unique
   variants Variant[]
-
-  @@unique([name, brandId])
+  @@unique([name, brandId]) // ⬅️ pour que `upsert` fonctionne comme tu veux
+  @@unique([slug, brandId]) // pour l'accès par URL
 }
 
 model Variant {
@@ -37,7 +39,7 @@ model Variant {
   name     String
   model    Model    @relation(fields: [modelId], references: [id])
   modelId  String
-
+  slug   String  @unique
   year       Int?
   bodyType   String?
   drive      String?   // e.g. "FWD", "RWD", "AWD"
@@ -59,7 +61,7 @@ model Variant {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([name, modelId, year])
+  @@unique([slug, modelId, year])
 }
 
 /// ---------------------------------
