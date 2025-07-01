@@ -14,6 +14,175 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String? // Pour login avec email/mot de passe (si pas OAuth)
+  name      String?
+  image     String? // Photo de profil
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sentMessages     Message[] @relation("SentMessages")
+  receivedMessages Message[] @relation("ReceivedMessages")
+
+  // Relations
+  favorites     Favorite[]
+  wishlist      Wishlist[]
+  reviews       Review[]
+  carListings   CarListing[]
+  sessions      Session[]
+  accounts      Account[]
+  searches      SavedSearch[]
+  notifications Notification[]
+  comments      Comment[]
+}
+
+enum Role {
+  USER
+  DEALER
+  ADMIN
+}
+
+model Wishlist {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  variant   Variant  @relation(fields: [variantId], references: [id])
+  variantId String
+  addedAt   DateTime @default(now())
+
+  @@unique([userId, variantId])
+}
+
+model Favorite {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  variant   Variant  @relation(fields: [variantId], references: [id])
+  variantId String
+  createdAt DateTime @default(now())
+
+  @@unique([userId, variantId])
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+  model     Model    @relation(fields: [modelId], references: [id])
+  modelId   String
+  rating    Int
+  title     String?
+  content   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CarListing {
+  id          String        @id @default(cuid())
+  seller      User          @relation(fields: [sellerId], references: [id])
+  sellerId    String
+  variant     Variant       @relation(fields: [variantId], references: [id])
+  variantId   String
+  description String?
+  price       Float
+  status      ListingStatus @default(ACTIVE)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+enum ListingStatus {
+  ACTIVE
+  SOLD
+  EXPIRED
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+  content   String
+  model     Model?   @relation(fields: [modelId], references: [id])
+  modelId   String?
+  articleId String? // Si tu crées un modèle Article plus tard
+  createdAt DateTime @default(now())
+
+  @@index([modelId])
+  @@index([articleId])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  user              User    @relation(fields: [userId], references: [id])
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
+  expires      DateTime
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model SavedSearch {
+  id        String   @id @default(cuid())
+  name      String?
+  criteria  Json // Filtres de recherche enregistrés (format libre)
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  user      User             @relation(fields: [userId], references: [id])
+  userId    String
+  title     String
+  message   String
+  type      NotificationType @default(IN_APP)
+  read      Boolean          @default(false)
+  createdAt DateTime         @default(now())
+}
+
+enum NotificationType {
+  IN_APP
+  EMAIL
+  PUSH
+}
+
+model Message {
+  id          String   @id @default(cuid())
+  sender      User     @relation("SentMessages", fields: [senderId], references: [id])
+  senderId    String
+  recipient   User     @relation("ReceivedMessages", fields: [recipientId], references: [id])
+  recipientId String
+  content     String
+  read        Boolean  @default(false)
+  sentAt      DateTime @default(now())
+}
 
 model Brand {
   id     String  @id @default(cuid())
@@ -24,39 +193,44 @@ model Brand {
 }
 
 model Model {
-  id       String   @id @default(cuid())
+  id       String    @id @default(cuid())
   name     String
-  brand    Brand    @relation(fields: [brandId], references: [id])
+  brand    Brand     @relation(fields: [brandId], references: [id])
   brandId  String
-  slug   String  @unique
+  slug     String    @unique
   variants Variant[]
+  reviews  Review[]
+  comments Comment[]
+
   @@unique([name, brandId]) // ⬅️ pour que `upsert` fonctionne comme tu veux
   @@unique([slug, brandId]) // pour l'accès par URL
 }
 
 model Variant {
-  id       String   @id @default(cuid())
-  name     String
-  model    Model    @relation(fields: [modelId], references: [id])
-  modelId  String
-  slug   String  @unique
-  year       Int?
-  bodyType   String?
-  drive      String?   // e.g. "FWD", "RWD", "AWD"
-
+  id              String               @id @default(cuid())
+  name            String
+  model           Model                @relation(fields: [modelId], references: [id])
+  modelId         String
+  slug            String               @unique
+  year            Int?
+  bodyType        String?
+  drive           String? // e.g. "FWD", "RWD", "AWD"
+  wishlistEntries Wishlist[]
+  favoriteEntries Favorite[]
+  carListings     CarListing[]
   /// 1‑to‑1 spec relations
-  batterySpec        BatterySpec?
-  chargingSpec       ChargingSpec?
-  performanceSpec    PerformanceSpec?
-  efficiencySpec     EfficiencySpec?
-  realConsumption    RealConsumptionSpec?
-  dimensionSpec      DimensionSpec?
-  safetyRating       SafetyRating?
-  v2xSpec            V2XSpec?
-  availability       Availability?
+  batterySpec     BatterySpec?
+  chargingSpec    ChargingSpec?
+  performanceSpec PerformanceSpec?
+  efficiencySpec  EfficiencySpec?
+  realConsumption RealConsumptionSpec?
+  dimensionSpec   DimensionSpec?
+  safetyRating    SafetyRating?
+  v2xSpec         V2XSpec?
+  availability    Availability?
 
   /// 1‑to‑N relations
-  prices             Price[]
+  prices Price[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -69,11 +243,11 @@ model Variant {
 /// ---------------------------------
 
 model Price {
-  id        String   @id @default(cuid())
-  variant   Variant  @relation(fields: [variantId], references: [id])
+  id        String  @id @default(cuid())
+  variant   Variant @relation(fields: [variantId], references: [id])
   variantId String
 
-  country   String   // ISO country name ("Germany")
+  country   String // ISO country name ("Germany")
   price     Decimal
   validFrom DateTime?
   validTo   DateTime?
@@ -82,9 +256,9 @@ model Price {
 }
 
 model Availability {
-  id        String   @id @default(cuid())
-  variant   Variant  @relation(fields: [variantId], references: [id])
-  variantId String   @unique
+  id        String  @id @default(cuid())
+  variant   Variant @relation(fields: [variantId], references: [id])
+  variantId String  @unique
 
   availableFrom DateTime?
   availableTo   DateTime?
@@ -95,36 +269,36 @@ model Availability {
 /// ---------------------------------
 
 model BatterySpec {
-  id        String   @id @default(cuid())
-  variant   Variant  @relation(fields: [variantId], references: [id])
-  variantId String   @unique
+  id        String  @id @default(cuid())
+  variant   Variant @relation(fields: [variantId], references: [id])
+  variantId String  @unique
 
-  nominalCapacity      Decimal? // kWh
-  useableCapacity      Decimal? // kWh
-  batteryType          String?
-  architecture         String?  // "400 V" / "800 V"
-  cathodeMaterial      String?
-  packConfiguration    String?
-  nominalVoltage       Decimal?
-  formFactor           String?
-  warrantyPeriod       String?
-  warrantyMileage      String?
+  nominalCapacity   Decimal? // kWh
+  useableCapacity   Decimal? // kWh
+  batteryType       String?
+  architecture      String? // "400 V" / "800 V"
+  cathodeMaterial   String?
+  packConfiguration String?
+  nominalVoltage    Decimal?
+  formFactor        String?
+  warrantyPeriod    String?
+  warrantyMileage   String?
 }
 
 model ChargingSpec {
-  id        String   @id @default(cuid())
-  variant   Variant  @relation(fields: [variantId], references: [id])
-  variantId String   @unique
+  id        String  @id @default(cuid())
+  variant   Variant @relation(fields: [variantId], references: [id])
+  variantId String  @unique
 
-  acPortType              String?
-  acPowerKW               Decimal?
-  acChargeTime            String? // formatted string "9h45m"
-  acChargeSpeedKmH        Int?
+  acPortType       String?
+  acPowerKW        Decimal?
+  acChargeTime     String? // formatted string "9h45m"
+  acChargeSpeedKmH Int?
 
-  dcPortType              String?
-  dcMaxPowerKW            Decimal?
-  dcPower10to80KW         Decimal?
-  dcChargeSpeedKmH        Int?
+  dcPortType       String?
+  dcMaxPowerKW     Decimal?
+  dcPower10to80KW  Decimal?
+  dcChargeSpeedKmH Int?
 
   portLocation            String?
   autochargeSupported     Boolean?
@@ -135,48 +309,48 @@ model ChargingSpec {
 }
 
 model PerformanceSpec {
-  id        String   @id @default(cuid())
-  variant   Variant  @relation(fields: [variantId], references: [id])
-  variantId String   @unique
+  id        String  @id @default(cuid())
+  variant   Variant @relation(fields: [variantId], references: [id])
+  variantId String  @unique
 
-  acceleration0100Sec  Decimal?
-  topSpeedKmh          Int?
-  electricRangeKm      Int?
-  totalPowerKw         Decimal?
-  totalTorqueNm        Decimal?
-  drive                String?
+  acceleration0100Sec Decimal?
+  topSpeedKmh         Int?
+  electricRangeKm     Int?
+  totalPowerKw        Decimal?
+  totalTorqueNm       Decimal?
+  drive               String?
 }
 
 model EfficiencySpec {
-  id        String   @id @default(cuid())
-  variant   Variant  @relation(fields: [variantId], references: [id])
-  variantId String   @unique
+  id        String  @id @default(cuid())
+  variant   Variant @relation(fields: [variantId], references: [id])
+  variantId String  @unique
 
-  rangeKm                  Int?
-  vehicleConsumptionWhKm   Int?
-  ratedConsumptionWhKm     Int?
-  vehicleFuelEqL100km      Decimal?
-  ratedFuelEqL100km        Decimal?
-  co2EmissionsGKm          Int?
+  rangeKm                Int?
+  vehicleConsumptionWhKm Int?
+  ratedConsumptionWhKm   Int?
+  vehicleFuelEqL100km    Decimal?
+  ratedFuelEqL100km      Decimal?
+  co2EmissionsGKm        Int?
 }
 
 model RealConsumptionSpec {
-  id        String   @id @default(cuid())
-  variant   Variant  @relation(fields: [variantId], references: [id])
-  variantId String   @unique
+  id        String  @id @default(cuid())
+  variant   Variant @relation(fields: [variantId], references: [id])
+  variantId String  @unique
 
-  cityColdWhKm        Int?
-  highwayColdWhKm     Int?
-  combinedColdWhKm    Int?
-  cityMildWhKm        Int?
-  highwayMildWhKm     Int?
-  combinedMildWhKm    Int?
+  cityColdWhKm     Int?
+  highwayColdWhKm  Int?
+  combinedColdWhKm Int?
+  cityMildWhKm     Int?
+  highwayMildWhKm  Int?
+  combinedMildWhKm Int?
 }
 
 model DimensionSpec {
-  id        String   @id @default(cuid())
-  variant   Variant  @relation(fields: [variantId], references: [id])
-  variantId String   @unique
+  id        String  @id @default(cuid())
+  variant   Variant @relation(fields: [variantId], references: [id])
+  variantId String  @unique
 
   lengthMm             Int?
   widthMm              Int?
@@ -187,32 +361,32 @@ model DimensionSpec {
   grossVehicleWeightKg Int?
   maxPayloadKg         Int?
 
-  cargoVolumeL         Int?
-  cargoVolumeMaxL      Int?
-  frunkVolumeL         Int?
+  cargoVolumeL    Int?
+  cargoVolumeMaxL Int?
+  frunkVolumeL    Int?
 
-  roofLoadKg           Int?
-  towHitchPossible     Boolean?
+  roofLoadKg             Int?
+  towHitchPossible       Boolean?
   towingWeightUnbrakedKg Int?
   towingWeightBrakedKg   Int?
-  verticalLoadMaxKg    Int?
+  verticalLoadMaxKg      Int?
 
-  seats                Int?
-  isofix               Boolean?
-  turningCircleM       Decimal?
+  seats          Int?
+  isofix         Boolean?
+  turningCircleM Decimal?
 
-  platform             String?
-  evDedicatedPlatform  Boolean?
-  carBody              String?
-  segment              String?
-  roofRails            Boolean?
-  heatPump             Boolean?
+  platform            String?
+  evDedicatedPlatform Boolean?
+  carBody             String?
+  segment             String?
+  roofRails           Boolean?
+  heatPump            Boolean?
 }
 
 model SafetyRating {
-  id        String   @id @default(cuid())
-  variant   Variant  @relation(fields: [variantId], references: [id])
-  variantId String   @unique
+  id        String  @id @default(cuid())
+  variant   Variant @relation(fields: [variantId], references: [id])
+  variantId String  @unique
 
   ratingYear             Int?
   adultOccupantPercent   Int?
@@ -222,15 +396,15 @@ model SafetyRating {
 }
 
 model V2XSpec {
-  id        String   @id @default(cuid())
-  variant   Variant  @relation(fields: [variantId], references: [id])
-  variantId String   @unique
+  id        String  @id @default(cuid())
+  variant   Variant @relation(fields: [variantId], references: [id])
+  variantId String  @unique
 
-  v2lSupported      Boolean?
-  exteriorOutlet    String?
-  interiorOutlet    String?
-  v2hAcSupported    Boolean?
-  v2hDcSupported    Boolean?
-  v2gAcSupported    Boolean?
-  v2gDcSupported    Boolean?
+  v2lSupported   Boolean?
+  exteriorOutlet String?
+  interiorOutlet String?
+  v2hAcSupported Boolean?
+  v2hDcSupported Boolean?
+  v2gAcSupported Boolean?
+  v2gDcSupported Boolean?
 }

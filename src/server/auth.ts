@@ -47,8 +47,11 @@ export const authOptions: AuthOptions = {
       return session;
     },
     async jwt({ token, user }) {
-      if (user) token.id = user.id;
-      return token;
+if (user) {
+      token.id = user.id
+      console.log('✅ JWT Token created:', token) // 👈 log utile ici
+    }
+          return token;
     },
   },
   secret: process.env.NEXTAUTH_SECRET,

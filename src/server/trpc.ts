@@ -44,3 +44,4 @@ export const protectedProcedure = t.procedure.use(isAuthed);
 /* Types aides pour React Query */
 export type RouterInputs = inferRouterInputs<AppRouter>;
 export type RouterOutputs = inferRouterOutputs<AppRouter>;
+

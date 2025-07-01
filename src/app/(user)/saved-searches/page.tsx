@@ -1,0 +1,1 @@
+export default function Page() { return <div><h1>User: saved-searches</h1></div>; }
