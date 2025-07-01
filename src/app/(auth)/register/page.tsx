@@ -12,28 +12,24 @@ export default function RegisterPage() {
 
   const router = useRouter()
 
-  const register = api.user.register.useMutation()
+  const register = api.user.register.useMutation({
+  onSuccess: async () => {
+    await signIn('credentials', {
+      email,
+      password,
+      callbackUrl: 'user/dashboard',
+    })
+  },
+  onError: (err) => {
+    setError(err.message || 'Échec de l’inscription.')
+  },
+})
+const handleRegister = (e: React.FormEvent) => {
+  e.preventDefault()
+  setError(null)
+  register.mutate({ email, password }) // ✅ UN seul appel ici
+}
 
-  const handleRegister = (e: React.FormEvent) => {
-    e.preventDefault()
-    setError(null)
-
-    register.mutate(
-      { email, password },
-      {
-        onSuccess: async () => {
-          await signIn('credentials', {
-            email,
-            password,
-            callbackUrl: '/user/dashboard',
-          })
-        },
-        onError: (err) => {
-          setError(err.message || 'Échec de l’inscription.')
-        },
-      }
-    )
-  }
 
   return (
     <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
@@ -45,6 +41,7 @@ export default function RegisterPage() {
             <div className="w-full flex-1 mt-8">
               <div className="flex flex-col items-center">
                 <button
+                type="button"
                   onClick={() => signIn('google', { callbackUrl: '/user/dashboard' })}
                   className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center"
                 >

@@ -5,6 +5,8 @@ import { trpc } from "@/lib/trpc";
 import { httpBatchLink, loggerLink } from "@trpc/client";
 import { ReactNode, useState } from "react";
 import superjson from "superjson";
+import { SessionProvider } from 'next-auth/react'
+
 
 export function Providers({ children }: { children: ReactNode }) {
   const [queryClient] = useState(() => new QueryClient());
@@ -23,8 +25,10 @@ export function Providers({ children }: { children: ReactNode }) {
   );
 
   return (
+    <SessionProvider>
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </trpc.Provider>
+    </SessionProvider>
   );
 }
