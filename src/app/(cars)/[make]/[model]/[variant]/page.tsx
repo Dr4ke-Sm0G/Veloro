@@ -3,6 +3,7 @@ import { serverClient } from "@/lib/trpc/server";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import CarFeaturesSection from "@/components/sections/CarFeaturesSection";
+import CarImageDisplay from "@/components/sections/CarImageDisplay";
 
 type Props = {
   params: { make: string; model: string; variant: string };
@@ -36,7 +37,7 @@ function serializeDecimal(value: any): any {
 
 export default async function VariantPage({ params }: Props) {
   // 👉 on résout la Promise params AVANT de s’en servir
-  
+
   const { make, model, variant } = await params;
 
   const caller = await serverClient();
@@ -48,20 +49,20 @@ export default async function VariantPage({ params }: Props) {
 
   if (!data) return notFound();
 
-const {
-  model: modelData,
-  batterySpec,
-  chargingSpec,
-  performanceSpec,
-  efficiencySpec,
-  realConsumption,
-  dimensionSpec,
-  safetyRating,
-  v2xSpec,
-  prices
-} = data;
+  const {
+    model: modelData,
+    batterySpec,
+    chargingSpec,
+    performanceSpec,
+    efficiencySpec,
+    realConsumption,
+    dimensionSpec,
+    safetyRating,
+    v2xSpec,
+    prices
+  } = data;
 
-const brand = modelData.brand;
+  const brand = modelData.brand;
 
   const title = `${brand.name} ${modelData.name} ${data.name}`;
   const priceStr =
@@ -72,9 +73,7 @@ const brand = modelData.brand;
   return (
     <div className="bg-white text-black">
       <div className="max-w-7xl mx-auto px-6 py-6">
-        <nav className="text-sm text-gray-500 mb-6">
-          <span className="text-blue-600 font-semibold">{title}</span>
-        </nav>
+
 
         <div className="flex flex-col lg:flex-row gap-10">
           {/* Colonne principale gauche */}
@@ -87,31 +86,15 @@ const brand = modelData.brand;
               </h1>
             </div>
 
-            {/* Galerie statique */}
-            <section className="grid grid-cols-1 md:grid-cols-5 gap-4">
-              <div className="col-span-1 md:col-span-1 flex flex-col gap-2">
-                {["byd.jpg", "byd.jpg", "byd.jpg"].map((img, i) => (
-                  <Image
-                    key={i}
-                    src={`/images/${img}`}
-                    alt={`Thumbnail ${i}`}
-                    width={104}
-                    height={68}
-                    className="rounded-lg border cursor-pointer"
-                  />
-                ))}
-              </div>
-              <div className="col-span-1 md:col-span-4">
-                <Image
-                  src="/images/byd.jpg"
-                  alt="Main image"
-                  width={800}
-                  height={600}
-                  className="rounded-xl border"
-                />
-              </div>
-            </section>
-
+            <CarImageDisplay images={["byd.jpg", "byd.jpg", "byd.jpg"]} />
+            {/* Prix */}
+            <div className="mt-6">
+              <h2 className="text-xl font-semibold mb-1">Prix indicatif</h2>
+              <p className="text-2xl font-bold text-gray-800">
+                {priceStr}
+              </p>
+              <p className="text-sm text-gray-500">Prix affiché pour le pays : {prices?.[0]?.country ?? "non précisé"}</p>
+            </div>
             {/* Spécifications */}
             {/* Spécifications principales */}
             <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
@@ -137,52 +120,72 @@ const brand = modelData.brand;
               </div>
             </div>
             <CarFeaturesSection
-  data={{
-    batterySpec: serializeDecimal(batterySpec),
-    chargingSpec: serializeDecimal(chargingSpec),
-    performanceSpec: serializeDecimal(performanceSpec),
-    efficiencySpec: serializeDecimal(efficiencySpec),
-    realConsumption: serializeDecimal(realConsumption),
-    dimensionSpec: serializeDecimal(dimensionSpec),
-    safetyRating: serializeDecimal(safetyRating),
-    v2xSpec: serializeDecimal(v2xSpec)
-  }}
-/>
+              data={{
+                batterySpec: serializeDecimal(batterySpec),
+                chargingSpec: serializeDecimal(chargingSpec),
+                performanceSpec: serializeDecimal(performanceSpec),
+                efficiencySpec: serializeDecimal(efficiencySpec),
+                realConsumption: serializeDecimal(realConsumption),
+                dimensionSpec: serializeDecimal(dimensionSpec),
+                safetyRating: serializeDecimal(safetyRating),
+                v2xSpec: serializeDecimal(v2xSpec)
+              }}
+            />
           </div>
 
 
           {/* Colonne droite sticky */}
-          <div className="w-full lg:w-96">
-            <div className="sticky top-20">
-              <div className="bg-gray-100 p-4 rounded-lg shadow">
+          <div className="w-full lg:w-96 mt-10">
+            <div className="sticky top-25">
+              <div className="bg-white p-5 rounded-xl shadow-lg border border-gray-100">
+                {/* Header Dealer */}
                 <div className="flex items-center gap-4 mb-4">
                   <Image
-                    src="/dealers/default-avatar.jpg"
+                    src="/BrandLogos/kia.svg"
                     alt="Dealer logo"
                     width={48}
                     height={48}
-                    className="rounded-full border"
+                    className="rounded-full border border-gray-300"
                   />
                   <div>
-                    <div className="font-semibold">Carwow Leasey</div>
-                    <div className="text-sm text-gray-500">{brand.name} Partner</div>
+                    <div className="text-sm font-bold text-gray-900">Valero service</div>
+                    <div className="text-sm text-gray-500">Valero service to buy {brand.name}</div>
                   </div>
                 </div>
-                <div className="text-xs text-gray-600 mb-2">Online broker</div>
-                <label className="block text-sm font-medium mb-1" htmlFor="message_form">
-                  Contact the dealer
-                </label>
-                <textarea
-                  name="message_form"
-                  id="message_form"
-                  rows={3}
-                  defaultValue={`Hi, I'm interested in this ${title}. Is it still available?`}
-                  className="w-full border rounded p-2 text-sm"
-                ></textarea>
-                <button className="mt-3 w-full bg-blue-600 text-white font-semibold py-2 rounded">
+
+                {/* Badges */}
+                <div className="flex items-center gap-2 text-xs mb-2">
+                  <span className="inline-block px-2 py-0.5 border border-gray-400 rounded-full text-gray-800 text-xs font-medium">
+                    Buy online
+                  </span>
+                  <span className="text-gray-500">Online broker</span>
+                  <span className="text-gray-400">·</span>
+                  <span className="text-gray-500">No reviews</span>
+                </div>
+
+                {/* Contact Form */}
+                <div className="bg-purple-50 p-4 rounded-lg mt-3">
+                  <label
+                    htmlFor="message_form"
+                    className="block text-sm font-bold text-gray-800 mb-2"
+                  >
+                    Contact the dealer
+                  </label>
+                  <textarea
+                    id="message_form"
+                    rows={3}
+                    defaultValue={`Hi, I'm interested in this ${title}. Is it still available?`}
+                    className="w-full text-sm rounded-md border border-gray-300 p-2 focus:ring-2 focus:ring-cyan-400 focus:outline-none"
+                  ></textarea>
+                </div>
+
+                {/* Bouton */}
+                <button className="mt-4 w-full bg-cyan-400 hover:bg-cyan-500 transition text-white font-semibold py-2 rounded-md text-sm">
                   Enquire now
                 </button>
-                <p className="mt-2 text-xs text-green-600 flex items-center gap-1">
+
+                {/* Note */}
+                <p className="mt-3 text-sm text-green-600 flex items-center gap-2">
                   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12,2A10,10 0 1,0 22,12A10,10 0 0,0 12,2M10,17L5,12L6.41,10.59L10,14.17L17.59,6.58L19,8" />
                   </svg>
@@ -190,17 +193,17 @@ const brand = modelData.brand;
                 </p>
               </div>
             </div>
-            
           </div>
-          
+
+
         </div>
 
       </div>
-      
+
     </div>
-    
+
   );
-  
+
 }
 
 /* même principe pour generateMetadata si tu l’utilises */

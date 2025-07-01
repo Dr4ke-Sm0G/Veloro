@@ -7,7 +7,6 @@ import 'flowbite';
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
-
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
@@ -22,13 +21,16 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className="flex min-h-screen flex-col overflow-x-hidden bg-background text-foreground">
         <Providers>
           <Navbar />
-          <main className="flex-1 ">{children}</main>
-          <Footer />
+          {/* PADDING top ici à cause du fixed */}
+          <div className="pt-19">
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
         </Providers>
       </body>
-
     </html>
   );
 }
+
 
 
