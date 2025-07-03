@@ -5,17 +5,17 @@ import { ChevronDown } from "lucide-react";
 
 const faqs = [
   {
-    question: "What is Velero?",
+    question: "What is Veloro?",
     answer:
-      "Velero is an online platform for buying a new car or selling your old one! We bring you great offers from thousands of trusted partners so you can buy or sell your car in just a few clicks. No haggling and no fees.",
+      "Veloro is an online platform for buying a new car or selling your old one! We bring you great offers from thousands of trusted partners so you can buy or sell your car in just a few clicks. No haggling and no fees.",
   },
   {
-    question: "How does Velero work?",
+    question: "How does Veloro work?",
     answer:
       "You tell us what car you want, and we connect you with dealers offering the best prices.",
   },
   {
-    question: "Does it cost me anything to use Velero?",
+    question: "Does it cost me anything to use Veloro?",
     answer: "Nope! It's completely free for users.",
   },
 ];

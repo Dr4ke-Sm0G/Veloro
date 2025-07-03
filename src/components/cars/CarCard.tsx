@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { ChevronRight } from "lucide-react";
 import type { RouterOutputs } from "@/types/trpc";
@@ -11,9 +12,12 @@ interface CarCardProps {
   variant: CarPreview;
 }
 
+function slugify(str: string): string {
+  return str.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
+}
+
 export default function CarCard({ variant }: CarCardProps) {
   const {
-    id,
     name,
     trim,
     rangeKm,
@@ -25,6 +29,9 @@ export default function CarCard({ variant }: CarCardProps) {
     img,
     score,
     dealTag,
+    brandName,
+    modelName,
+    slug,
   } = variant;
 
   const specs: (string | null)[] = [
@@ -35,6 +42,7 @@ export default function CarCard({ variant }: CarCardProps) {
   ].filter(Boolean);
 
   const [src, setSrc] = useState(img || "/images/fallback.png");
+  const href = `/${slugify(brandName)}/${slugify(modelName)}/${slug}`;
 
   return (
     <div className="bg-gray-200 rounded-xl w-full max-w-lg aspect-square h-[400px] shadow-md flex flex-col p-3">
@@ -53,8 +61,8 @@ export default function CarCard({ variant }: CarCardProps) {
         </ul>
       </div>
 
-      {/* ────────── Image ────────── */}
-      <div className="relative w-full h-[80%] rounded-lg overflow-hidden my-2">
+      {/* ────────── Image cliquable ────────── */}
+      <Link href={href} className="relative w-full h-[80%] rounded-lg overflow-hidden my-2 block">
         <Image
           src={src}
           alt={name}
@@ -65,9 +73,9 @@ export default function CarCard({ variant }: CarCardProps) {
           className="object-cover"
           onError={() => setSrc("/images/vw.png")}
         />
-      </div>
+      </Link>
 
-      {/* ────────── Prix ────────── */}
+      {/* ────────── Prix et chevron cliquable ────────── */}
       <div className="bg-[#eeeeee] rounded-2xl flex justify-between items-center px-3 py-1 flex-shrink">
         <div className="text-xs flex flex-col gap-1">
           <div className="flex items-center">
@@ -82,9 +90,11 @@ export default function CarCard({ variant }: CarCardProps) {
           <div className="text-black font-bold text-base">{price}</div>
         </div>
 
-        <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center">
-          <ChevronRight className="text-white w-4 h-4" />
-        </div>
+        <Link href={href}>
+          <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center hover:bg-gray-800 transition">
+            <ChevronRight className="text-white w-4 h-4" />
+          </div>
+        </Link>
       </div>
 
       <div className="pt-2 text-center text-xs font-semibold underline text-black">
