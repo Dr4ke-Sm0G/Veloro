@@ -7,7 +7,7 @@ import { trpc } from "@/lib/trpc";
 export default function QuickVariants() {
   const { data: variants, isLoading } = trpc.variant.listPreview.useQuery({ limit: 6 });
 
-  if (isLoading) return <p>Chargement...</p>;
+  if (isLoading) return <p>Loading...</p>;
 
   return (
     <section className="w-full bg-[#f9f9f9] py-6">

@@ -89,33 +89,33 @@ export default async function VariantPage({ params }: Props) {
             <CarImageDisplay images={["byd.jpg", "byd.jpg", "byd.jpg"]} />
             {/* Prix */}
             <div className="mt-6">
-              <h2 className="text-xl font-semibold mb-1">Prix indicatif</h2>
+              <h2 className="text-xl font-semibold mb-1">Indicative price</h2>
               <p className="text-2xl font-bold text-gray-800">
                 {priceStr}
               </p>
-              <p className="text-sm text-gray-500">Prix affiché pour le pays : {prices?.[0]?.country ?? "non précisé"}</p>
+              <p className="text-sm text-gray-500">Price shown for the country : {prices?.[0]?.country ?? "non précisé"}</p>
             </div>
             {/* Spécifications */}
             {/* Spécifications principales */}
             <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
               <div>
-                <h2 className="text-xl font-semibold mb-2">Spécifications principales</h2>
+                <h2 className="text-xl font-semibold mb-2"> Key specifications</h2>
                 <ul className="space-y-1">
-                  <li><strong>Batterie utile :</strong> {toNumber(batterySpec?.useableCapacity) ?? "—"} kWh</li>
-                  <li><strong>Autonomie réelle :</strong> {toNumber(performanceSpec?.electricRangeKm) ?? "—"} km</li>
-                  <li><strong>Puissance :</strong> {toNumber(performanceSpec?.totalPowerKw) ?? "—"} kW</li>
-                  <li><strong>Vitesse max :</strong> {performanceSpec?.topSpeedKmh ?? "—"} km/h</li>
+                  <li><strong>Usable battery :</strong> {toNumber(batterySpec?.useableCapacity) ?? "—"} kWh</li>
+                  <li><strong>Real-world range :</strong> {toNumber(performanceSpec?.electricRangeKm) ?? "—"} km</li>
+                  <li><strong>Power :</strong> {toNumber(performanceSpec?.totalPowerKw) ?? "—"} kW</li>
+                  <li><strong>Top speed :</strong> {performanceSpec?.topSpeedKmh ?? "—"} km/h</li>
                   <li><strong>0–100 km/h :</strong> {toNumber(performanceSpec?.acceleration0100Sec) ?? "—"} s</li>
                 </ul>
               </div>
               <div>
-                <h2 className="text-xl font-semibold mb-2">Consommation et dimensions</h2>
+                <h2 className="text-xl font-semibold mb-2">Consumption and dimensions</h2>
                 <ul className="space-y-1">
-                  <li><strong>Consommation :</strong> {efficiencySpec?.vehicleConsumptionWhKm ?? "—"} Wh/km</li>
-                  <li><strong>Longueur :</strong> {dimensionSpec?.lengthMm ?? "—"} mm</li>
-                  <li><strong>Largeur :</strong> {dimensionSpec?.widthMm ?? "—"} mm</li>
-                  <li><strong>Empattement :</strong> {dimensionSpec?.wheelbaseMm ?? "—"} mm</li>
-                  <li><strong>Places :</strong> {dimensionSpec?.seats ?? "—"}</li>
+                  <li><strong>Consumption :</strong> {efficiencySpec?.vehicleConsumptionWhKm ?? "—"} Wh/km</li>
+                  <li><strong>Length :</strong> {dimensionSpec?.lengthMm ?? "—"} mm</li>
+                  <li><strong>Width :</strong> {dimensionSpec?.widthMm ?? "—"} mm</li>
+                  <li><strong>Wheelbase :</strong> {dimensionSpec?.wheelbaseMm ?? "—"} mm</li>
+                  <li><strong>Seats :</strong> {dimensionSpec?.seats ?? "—"}</li>
                 </ul>
               </div>
             </div>

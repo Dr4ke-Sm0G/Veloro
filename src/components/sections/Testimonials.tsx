@@ -2,25 +2,25 @@ export default function Testimonials() {
   return (
     <section className="bg-[#e9e7e4] text-black py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-4xl font-bold mb-12 text-center">Ce que disent nos clients</h2>
+        <h2 className="text-4xl font-bold mb-12 text-center">Why Drivers Choose Velero</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {[
             {
-              text: "Le processus d'achat de ma Tesla Model 3 a été incroyablement fluide. L'équipe a répondu à toutes mes questions sur l'autonomie et les bornes de recharge.",
+              text: "The process of buying my Tesla Model 3 was incredibly smooth. The team answered all my questions about range and charging stations.",
               author: "Alexandre Martin",
-              role: "Nouveau propriétaire d'une Model 3",
+              role: "New Model 3 owner",
               rating: 5
             },
             {
-              text: "Enfin un concessionnaire qui comprend vraiment les véhicules électriques ! Ils m'ont trouvé la Renault Zoé parfaite pour mes trajets quotidiens.",
+              text: "Finally, a dealership that truly understands electric vehicles! They found me the perfect Renault Zoé for my daily commute.",
               author: "Sophie Lambert",
-              role: "Cliente satisfaite",
+              role: "Happy customer",
               rating: 5
             },
             {
-              text: "Service après-vente exceptionnel. Quand j'ai eu un problème avec ma borne de recharge, ils ont tout arrangé en moins de 24h.",
+              text: "Exceptional after-sales service. When I had an issue with my charging station, they sorted everything out in less than 24 hours.",
               author: "Thomas Dubois",
-              role: "Propriétaire d'une Nissan Leaf",
+              role: "Nissan Leaf owner",
               rating: 4
             },
           ].map(({ text, author, role, rating }, i) => (
@@ -38,9 +38,9 @@ export default function Testimonials() {
                   </svg>
                 ))}
               </div>
-              
+
               <p className="text-gray-700 mb-6 italic">"{text}"</p>
-              
+
               <div className="mt-auto pt-4 border-t border-gray-100">
                 <p className="text-gray-900 font-semibold">{author}</p>
                 <p className="text-gray-600 text-sm">{role}</p>

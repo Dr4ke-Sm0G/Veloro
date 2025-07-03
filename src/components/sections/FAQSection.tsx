@@ -5,17 +5,17 @@ import { ChevronDown } from "lucide-react";
 
 const faqs = [
   {
-    question: "What is Carwow?",
+    question: "What is Velero?",
     answer:
-      "Carwow is an online platform for buying a new car or selling your old one! We bring you great offers from thousands of trusted partners so you can buy or sell your car in just a few clicks. No haggling and no fees.",
+      "Velero is an online platform for buying a new car or selling your old one! We bring you great offers from thousands of trusted partners so you can buy or sell your car in just a few clicks. No haggling and no fees.",
   },
   {
-    question: "How does Carwow work?",
+    question: "How does Velero work?",
     answer:
-      "You tell us what car you want, or which car you're selling, and we connect you with dealers or buyers offering the best prices.",
+      "You tell us what car you want, and we connect you with dealers offering the best prices.",
   },
   {
-    question: "Does it cost me anything to use Carwow?",
+    question: "Does it cost me anything to use Velero?",
     answer: "Nope! It's completely free for users.",
   },
 ];

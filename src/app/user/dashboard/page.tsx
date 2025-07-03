@@ -7,7 +7,7 @@ export default function DashboardPage() {
 
   return (
     <div className="p-6">
-      <h1 className="text-xl">Bienvenue {session?.user?.email}</h1>
+      <h1 className="text-xl">Welcome  {session?.user?.email}</h1>
     </div>
   )
 }
