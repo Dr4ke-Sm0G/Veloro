@@ -1,1 +1,0 @@
-export default function Page() { return <div><h1>User: favorites</h1></div>; }

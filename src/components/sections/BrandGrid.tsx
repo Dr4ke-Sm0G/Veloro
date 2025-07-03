@@ -1,3 +1,9 @@
+"use client";
+
+import { useState } from "react";
+import { trpc } from "@/lib/trpc";
+import Link from "next/link";
+
 const brands = [
   { name: "Abarth", slug: "abarth" },
   { name: "Alfa Romeo", slug: "alfaromeo" },
@@ -60,16 +66,22 @@ const brands = [
 ];
 
 export default function BrandGrid() {
+  const [selected, setSelected] = useState<string | null>(null);
+  const { data: models = [], isLoading } = trpc.model.listByBrandSlug.useQuery(
+    { slug: selected! },
+    { enabled: !!selected }
+  );
   return (
-    <section className="bg-white py-16">
+   <section className="bg-white py-16">
       <div className="max-w-6xl mx-auto px-6">
-        <h2 className="text-2xl font-bold mb-8 text-black">Browse by car manufacturer</h2>
+        <h2 className="text-2xl font-bold mb-8 text-black">Browse by manufacturer</h2>
+
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-y-6 gap-x-8">
           {brands.map(({ name, slug }) => (
-            <a
+            <button
               key={slug}
-              href={`/car-chooser?brand=${slug}`}
               className="flex items-center gap-3 group hover:underline"
+              onClick={() => setSelected(slug)}
             >
               <img
                 src={`/BrandLogos/${slug}.svg`}
@@ -80,9 +92,36 @@ export default function BrandGrid() {
               <span className="text-sm font-semibold text-gray-900 group-hover:text-blue-700">
                 {name}
               </span>
-            </a>
+            </button>
           ))}
         </div>
+
+        {selected && (
+          <div className="mt-10 border-t pt-6">
+            <h3 className="text-xl font-semibold mb-4 capitalize text-gray-800">
+              Models by {selected}
+            </h3>
+
+            {isLoading ? (
+              <p className="text-sm text-gray-500">Loading models...</p>
+            ) : models.length === 0 ? (
+              <p className="text-sm text-gray-500">No models found.</p>
+            ) : (
+              <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 text-sm">
+                {models.map((model) => (
+                  <li key={model.id}>
+                    <Link
+                      href={`/${selected}/${model.slug}`}
+                      className="text-blue-600 hover:underline"
+                    >
+                      {model.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        )}
       </div>
     </section>
   );

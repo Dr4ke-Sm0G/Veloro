@@ -1,13 +1,8 @@
-'use client'
-
-import { useSession } from 'next-auth/react'
-
-export default function DashboardPage() {
-  const { data: session } = useSession()
-
+export default function DashboardOverview() {
   return (
-    <div className="p-6">
-      <h1 className="text-xl">Welcome  {session?.user?.email}</h1>
+    <div>
+      <h1 className="text-2xl font-bold mb-4">Welcome back 👋</h1>
+      <p className="text-muted-foreground">This is your dashboard overview.</p>
     </div>
-  )
+  );
 }

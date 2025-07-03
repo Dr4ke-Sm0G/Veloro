@@ -10,6 +10,7 @@ type CarPreview = RouterOutputs["variant"]["listPreview"][number];
 
 interface CarCardProps {
   variant: CarPreview;
+  className?: string;
 }
 
 function slugify(str: string): string {

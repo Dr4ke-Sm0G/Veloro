@@ -10,7 +10,7 @@ export const appRouter = router({
   brand: brandRouter,
   model: modelRouter,
   user: userRouter,
-  variant: variantRouter,
+  variant: variantRouter, 
 });
 
 // POUR TRPC CÔTÉ CLIENT

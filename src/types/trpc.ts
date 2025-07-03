@@ -2,4 +2,6 @@
 
 import type { RouterInputs, RouterOutputs } from "@/server/trpc";
 
-export type { RouterInputs, RouterOutputs };
+export type { RouterInputs, RouterOutputs, VariantFull };
+
+type VariantFull = RouterOutputs["variant"]["listByModel"][number];
