@@ -15,10 +15,10 @@ export default function DashboardPage() {
     return <Skeleton className="h-64 w-full rounded-2xl" />;
   }
 
-  if (!session) {
-    router.push("/login");
-    return null;
-  }
+if (!session?.user) {
+  router.push("/login");
+  return null;
+}
 
   const name = session.user?.name || "";
   const firstName = name.split(" ")[0] || "there";

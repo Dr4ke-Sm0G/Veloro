@@ -5,6 +5,7 @@ import { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 
 import type { Context } from "./context"; // ⬅️ le vrai Context avec prisma + session
 import { AppRouter } from "./api/root";
+import { Session } from "next-auth";
 
 /**
  * Initialise tRPC avec le contexte commun à tout le backend.
@@ -23,14 +24,15 @@ const isAuthed = t.middleware(({ ctx, next }) => {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
 
-  // ⚡️ ICI on “renvoie” un nouveau ctx dont session est typé non-nul
   return next({
     ctx: {
       ...ctx,
-      session: ctx.session, // ← TypeScript sait maintenant qu’il n’est plus null
-    },
+      user: ctx.session.user,
+      session: ctx.session,
+    } satisfies AuthedContext, // 👈 force le type correctement
   });
 });
+
 
 /** Helpers courants ------------------------------------------------------- */
 export const router = t.router;
@@ -45,3 +47,8 @@ export const protectedProcedure = t.procedure.use(isAuthed);
 export type RouterInputs = inferRouterInputs<AppRouter>;
 export type RouterOutputs = inferRouterOutputs<AppRouter>;
 
+
+type AuthedContext = Context & {
+  session: Exclude<Context["session"], null>; // session n'est plus nullable
+  user: Session["user"]; // pour accès direct via `ctx.user`
+};

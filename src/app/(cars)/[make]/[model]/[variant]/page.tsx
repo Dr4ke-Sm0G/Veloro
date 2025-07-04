@@ -6,7 +6,7 @@ import CarFeaturesSection from "@/components/sections/CarFeaturesSection";
 import CarImageDisplay from "@/components/sections/CarImageDisplay";
 
 type Props = {
-  params: { make: string;variant: string };
+  params: { make: string; model: string; variant: string };
 };
 function toNumber(value?: any): number | undefined {
   if (!value) return undefined;
@@ -35,14 +35,17 @@ function serializeDecimal(value: any): any {
 }
 
 
-export default async function VariantPage({ params }: Props) {
-  // 👉 on résout la Promise params AVANT de s’en servir
-
-  const { make, variant } = await params;
+export default async function VariantPage({
+  params,
+}: {
+  params: Promise<{ make: string; model: string; variant: string }>;
+}) {
+  const { make, model, variant } = await params;
 
   const caller = await serverClient();
-  const data = await caller.variant.getByBrandAndVariant({
+  const data = await caller.variant.getBySlugs({
     brand: make,
+    model,
     variant,
   });
 
@@ -64,13 +67,13 @@ export default async function VariantPage({ params }: Props) {
   const brand = modelData.brand;
 
   const title = `${brand.name} ${modelData.name} ${data.name}`;
-const priceStr =
-  prices?.[0]?.price != null
-    ? `${prices[0].country === "United Kingdom" ? "£" : "€"}${Number(prices[0].price).toLocaleString(undefined, {
+  const priceStr =
+    prices?.[0]?.price != null
+      ? `${prices[0].country === "United Kingdom" ? "£" : "€"}${Number(prices[0].price).toLocaleString(undefined, {
         minimumFractionDigits: 0,
         maximumFractionDigits: 0,
       })}`
-    : "Non disponible";
+      : "Non disponible";
   return (
     <div className="bg-white text-black">
       <div className="max-w-7xl mx-auto px-6 py-6">
@@ -208,7 +211,13 @@ const priceStr =
 }
 
 /* même principe pour generateMetadata si tu l’utilises */
-export async function generateMetadata({ params }: Props) {
-  const { make, variant } = await params;
-  return { title: `${make.toUpperCase()} ${variant}` };
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ make: string; model: string; variant: string }>;
+}) {
+  const { make, model, variant } = await params;
+  return {
+    title: `${make.toUpperCase()} ${model} ${variant}`,
+  };
 }

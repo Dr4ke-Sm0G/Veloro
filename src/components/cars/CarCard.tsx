@@ -43,8 +43,8 @@ export default function CarCard({ variant }: CarCardProps) {
   ].filter(Boolean);
 
   const [src, setSrc] = useState(img || "/images/fallback.png");
-  const href = `/${slugify(brandName)}/${slug}`;
-
+ const href = `/${slugify(brandName)}/${slugify(modelName)}/${slug}`;
+ 
   return (
     <div className="bg-gray-200 rounded-xl w-full max-w-lg aspect-square h-[400px] shadow-md flex flex-col p-3">
       {/* ────────── Haut ────────── */}

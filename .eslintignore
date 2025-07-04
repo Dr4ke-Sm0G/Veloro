@@ -1,0 +1,5 @@
+# Ignore les fichiers générés automatiquement
+src/generated/
+node_modules/
+dist/
+.next/

@@ -1,6 +1,22 @@
 import { z } from "zod";
 import { router, publicProcedure } from "@/server/trpc";
 import { prisma } from "@/server/db";
+import { Prisma } from "@prisma/client";
+
+type VariantPreviewInput = Prisma.VariantGetPayload<{
+  include: {
+    model: {
+      include: {
+        brand: true;
+      };
+    };
+    performanceSpec: true;
+    efficiencySpec: true;
+    chargingSpec: true;
+    dimensionSpec: true;
+    prices: true;
+  };
+}>;
 
 /* ────────────────────────────────────
  * Helpers
@@ -19,7 +35,7 @@ function slugify(str: string): string {
   return str.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
 }
 
-function mapVariantToCardPreview(v: any) {
+function mapVariantToCardPreview(v: VariantPreviewInput) {
   let kW = v.performanceSpec?.totalPowerKw
     ? Number(v.performanceSpec.totalPowerKw)
     : 0;

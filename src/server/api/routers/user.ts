@@ -5,10 +5,12 @@ import { prisma } from "@/server/db";
 import { z } from "zod";
 import { hash, compare } from "bcryptjs";
 
+
+
 export const userRouter = router({
   getCurrent: protectedProcedure.query(async ({ ctx }) => {
     return await prisma.user.findUnique({
-      where: { id: ctx.session.user.id },
+      where: { id: ctx.user.id },
     });
   }),
 
