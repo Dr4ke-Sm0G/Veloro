@@ -1,3 +1,4 @@
+// eslint.config.mjs
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { FlatCompat } from "@eslint/eslintrc";
@@ -11,8 +12,14 @@ const eslintConfig = [
   // Importe les règles par défaut
   ...compat.extends("next/core-web-vitals", "next/typescript"),
 
-  // ⛔️ Désactive les règles problématiques ici
+  // Ajoute règles personnalisées
   {
+    ignores: [
+      "node_modules/**",
+      ".next/**",
+      "dist/**",
+      "src/generated/**",
+    ],
     rules: {
       "@typescript-eslint/no-this-alias": "off",
       "@typescript-eslint/no-unused-expressions": "off",
