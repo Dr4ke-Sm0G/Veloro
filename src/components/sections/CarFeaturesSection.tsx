@@ -127,41 +127,52 @@ export default function CarFeaturesSection({ data }: Props) {
   ];
 
   return (
-    <section className="mt-12">
-      <h2 className="text-2xl font-bold mb-4">Car Features</h2>
-      <div className="rounded-xl border overflow-hidden divide-y divide-gray-200">
-        {categories.map((item, index) => {
-          const isOpen = openIndexes.includes(index);
-          const icon = ICONS[item.question] ?? null;
-          return (
-            item.features.length > 0 && (
-              <div key={index}>
-                <button
-                  onClick={() => toggle(index)}
-                  className="w-full text-left px-4 py-3 flex items-center justify-between font-semibold hover:bg-gray-50"
-                >
-                  <div className="flex items-center gap-2">
-                    {icon}
-                    <span>{item.question}</span>
-                  </div>
-                  <ChevronDown
-                    className={`w-5 h-5 transform transition-transform duration-300 ${isOpen ? "rotate-180" : ""
-                      }`}
-                  />
-                </button>
-                <div
-                  className={`overflow-hidden transition-all duration-300 ${isOpen ? "max-h-96 px-4 py-3" : "max-h-0 px-4 py-0"
-                    } text-gray-700`}
-                >
-                  <ul className="list-disc list-inside space-y-1 text-sm">
-                    {item.features.map((f, i) => <li key={i}>{f}</li>)}
-                  </ul>
-                </div>
+    <section className="mt-12 px-4 sm:px-0">
+  <h2 className="text-2xl font-bold mb-6 text-center sm:text-left">
+    Car Features
+  </h2>
+
+  <div className="rounded-xl border overflow-hidden divide-y divide-gray-200">
+    {categories.map((item, index) => {
+      const isOpen = openIndexes.includes(index);
+      const icon = ICONS[item.question] ?? null;
+      return (
+        item.features.length > 0 && (
+          <div key={index}>
+            <button
+              onClick={() => toggle(index)}
+              className="w-full text-left px-4 py-4 flex items-center justify-between font-semibold hover:bg-gray-50 transition"
+            >
+              <div className="flex items-center gap-2 text-base text-gray-900">
+                {icon}
+                <span>{item.question}</span>
               </div>
-            )
-          );
-        })}
-      </div>
-    </section>
+              <ChevronDown
+                className={`w-5 h-5 transition-transform duration-300 ${
+                  isOpen ? "rotate-180" : ""
+                }`}
+              />
+            </button>
+
+            <div
+              className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                isOpen
+                  ? "max-h-[800px] px-4 py-3"
+                  : "max-h-0 px-4 py-0"
+              } text-gray-700`}
+            >
+              <ul className="list-disc list-inside space-y-2 text-sm sm:text-base">
+                {item.features.map((f, i) => (
+                  <li key={i}>{f}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )
+      );
+    })}
+  </div>
+</section>
+
   );
 }

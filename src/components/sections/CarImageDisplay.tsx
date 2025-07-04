@@ -19,10 +19,10 @@ export default function CarImageDisplay({ images }: Props) {
 
   return (
     <>
-      {/* Grid normale */}
+      {/* Section avec miniatures + image principale */}
       <section className="grid grid-cols-1 md:grid-cols-5 gap-4">
         {/* Miniatures */}
-        <div className="col-span-1 md:col-span-1 flex flex-col gap-2">
+        <div className="flex md:flex-col gap-2 overflow-x-auto md:overflow-visible md:col-span-1">
           {images.map((img, i) => (
             <Image
               key={i}
@@ -31,14 +31,14 @@ export default function CarImageDisplay({ images }: Props) {
               width={104}
               height={68}
               onClick={() => setSelectedIndex(i)}
-              className={`rounded-lg border cursor-pointer transition ${
+              className={`rounded-lg border cursor-pointer flex-shrink-0 transition ${
                 i === selectedIndex ? 'ring-2 ring-cyan-500' : ''
               }`}
             />
           ))}
         </div>
 
-        {/* Image principale avec chevrons */}
+        {/* Image principale */}
         <div className="col-span-1 md:col-span-4 relative group">
           <Image
             src={`/images/${images[selectedIndex]}`}
@@ -49,54 +49,55 @@ export default function CarImageDisplay({ images }: Props) {
             className="rounded-xl border cursor-pointer object-contain w-full h-auto"
           />
 
-          {/* Chevron gauche */}
+          {/* Chevrons visibles en tout temps sur mobile */}
           {images.length > 1 && (
-            <button
-              onClick={prevImage}
-              className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition"
-            >
-              <ChevronLeft size={20} />
-            </button>
-          )}
-          {/* Chevron droit */}
-          {images.length > 1 && (
-            <button
-              onClick={nextImage}
-              className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition"
-            >
-              <ChevronRight size={20} />
-            </button>
+            <>
+              <button
+                onClick={prevImage}
+                className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/60 text-white p-2 rounded-full transition-opacity opacity-100 md:opacity-0 md:group-hover:opacity-100"
+              >
+                <ChevronLeft size={20} />
+              </button>
+              <button
+                onClick={nextImage}
+                className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/60 text-white p-2 rounded-full transition-opacity opacity-100 md:opacity-0 md:group-hover:opacity-100"
+              >
+                <ChevronRight size={20} />
+              </button>
+            </>
           )}
         </div>
       </section>
 
-      {/* Modale centrée */}
+      {/* Modale responsive */}
       {isOpen && (
-        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center">
-          <div className="relative bg-white rounded-lg p-4 max-w-3xl w-full">
+        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center px-4">
+          <div className="relative bg-white rounded-xl p-4 w-full max-w-5xl max-h-[90vh] overflow-auto shadow-lg">
+            {/* Bouton de fermeture */}
             <button
               onClick={() => setIsOpen(false)}
               className="absolute top-2 right-2 text-gray-700 hover:text-black"
+              aria-label="Close modal"
             >
               <X size={24} />
             </button>
 
-            {/* Image modale */}
+            {/* Image avec chevrons */}
             <div className="relative flex items-center justify-center">
               <button
                 onClick={prevImage}
-                className="absolute left-0 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full"
+                className="absolute left-0 top-1/2 -translate-y-1/2 bg-black/60 text-white p-2 rounded-full"
               >
                 <ChevronLeft size={24} />
               </button>
               <img
                 src={`/images/${images[selectedIndex]}`}
                 alt="Full view"
-                className="rounded-lg object-contain max-h-[70vh] mx-auto"
+                className="rounded-lg object-contain max-h-[70vh] w-full"
               />
               <button
                 onClick={nextImage}
-                className="absolute right-0 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full"
+                className="absolute right-0 top-1/2 -translate-y-1/2 bg-black/60 text-white p-2 rounded-full"
               >
                 <ChevronRight size={24} />
               </button>
@@ -107,13 +108,13 @@ export default function CarImageDisplay({ images }: Props) {
               {selectedIndex + 1}/{images.length}
             </p>
 
-            {/* Miniatures en bas */}
-            <div className="flex justify-center mt-4 gap-2">
+            {/* Miniatures bas, scrollable horizontalement sur mobile */}
+            <div className="mt-4 flex gap-2 overflow-x-auto justify-center">
               {images.map((img, i) => (
                 <button
                   key={i}
                   onClick={() => setSelectedIndex(i)}
-                  className={`border-2 rounded-lg overflow-hidden ${
+                  className={`border-2 rounded-lg overflow-hidden flex-shrink-0 ${
                     i === selectedIndex ? 'border-cyan-500' : 'border-transparent'
                   }`}
                 >

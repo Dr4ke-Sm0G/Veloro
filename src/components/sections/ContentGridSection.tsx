@@ -65,7 +65,7 @@ export default function ContentGridSection({
               onVideoClick={setSelectedVideoId}
             />
           ) : (
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
               {items.map((item, i) => (
                 <a
                   key={i}
@@ -132,12 +132,13 @@ export default function ContentGridSection({
               ✕
             </button>
             
-            <div className="aspect-video w-full bg-black rounded-lg overflow-hidden">
+            <div className="aspect-video w-full max-w-full bg-black rounded-lg overflow-hidden">
               <iframe
                 className="w-full h-full"
                 src={`https://www.youtube.com/embed/${selectedVideoId}?autoplay=1&rel=0`}
                 title="YouTube video player"
                 frameBorder="0"
+                
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />

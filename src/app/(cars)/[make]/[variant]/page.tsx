@@ -6,7 +6,7 @@ import CarFeaturesSection from "@/components/sections/CarFeaturesSection";
 import CarImageDisplay from "@/components/sections/CarImageDisplay";
 
 type Props = {
-  params: { make: string; model: string; variant: string };
+  params: { make: string; variant: string };
 };
 function toNumber(value?: any): number | undefined {
   if (!value) return undefined;
@@ -38,14 +38,13 @@ function serializeDecimal(value: any): any {
 export default async function VariantPage({
   params,
 }: {
-  params: Promise<{ make: string; model: string; variant: string }>;
+  params: Promise<{ make: string; variant: string }>;
 }) {
-  const { make, model, variant } = await params;
+  const { make, variant } = await params;
 
   const caller = await serverClient();
-  const data = await caller.variant.getBySlugs({
+  const data = await caller.variant.getByBrandAndVariant({
     brand: make,
-    model,
     variant,
   });
 
@@ -214,10 +213,10 @@ export default async function VariantPage({
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ make: string; model: string; variant: string }>;
+  params: Promise<{ make: string;  variant: string }>;
 }) {
-  const { make, model, variant } = await params;
+  const { make, variant } = await params;
   return {
-    title: `${make.toUpperCase()} ${model} ${variant}`,
+    title: `${make.toUpperCase()} ${variant} ${variant}`,
   };
 }

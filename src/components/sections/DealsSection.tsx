@@ -21,10 +21,16 @@ export default function DealsSection() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {data.map((variant: VariantPreview) => (
-            <CarCard key={variant.id} variant={variant} />
-          ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
+          {isLoading ? (
+            <div className="col-span-full text-center text-gray-500 text-sm">
+              Loading deals...
+            </div>
+          ) : (
+            data.map((variant: VariantPreview) => (
+              <CarCard key={variant.id} variant={variant} />
+            ))
+          )}
         </div>
       </div>
     </section>

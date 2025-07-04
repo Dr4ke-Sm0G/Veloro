@@ -71,17 +71,21 @@ export default function BrandGrid() {
     { slug: selected! },
     { enabled: !!selected }
   );
-  return (
-   <section className="bg-white py-16">
-      <div className="max-w-6xl mx-auto px-6">
-        <h2 className="text-2xl font-bold mb-8 text-black">Browse by manufacturer</h2>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-y-6 gap-x-8">
+  return (
+    <section className="bg-white py-16">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-2xl font-bold mb-8 text-black text-center sm:text-left">
+          Browse by manufacturer
+        </h2>
+
+        {/* Liste des marques */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
           {brands.map(({ name, slug }) => (
             <button
               key={slug}
-              className="flex items-center gap-3 group hover:underline"
               onClick={() => setSelected(slug)}
+              className="flex items-center gap-2 group hover:underline"
             >
               <img
                 src={`/BrandLogos/${slug}.svg`}
@@ -89,25 +93,26 @@ export default function BrandGrid() {
                 className="w-6 h-6 object-contain"
                 onError={(e) => (e.currentTarget.src = "/fallback-icon.svg")}
               />
-              <span className="text-sm font-semibold text-gray-900 group-hover:text-blue-700">
+              <span className="text-sm text-gray-800 group-hover:text-blue-600">
                 {name}
               </span>
             </button>
           ))}
         </div>
 
+        {/* Liste des modèles */}
         {selected && (
           <div className="mt-10 border-t pt-6">
-            <h3 className="text-xl font-semibold mb-4 capitalize text-gray-800">
+            <h3 className="text-xl font-semibold mb-4 capitalize text-gray-800 text-center sm:text-left">
               Models by {selected}
             </h3>
 
             {isLoading ? (
-              <p className="text-sm text-gray-500">Loading models...</p>
+              <p className="text-sm text-gray-500 text-center sm:text-left">Loading models...</p>
             ) : models.length === 0 ? (
-              <p className="text-sm text-gray-500">No models found.</p>
+              <p className="text-sm text-gray-500 text-center sm:text-left">No models found.</p>
             ) : (
-              <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 text-sm">
+              <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 text-sm">
                 {models.map((model) => (
                   <li key={model.id}>
                     <Link
