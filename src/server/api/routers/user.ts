@@ -1,24 +1,21 @@
 // src/server/api/routers/user.ts
+
 import { router, protectedProcedure, publicProcedure } from "@/server/trpc";
 import { prisma } from "@/server/db";
 import { z } from "zod";
-import { hash, compare } from 'bcryptjs';
+import { hash, compare } from "bcryptjs";
 
 export const userRouter = router({
-  
-  // 🔒 Récupère l'utilisateur courant
   getCurrent: protectedProcedure.query(async ({ ctx }) => {
     return await prisma.user.findUnique({
       where: { id: ctx.session.user.id },
     });
   }),
 
-  // 🔒 Récupère tous les utilisateurs
   getAll: protectedProcedure.query(async () => {
     return await prisma.user.findMany();
   }),
 
-  // 🔒 Supprimer un utilisateur
   deleteById: protectedProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ input }) => {
@@ -26,7 +23,6 @@ export const userRouter = router({
       return { success: true };
     }),
 
-  // 🌐 Inscription (publique)
   register: publicProcedure
     .input(
       z.object({
@@ -41,9 +37,7 @@ export const userRouter = router({
         where: { email },
       });
 
-      if (existingUser) {
-        throw new Error("Email already in use.");
-      }
+      if (existingUser) throw new Error("Email already in use.");
 
       const hashedPassword = await hash(password, 12);
 
@@ -58,80 +52,83 @@ export const userRouter = router({
       return { success: true, userId: user.id };
     }),
 
-  // 🆕 Infos dynamiques du dashboard utilisateur
   dashboardData: protectedProcedure.query(async ({ ctx }) => {
     const userId = ctx.session.user.id;
 
     const [favorites, savedSearches] = await Promise.all([
-      prisma.favorite.findMany({
-        where: { userId },
-        select: { id: true }, // juste le count ici
-      }),
-      prisma.savedSearch.findMany({
-        where: { userId },
-        select: { id: true },
-      }),
+      prisma.favorite.findMany({ where: { userId }, select: { id: true } }),
+      prisma.savedSearch.findMany({ where: { userId }, select: { id: true } }),
     ]);
 
     return {
       favoritesCount: favorites.length,
       savedSearchesCount: savedSearches.length,
-      hasSettings: true, // extensible si tu veux afficher plus tard (ex: profil complété)
+      hasSettings: true,
     };
   }),
+
   updateUser: protectedProcedure
-  .input(z.object({
-    firstName: z.string().min(1),
-    lastName: z.string().min(1),
-    city: z.string().optional(),
-    zip: z.string().optional(),
-    country: z.string().optional(),
-    location: z.string().optional()
-  }))
-  .mutation(async ({ ctx, input }) => {
-    const userId = ctx.session.user.id;
+    .input(
+      z.object({
+        firstName: z.string().min(1),
+        lastName: z.string().min(1),
+        city: z.string().optional(),
+        zip: z.string().optional(),
+        country: z.string().optional(),
+        location: z.string().optional(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.session.user.id;
 
-    await prisma.user.update({
-      where: { id: userId },
-      data: {
-        name: `${input.firstName} ${input.lastName}`,
-        city: input.city,
-        zip: input.zip,
-        country: input.country,
-        location: input.location
-      }
-    });
+      await prisma.user.update({
+        where: { id: userId },
+        data: {
+          name: `${input.firstName} ${input.lastName}`,
+          city: input.city,
+          zip: input.zip,
+          country: input.country,
+          location: input.location,
+        },
+      });
 
-    return { success: true };
-  }),
+      return { success: true };
+    }),
+
 updateAvatar: protectedProcedure
   .input(z.object({ image: z.string() }))
   .mutation(async ({ ctx, input }) => {
-    await prisma.user.update({
+    return await prisma.user.update({
       where: { id: ctx.session.user.id },
-      data: { image: input.image }
+      data: { image: input.image }, // Ex: "/uploads/avatars/1719971234-avatar.png"
     });
-    return { success: true };
-  }),
-changePassword: protectedProcedure
-  .input(z.object({
-    currentPassword: z.string(),
-    newPassword: z.string().min(8)
-  }))
-  .mutation(async ({ ctx, input }) => {
-    const user = await prisma.user.findUnique({ where: { id: ctx.session.user.id } });
-    if (!user?.password) throw new Error('No password set');
-    
-    const isValid = await compare(input.currentPassword, user.password);
-    if (!isValid) throw new Error('Incorrect password');
-    
-    const hashed = await hash(input.newPassword, 12);
-    await prisma.user.update({
-      where: { id: user.id },
-      data: { password: hashed }
-    });
-    return { success: true };
   }),
 
-  
+
+  changePassword: protectedProcedure
+    .input(
+      z.object({
+        currentPassword: z.string(),
+        newPassword: z.string().min(8),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const user = await prisma.user.findUnique({
+        where: { id: ctx.session.user.id },
+      });
+
+      if (!user?.password) throw new Error("No password set");
+
+      const isValid = await compare(input.currentPassword, user.password);
+      if (!isValid) throw new Error("Incorrect password");
+
+      const hashed = await hash(input.newPassword, 12);
+
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { password: hashed },
+      });
+
+      return { success: true };
+    }),
 });

@@ -196,4 +196,37 @@ export const variantRouter = router({
 
       return variants.map(mapVariantToCardPreview);
     }),
+    getByBrandAndVariant: publicProcedure
+  .input(z.object({
+    brand: z.string(),
+    variant: z.string(),
+  }))
+  .query(async ({ input }) => {
+    return prisma.variant.findFirst({
+      where: {
+        slug: input.variant,
+        model: {
+          brand: {
+            slug: input.brand,
+          },
+        },
+      },
+      include: {
+        model: { include: { brand: true } },
+        batterySpec: true,
+        chargingSpec: true,
+        performanceSpec: true,
+        efficiencySpec: true,
+        realConsumption: true,
+        dimensionSpec: true,
+        availability: true,
+        safetyRating: true,
+        v2xSpec: true,
+        prices: {
+          orderBy: { country: "asc" },
+        },
+      },
+    });
+  }),
+
 });

@@ -6,7 +6,7 @@ import CarFeaturesSection from "@/components/sections/CarFeaturesSection";
 import CarImageDisplay from "@/components/sections/CarImageDisplay";
 
 type Props = {
-  params: { make: string; model: string; variant: string };
+  params: { make: string;variant: string };
 };
 function toNumber(value?: any): number | undefined {
   if (!value) return undefined;
@@ -38,12 +38,11 @@ function serializeDecimal(value: any): any {
 export default async function VariantPage({ params }: Props) {
   // 👉 on résout la Promise params AVANT de s’en servir
 
-  const { make, model, variant } = await params;
+  const { make, variant } = await params;
 
   const caller = await serverClient();
-  const data = await caller.variant.getBySlugs({
+  const data = await caller.variant.getByBrandAndVariant({
     brand: make,
-    model,
     variant,
   });
 
@@ -65,11 +64,13 @@ export default async function VariantPage({ params }: Props) {
   const brand = modelData.brand;
 
   const title = `${brand.name} ${modelData.name} ${data.name}`;
-  const priceStr =
-    prices?.[0]?.price != null
-      ? `${prices[0].country === "United Kingdom" ? "£" : "€"}${Number(prices[0].price).toLocaleString()}`
-      : "Non disponible";
-
+const priceStr =
+  prices?.[0]?.price != null
+    ? `${prices[0].country === "United Kingdom" ? "£" : "€"}${Number(prices[0].price).toLocaleString(undefined, {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      })}`
+    : "Non disponible";
   return (
     <div className="bg-white text-black">
       <div className="max-w-7xl mx-auto px-6 py-6">
@@ -208,6 +209,6 @@ export default async function VariantPage({ params }: Props) {
 
 /* même principe pour generateMetadata si tu l’utilises */
 export async function generateMetadata({ params }: Props) {
-  const { make, model } = await params;
-  return { title: `${make.toUpperCase()} ${model}` };
+  const { make, variant } = await params;
+  return { title: `${make.toUpperCase()} ${variant}` };
 }

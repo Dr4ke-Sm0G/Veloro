@@ -23,13 +23,15 @@ model User {
   role      Role     @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  // Nouveau :
+  emailVerified  DateTime? // ✅ AJOUTE CETTE LIGNE
+  username String? @unique
   city      String?
   zip       String?
   country   String?
   location  String?
-
+  @@index([emailVerified])
+  phone String?
+  isActive Boolean @default(true)
   sentMessages     Message[] @relation("SentMessages")
   receivedMessages Message[] @relation("ReceivedMessages")
 

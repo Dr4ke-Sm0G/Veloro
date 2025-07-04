@@ -28,10 +28,10 @@ export default function PopularVariants() {
                     {data.map((variant: Variant) => (
                         <a
                             key={variant.id}
-                            href={`/${slugify(variant.brandName)}/${slugify(variant.modelName)}/${variant.slug}`}
+                            href={`/${slugify(variant.brandName)}/${variant.slug}`}
                             className="text-sm font-semibold text-gray-900 hover:underline"
                         >
-                            {variant.brandName} {variant.modelName}
+                            {variant.brandName}
                         </a>
                     ))}
                 </div>

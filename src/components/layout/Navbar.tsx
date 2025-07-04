@@ -2,11 +2,25 @@
 
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
+import { useSession, signIn, signOut } from "next-auth/react";
+import Link from "next/link";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const { theme } = useTheme();
+  const { data: session, status } = useSession();
+  const [menuOpen, setMenuOpen] = useState(false);
 
+  const userFirstName = session?.user?.name?.split(" ")[0] ?? "";
   useEffect(() => {
     import("flowbite");
   }, []);
@@ -22,13 +36,12 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`z-50 w-full fixed top-0 left-0 transition-all duration-300 ${
-        scrolled
-          ? "backdrop-blur-md bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-700"
-          : isDark
+      className={`z-50 w-full fixed top-0 left-0 transition-all duration-300 ${scrolled
+        ? "backdrop-blur-md bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-700"
+        : isDark
           ? "bg-transparent text-white"
           : "bg-white text-gray-900 shadow-sm"
-      }`}
+        }`}
     >
       <div className="max-w-screen-xl mx-auto flex flex-wrap items-center justify-between py-5 px-5">
         {/* Logo */}
@@ -90,12 +103,41 @@ export default function Navbar() {
           </div>
 
           {/* Login */}
-          <a
-            href="/login"
-            className="text-sm font-medium px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition"
-          >
-            Login
-          </a>
+          {status === "loading" ? (
+            <span className="text-sm text-gray-500 dark:text-gray-400">Loading...</span>
+          ) : session?.user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="px-4 py-2 text-sm font-medium">
+                  Hello, {userFirstName}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-44">
+                <DropdownMenuItem asChild>
+                  <Link href="/user/dashboard">👤 Profile</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/user/favorites">⭐ Favorites</Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={() => signOut({ callbackUrl: "/" })}
+                  className="text-red-600 cursor-pointer"
+                >
+                  🚪 Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Button
+              variant="ghost"
+              onClick={() => window.location.href = "/login"}
+              className="text-sm font-medium px-4 py-2"
+            >
+              Login
+            </Button>
+          )}
+
 
           {/* Burger */}
           <button

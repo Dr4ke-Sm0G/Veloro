@@ -12,9 +12,26 @@ const __dirname = path.dirname(__filename);
 const parseNumber = (val?: unknown): number | undefined => {
   if (typeof val !== 'string') return undefined;
   if (!val || val.includes('No Data') || val.includes('-')) return undefined;
-  const cleaned = parseFloat(val.replace(/[^\d.,-]/g, '').replace(',', '.'));
-  return isNaN(cleaned) ? undefined : cleaned;
+
+  // Nettoyage : on retire les symboles monétaires, espaces, etc.
+  let cleaned = val.replace(/[^\d.,-]/g, '');
+
+  // Si la chaîne contient une virgule mais pas de point, on suppose format EU → virgule = séparateur de milliers
+  if (cleaned.includes(',') && !cleaned.includes('.')) {
+    cleaned = cleaned.replace(/,/g, '');
+  }
+  // Si elle contient à la fois virgule et point → on tente de convertir (ex: "45.990,00" → "45990.00")
+  else if (cleaned.match(/^\d{1,3}(\.\d{3})*,\d{2}$/)) {
+    cleaned = cleaned.replace(/\./g, '').replace(',', '.');
+  } else {
+    // Sinon on tente en remplaçant virgule décimale par point
+    cleaned = cleaned.replace(',', '.');
+  }
+
+  const num = Number(cleaned);
+  return isNaN(num) ? undefined : num;
 };
+
 
 function getField(obj: any, key: string): string | undefined {
   return obj?.[`${key} *`] ?? obj?.[key];

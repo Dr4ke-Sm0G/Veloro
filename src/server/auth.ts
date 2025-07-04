@@ -1,6 +1,6 @@
 // src/server/auth.ts
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { AuthOptions } from "next-auth";
+import { type AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { compare } from "bcryptjs";
@@ -16,11 +16,13 @@ export const authOptions: AuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
+        if (!credentials?.email || !credentials?.password) return null;
+
         const user = await prisma.user.findUnique({
-          where: { email: credentials?.email },
+          where: { email: credentials.email },
         });
 
-        if (user?.password && credentials?.password) {
+        if (user?.password) {
           const isValid = await compare(credentials.password, user.password);
           if (isValid) return user;
         }
@@ -34,24 +36,44 @@ export const authOptions: AuthOptions = {
     }),
   ],
   pages: {
-    signIn: "/(auth)/login", // ta page personnalisée
+    signIn: "/(auth)/login",
   },
   session: {
     strategy: "jwt",
   },
   callbacks: {
+    async signIn({ user, account }) {
+      if (account?.provider === "google" && user.email) {
+        const existingUser = await prisma.user.findUnique({
+          where: { email: user.email },
+        });
+
+        // Détection d'un nouvel utilisateur Google
+        if (!existingUser) {
+          // L'utilisateur sera automatiquement créé par PrismaAdapter
+          // On peut marquer le flag "isNewUser" dans le token via jwt()
+          return true;
+        }
+      }
+
+      return true;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.picture =
+          typeof user.image === "string" && user.image.startsWith("data:image")
+            ? null
+            : user.image || null;
+      }
+      return token;
+    },
     async session({ session, token }) {
       if (token?.sub && session.user) {
         session.user.id = token.sub;
+        session.user.image = token.picture ?? null;
       }
       return session;
-    },
-    async jwt({ token, user }) {
-if (user) {
-      token.id = user.id
-      console.log('✅ JWT Token created:', token) // 👈 log utile ici
-    }
-          return token;
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
