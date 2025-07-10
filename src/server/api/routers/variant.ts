@@ -212,37 +212,173 @@ export const variantRouter = router({
 
       return variants.map(mapVariantToCardPreview);
     }),
-    getByBrandAndVariant: publicProcedure
-  .input(z.object({
-    brand: z.string(),
-    variant: z.string(),
-  }))
-  .query(async ({ input }) => {
-    return prisma.variant.findFirst({
-      where: {
-        slug: input.variant,
-        model: {
-          brand: {
-            slug: input.brand,
+  getByBrandAndVariant: publicProcedure
+    .input(z.object({
+      brand: z.string(),
+      variant: z.string(),
+    }))
+    .query(async ({ input }) => {
+      return prisma.variant.findFirst({
+        where: {
+          slug: input.variant,
+          model: {
+            brand: {
+              slug: input.brand,
+            },
           },
         },
-      },
-      include: {
-        model: { include: { brand: true } },
-        batterySpec: true,
-        chargingSpec: true,
-        performanceSpec: true,
-        efficiencySpec: true,
-        realConsumption: true,
-        dimensionSpec: true,
-        availability: true,
-        safetyRating: true,
-        v2xSpec: true,
-        prices: {
-          orderBy: { country: "asc" },
+        include: {
+          model: { include: { brand: true } },
+          batterySpec: true,
+          chargingSpec: true,
+          performanceSpec: true,
+          efficiencySpec: true,
+          realConsumption: true,
+          dimensionSpec: true,
+          availability: true,
+          safetyRating: true,
+          v2xSpec: true,
+          prices: {
+            orderBy: { country: "asc" },
+          },
         },
+      });
+    }),
+
+filterVariants: publicProcedure
+    .input(
+      z.object({
+        condition: z.enum(["NEW", "USED"]).optional(),
+        bodyType: z.string().optional(),
+        priceMax: z.number().optional(),
+        yearMin: z.number().optional(),
+        yearMax: z.number().optional(),
+        mileageMin: z.number().optional(),
+        mileageMax: z.number().optional(),
+        availability: z.enum(["ALL", "STOCK", "ORDER"]).optional(),
+        make: z.string().optional(),
+        drive: z.string().optional(),
+        seats: z.number().optional(),
+        towHitchPossible: z.boolean().optional(),
+        evDedicatedPlatform: z.boolean().optional(),
+        roofRails: z.boolean().optional(),
+        heatPump: z.boolean().optional(),
+      })
+    )
+    .query(async ({ input }) => {
+      const variants = await prisma.variant.findMany({
+        where: {
+          AND: [
+            input.bodyType ? { bodyType: input.bodyType } : {},
+            input.drive ? { drive: input.drive } : {},
+            input.yearMin ? { year: { gte: input.yearMin } } : {},
+            input.yearMax ? { year: { lte: input.yearMax } } : {},
+            input.availability && input.availability !== "ALL"
+              ? { availabilityId: input.availability }
+              : {},
+            input.priceMax
+              ? {
+                  prices: {
+                    some: {
+                      price: { lt: input.priceMax },
+                      country: {
+                        in: ["Germany", "United Kingdom", "Netherlands"],
+                      },
+                    },
+                  },
+                }
+              : {},
+            input.condition || input.mileageMin || input.mileageMax
+              ? {
+                  carListings: {
+                    some: {
+                      status: "ACTIVE",
+                      seller: { isActive: true },
+                      ...(input.condition && {
+                        car: {
+                          condition: input.condition,
+                        },
+                      }),
+                      ...(input.mileageMin || input.mileageMax
+                        ? {
+                            car: {
+                              mileage: {
+                                ...(input.mileageMin
+                                  ? { gte: input.mileageMin }
+                                  : {}),
+                                ...(input.mileageMax
+                                  ? { lte: input.mileageMax }
+                                  : {}),
+                              },
+                            },
+                          }
+                        : {}),
+                    },
+                  },
+                }
+              : {},
+            input.make
+              ? {
+                  model: {
+                    brand: {
+                      id: input.make,
+                    },
+                  },
+                }
+              : {},
+            {
+              dimensionSpec: {
+                ...(input.seats !== undefined && { seats: input.seats }),
+                ...(input.towHitchPossible !== undefined && { towHitchPossible: input.towHitchPossible }),
+                ...(input.evDedicatedPlatform !== undefined && { evDedicatedPlatform: input.evDedicatedPlatform }),
+                ...(input.roofRails !== undefined && { roofRails: input.roofRails }),
+                ...(input.heatPump !== undefined && { heatPump: input.heatPump }),
+              },
+            },
+          ],
+        },
+        include: {
+          model: { include: { brand: true } },
+          performanceSpec: true,
+          efficiencySpec: true,
+          chargingSpec: true,
+          dimensionSpec: true,
+          prices: {
+            where: {
+              country: {
+                in: ["Germany", "Netherlands", "United Kingdom"],
+              },
+            },
+            orderBy: { country: "asc" },
+          },
+        },
+      });
+
+      return variants.map(mapVariantToCardPreview);
+    }),
+
+getBodyTypesWithCounts: publicProcedure.query(async () => {
+  const results = await prisma.variant.groupBy({
+    by: ["bodyType"],
+    where: {
+      bodyType: {
+        not: null,
       },
-    });
-  }),
+    },
+    _count: {
+      bodyType: true,
+    },
+    orderBy: {
+      _count: {
+        bodyType: "desc",
+      },
+    },
+  });
+
+  return results.map((entry) => ({
+    type: entry.bodyType!,
+    count: entry._count.bodyType,
+  }));
+}),
 
 });

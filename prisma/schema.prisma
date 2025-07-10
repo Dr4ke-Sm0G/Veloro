@@ -209,7 +209,7 @@ model Model {
   variants Variant[]
   reviews  Review[]
   comments Comment[]
-
+  
   @@unique([name, brandId]) // ⬅️ pour que `upsert` fonctionne comme tu veux
   @@unique([slug, brandId]) // pour l'accès par URL
 }
@@ -236,7 +236,7 @@ model Variant {
   safetyRating    SafetyRating?
   v2xSpec         V2XSpec?
   availability    Availability?
-
+  availabilityId String? // à ajouter manuellement si absent
   /// 1‑to‑N relations
   prices Price[]
 
