@@ -246,97 +246,114 @@ export const variantRouter = router({
     }),
 
 filterVariants: publicProcedure
-    .input(
-      z.object({
-        condition: z.enum(["NEW", "USED"]).optional(),
-        bodyType: z.string().optional(),
-        priceMax: z.number().optional(),
-        yearMin: z.number().optional(),
-        yearMax: z.number().optional(),
-        mileageMin: z.number().optional(),
-        mileageMax: z.number().optional(),
-        availability: z.enum(["ALL", "STOCK", "ORDER"]).optional(),
-        make: z.string().optional(),
-        drive: z.string().optional(),
-        seats: z.number().optional(),
-        towHitchPossible: z.boolean().optional(),
-        evDedicatedPlatform: z.boolean().optional(),
-        roofRails: z.boolean().optional(),
-        heatPump: z.boolean().optional(),
-      })
-    )
-    .query(async ({ input }) => {
-      const variants = await prisma.variant.findMany({
-        where: {
-          AND: [
-            input.bodyType ? { bodyType: input.bodyType } : {},
-            input.drive ? { drive: input.drive } : {},
-            input.yearMin ? { year: { gte: input.yearMin } } : {},
-            input.yearMax ? { year: { lte: input.yearMax } } : {},
-            input.availability && input.availability !== "ALL"
-              ? { availabilityId: input.availability }
-              : {},
-            input.priceMax
-              ? {
-                  prices: {
-                    some: {
-                      price: { lt: input.priceMax },
-                      country: {
-                        in: ["Germany", "United Kingdom", "Netherlands"],
-                      },
-                    },
+  .input(
+    z.object({
+      condition: z.enum(["NEW", "USED"]).optional(),
+      bodyType: z.string().optional(),
+      priceMax: z.number().optional(),
+      yearMin: z.number().optional(),
+      yearMax: z.number().optional(),
+      mileageMin: z.number().optional(),
+      mileageMax: z.number().optional(),
+      availability: z.enum(["ALL", "STOCK", "ORDER"]).optional(),
+      make: z.string().optional(),
+      drive: z.string().optional(),
+      seats: z.number().optional(),
+      towHitchPossible: z.boolean().optional(),
+      evDedicatedPlatform: z.boolean().optional(),
+      roofRails: z.boolean().optional(),
+      heatPump: z.boolean().optional(),
+      page: z.number().min(1).default(1),
+      limit: z.number().min(1).max(100).default(10),
+    })
+  )
+  .query(async ({ input }) => {
+    const skip = (input.page - 1) * input.limit;
+
+    const where: Prisma.VariantWhereInput = {
+      AND: [
+        input.bodyType ? { bodyType: input.bodyType } : {},
+        input.drive ? { drive: input.drive } : {},
+        input.yearMin ? { year: { gte: input.yearMin } } : {},
+        input.yearMax ? { year: { lte: input.yearMax } } : {},
+        input.availability && input.availability !== "ALL"
+          ? { availabilityId: input.availability }
+          : {},
+        input.priceMax
+          ? {
+              prices: {
+                some: {
+                  price: { lt: input.priceMax },
+                  country: {
+                    in: ["Germany", "United Kingdom", "Netherlands"],
                   },
-                }
-              : {},
-            input.condition || input.mileageMin || input.mileageMax
-              ? {
-                  carListings: {
-                    some: {
-                      status: "ACTIVE",
-                      seller: { isActive: true },
-                      ...(input.condition && {
-                        car: {
-                          condition: input.condition,
-                        },
-                      }),
-                      ...(input.mileageMin || input.mileageMax
-                        ? {
-                            car: {
-                              mileage: {
-                                ...(input.mileageMin
-                                  ? { gte: input.mileageMin }
-                                  : {}),
-                                ...(input.mileageMax
-                                  ? { lte: input.mileageMax }
-                                  : {}),
-                              },
-                            },
-                          }
-                        : {}),
-                    },
-                  },
-                }
-              : {},
-            input.make
-              ? {
-                  model: {
-                    brand: {
-                      id: input.make,
-                    },
-                  },
-                }
-              : {},
-            {
-              dimensionSpec: {
-                ...(input.seats !== undefined && { seats: input.seats }),
-                ...(input.towHitchPossible !== undefined && { towHitchPossible: input.towHitchPossible }),
-                ...(input.evDedicatedPlatform !== undefined && { evDedicatedPlatform: input.evDedicatedPlatform }),
-                ...(input.roofRails !== undefined && { roofRails: input.roofRails }),
-                ...(input.heatPump !== undefined && { heatPump: input.heatPump }),
+                },
               },
-            },
-          ],
+            }
+          : {},
+        input.condition || input.mileageMin || input.mileageMax
+          ? {
+              carListings: {
+                some: {
+                  status: "ACTIVE",
+                  seller: { isActive: true },
+                  ...(input.condition && {
+                    car: {
+                      condition: input.condition,
+                    },
+                  }),
+                  ...(input.mileageMin || input.mileageMax
+                    ? {
+                        car: {
+                          mileage: {
+                            ...(input.mileageMin
+                              ? { gte: input.mileageMin }
+                              : {}),
+                            ...(input.mileageMax
+                              ? { lte: input.mileageMax }
+                              : {}),
+                          },
+                        },
+                      }
+                    : {}),
+                },
+              },
+            }
+          : {},
+        input.make
+          ? {
+              model: {
+                brand: {
+                  id: input.make,
+                },
+              },
+            }
+          : {},
+        {
+          dimensionSpec: {
+            ...(input.seats !== undefined && { seats: input.seats }),
+            ...(input.towHitchPossible !== undefined && {
+              towHitchPossible: input.towHitchPossible,
+            }),
+            ...(input.evDedicatedPlatform !== undefined && {
+              evDedicatedPlatform: input.evDedicatedPlatform,
+            }),
+            ...(input.roofRails !== undefined && {
+              roofRails: input.roofRails,
+            }),
+            ...(input.heatPump !== undefined && {
+              heatPump: input.heatPump,
+            }),
+          },
         },
+      ],
+    };
+
+    const [variants, total] = await Promise.all([
+      prisma.variant.findMany({
+        where,
+        skip,
+        take: input.limit,
         include: {
           model: { include: { brand: true } },
           performanceSpec: true,
@@ -352,10 +369,15 @@ filterVariants: publicProcedure
             orderBy: { country: "asc" },
           },
         },
-      });
+      }),
+      prisma.variant.count({ where }),
+    ]);
 
-      return variants.map(mapVariantToCardPreview);
-    }),
+    return {
+      variants: variants.map(mapVariantToCardPreview),
+      total,
+    };
+  }),
 
 getBodyTypesWithCounts: publicProcedure.query(async () => {
   const results = await prisma.variant.groupBy({

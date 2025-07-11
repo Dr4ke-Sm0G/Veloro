@@ -1,11 +1,12 @@
 // src/store/filter-store.ts
+
 import { create } from "zustand";
 
 export type VariantFilterInput = {
-  condition?: "NEW" | "USED";
+condition?: "NEW" | "USED";
   bodyType?: string;
-  drive?: string;
-  seats?: number;
+  drive?: string; // ✅ requis
+  seats?: number; // ✅ requis
   priceMax?: number;
   availability?: "ALL" | "STOCK" | "ORDER";
   yearMin?: number;
@@ -17,14 +18,14 @@ export type VariantFilterInput = {
   evDedicatedPlatform?: boolean;
   roofRails?: boolean;
   heatPump?: boolean;
+  page?: number;
+  limit?: number;
 };
+
 
 interface FilterStore {
   filters: VariantFilterInput;
-  setFilter: <K extends keyof VariantFilterInput>(
-    key: K,
-    value: VariantFilterInput[K]
-  ) => void;
+  setFilter: <K extends keyof VariantFilterInput>(key: K, value: VariantFilterInput[K]) => void;
   resetAllFilters: () => void;
 }
 
@@ -38,4 +39,5 @@ export const useFilterStore = create<FilterStore>((set) => ({
       },
     })),
   resetAllFilters: () => set({ filters: {} }),
+  
 }));

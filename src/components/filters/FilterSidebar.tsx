@@ -8,7 +8,6 @@ import { cn } from "@/lib/utils";
 import { api } from "@/utils/api";
 import { Search as MagnifyingGlassIcon } from "lucide-react";
 
-
 const availabilityOptions = ["ALL", "STOCK", "ORDER"] as const;
 const years = Array.from({ length: 2025 - 2000 + 1 }, (_, i) => 2000 + i);
 const mileageSteps = [0, 10000, 20000, 30000, 40000, 50000, 100000];

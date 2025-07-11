@@ -1,10 +1,10 @@
 const bodyTypes = [
-  { label: "SUVs", value: "SUVs", icon: "suv.svg" },
-  { label: "Hatchbacks", value: "hatchbacks", icon: "hatchback.svg" },
-  { label: "Saloons", value: "saloons", icon: "saloon.svg" },
-  { label: "Coupes", value: "coupes", icon: "coupe.svg" },
-  { label: "Estate cars", value: "estate-cars", icon: "estate.svg" },
-  { label: "Sports cars", value: "sports-cars", icon: "sports_car.svg" },
+  { label: "SUVs", value: "SUV", icon: "suv.svg" },
+  { label: "Hatchbacks", value: "hatchback", icon: "hatchback.svg" },
+  { label: "Saloons", value: "saloon", icon: "saloon.svg" },
+  { label: "Coupes", value: "coupe", icon: "coupe.svg" },
+  { label: "Estate cars", value: "estate", icon: "estate.svg" },
+  { label: "Sports cars", value: "sport", icon: "sports_car.svg" },
   { label: "Convertibles", value: "convertibles", icon: "convertible.svg" },
 ];
 
@@ -17,7 +17,7 @@ export default function TypeFilters() {
       {bodyTypes.map(({ label, value, icon }) => (
         <a
           key={value}
-          href={`/car-chooser?body_type=${value}`}
+          href={`/search?bodyType=${value}`}
           className="flex-shrink-0 flex flex-col items-center justify-center bg-white rounded-lg p-3 w-37 h-25 shadow-sm hover:shadow-md transition border border-gray-200 hover:border-gray-300"
           data-interaction-element={`Body type - ${label}`}
           data-interaction-section="Browse by car type"
@@ -34,5 +34,5 @@ export default function TypeFilters() {
   </div>
 </section>
 
-  );
+  );    
 }
