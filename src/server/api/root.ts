@@ -4,6 +4,7 @@ import { brandRouter } from "./routers/brand";
 import { modelRouter } from "./routers/model";
 import { userRouter } from "./routers/user";
 import { variantRouter } from "./routers/variant";
+import { adminRouter } from "./routers/admin";
 
 export const appRouter = router({
   health: healthRouter,
@@ -11,6 +12,7 @@ export const appRouter = router({
   model: modelRouter,
   user: userRouter,
   variant: variantRouter, 
+  admin: adminRouter,
 });
 
 // POUR TRPC CÔTÉ CLIENT
