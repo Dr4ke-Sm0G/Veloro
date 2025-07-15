@@ -39,11 +39,13 @@ const extractBrandAndModel = (fullName: string) => {
 function slugify(str: string): string {
   return str
     .toLowerCase()
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '');
+    .normalize("NFD") // transforme les lettres accentuées
+    .replace(/[\u0300-\u036f]/g, "") // supprime les diacritiques
+    .replace(/[^a-z0-9]+/g, "-") // remplace tout caractère non alphanumérique
+    .replace(/^-+|-+$/g, "") // supprime les tirets au début et à la fin
+    .replace(/--+/g, "-"); // évite les doubles tirets
 }
+
 
 function mergeObjectArray(arr: any[]): Record<string, string> {
   return arr.reduce((acc, obj) => ({ ...acc, ...obj }), {});
