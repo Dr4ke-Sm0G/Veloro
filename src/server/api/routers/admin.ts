@@ -138,17 +138,92 @@ getBrandsWithModels: protectedProcedure.query(async () => {
       return prisma.model.create({ data: input });
     }),
 
-  createVariant: protectedProcedure
-    .input(z.object({
+createVariant: protectedProcedure
+  .input(
+    z.object({
+      brandSlug: z.string(),
+      modelSlug: z.string(),
       name: z.string(),
       slug: z.string(),
-      year: z.number().optional(),
-      bodyType: z.string().optional(),
-      modelId: z.string()
-    }))
-    .mutation(async ({ input }) => {
-      return prisma.variant.create({ data: input });
-    }),
+      year: z.number(),
+      bodyType: z.string(),
+      performanceSpec: PerformanceSpecSchema.optional(),
+      efficiencySpec: EfficiencySpecSchema.optional(),
+      chargingSpec: ChargingSpecSchema.optional(),
+      batterySpec: BatterySpecSchema.optional(),
+      dimensionSpec: DimensionSpecSchema.optional(),
+      realConsumption: RealConsumptionSchema.optional(),
+      v2xSpec: V2XSpecSchema.optional(),
+      safetyRating: SafetyRatingSchema.optional(),
+      prices: z
+        .array(
+          z.object({
+            country: z.string(),
+            price: z.number(),
+          })
+        )
+        .optional(),
+    })
+  )
+  .mutation(async ({ input }) => {
+    const {
+      brandSlug,
+      modelSlug,
+      name,
+      slug,
+      year,
+      bodyType,
+      performanceSpec,
+      efficiencySpec,
+      chargingSpec,
+      batterySpec,
+      dimensionSpec,
+      realConsumption,
+      v2xSpec,
+      safetyRating,
+      prices,
+    } = input;
+
+    const model = await prisma.model.findFirst({
+      where: {
+        slug: modelSlug,
+        brand: { slug: brandSlug },
+      },
+    });
+
+    if (!model) throw new Error("Modèle introuvable pour la marque et le slug donnés.");
+
+    const variant = await prisma.variant.create({
+      data: {
+        name,
+        slug,
+        year,
+        bodyType,
+        modelId: model.id,
+        performanceSpec: performanceSpec ? { create: performanceSpec } : undefined,
+        efficiencySpec: efficiencySpec ? { create: efficiencySpec } : undefined,
+        chargingSpec: chargingSpec ? { create: chargingSpec } : undefined,
+        batterySpec: batterySpec ? { create: batterySpec } : undefined,
+        dimensionSpec: dimensionSpec ? { create: dimensionSpec } : undefined,
+        realConsumption: realConsumption ? { create: realConsumption } : undefined,
+        v2xSpec: v2xSpec ? { create: v2xSpec } : undefined,
+        safetyRating: safetyRating ? { create: safetyRating } : undefined,
+        prices: prices
+          ? {
+              create: prices.map((p) => ({
+                country: p.country,
+                price: p.price,
+              })),
+            }
+          : undefined,
+      },
+    });
+
+    return { success: true, variantId: variant.id };
+  }),
+
+
+
   updateModel: protectedProcedure
     .input(z.object({
       modelId: z.string(),
@@ -467,6 +542,7 @@ getFilteredVariants: protectedProcedure
       brand: z.string().optional(),
       year: z.string().optional(),
       page: z.number().min(1).default(1),
+      model: z.string().optional(),
       limit: z.number().min(1).max(100).default(20),
     })
   )
@@ -483,6 +559,15 @@ getFilteredVariants: protectedProcedure
         },
       };
     }
+if (input.model) {
+  where.model = {
+    ...where.model,
+    name: {
+      contains: input.model,
+      mode: "insensitive",
+    },
+  };
+}
 
     if (input.year) {
       where.year = parseInt(input.year);

@@ -37,18 +37,17 @@ interface VariantRow {
   hasListings: boolean;
 }
 
-
 export default function CatalogueTable() {
   const router = useRouter();
   const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });
-  const [search, setSearch] = useState("");
-  const [filters, setFilters] = useState<{ brand?: string; year?: string }>({});
+  const [filters, setFilters] = useState<{ brand?: string; model?: string; year?: string }>({});
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
   const { data, isPending, refetch } = api.admin.getFilteredVariants.useQuery({
     page: pagination.pageIndex + 1,
     limit: pagination.pageSize,
     brand: filters.brand,
+    model: filters.model,
     year: filters.year,
   });
 
@@ -113,9 +112,13 @@ export default function CatalogueTable() {
       header: "Actions",
       cell: ({ row }) => (
         <div className="flex gap-1">
-          <Button size="icon" variant="ghost" onClick={() => router.push(
-            `/admin/catalogue/${slugify(row.original.brand)}/${slugify(row.original.model)}/${row.original.slug}`
-          )}>
+          <Button 
+            size="icon" 
+            variant="ghost" 
+            onClick={() => router.push(
+              `/admin/catalogue/${slugify(row.original.brand)}/${slugify(row.original.model)}/${row.original.slug}`
+            )}
+          >
             <Pencil className="w-4 h-4 text-blue-600" />
           </Button>
           <DeleteDialog
@@ -148,7 +151,9 @@ export default function CatalogueTable() {
   return (
     <div className="space-y-4">
       <AdminCatalogueActions
-        onAddVariant={() => alert("Ajouter une variante")}
+        onAddVariant={(brand, model) => {
+          router.push(`/admin/catalogue/${slugify(brand)}/${slugify(model)}/new`);
+        }}
         onImportJSON={(file) => alert(`Importer fichier : ${file.name}`)}
         filters={filters}
         onFilterChange={(f) => setFilters(f)}
@@ -216,6 +221,7 @@ export default function CatalogueTable() {
     </div>
   );
 }
+
 export function slugify(str: string): string {
   return str
     .toLowerCase()

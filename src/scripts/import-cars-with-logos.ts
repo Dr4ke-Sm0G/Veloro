@@ -1,14 +1,134 @@
-// src/scripts/import-cars.ts
+// src/scripts/import-cars-with-logos.ts
 import fs from 'fs';
 import path from 'path';
-import { PrismaClient } from '@prisma/client';
+import pkg from "@prisma/client";
+const { PrismaClient } = pkg;
+type Brand = pkg.Brand;
 import { fileURLToPath } from 'url';
+import process from 'process';
 import { createObjectCsvWriter } from 'csv-writer';
 
+// ──────────────────────────────────────
+// SETUP
+// ──────────────────────────────────────
 const prisma = new PrismaClient();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const logosDir = path.resolve(__dirname, '../../public/BrandLogos');
+const inputPath = path.resolve(__dirname, '../../data/ev-database.json');
+
+// ──────────────────────────────────────
+// SLUG UTILS
+// ──────────────────────────────────────
+const BRAND_SLUGS: Record<string, string> = {
+  "Mercedes-Benz": "mercedesbenz",
+  "Aston Martin": "astonmartin",
+  "Land Rover": "landrover",
+  "Alfa Romeo": "alfaromeo",
+  "Rolls-Royce": "rollsroyce",
+  "GWM Ora": "gwmora",
+  "KGM Motors": "kgmmotors",
+  "Abarth": "abarth",
+  "Alpine": "alpine",
+  "Audi": "audi",
+  "Bentley": "bentley",
+  "BMW": "bmw",
+  "BYD": "byd",
+  "Citroen": "citroen",
+  "Cupra": "cupra",
+  "Dacia": "dacia",
+  "DS": "ds",
+  "Ferrari": "ferrari",
+  "Fiat": "fiat",
+  "Ford": "ford",
+  "Genesis": "genesis",
+  "GWM": "gwm",
+  "Honda": "honda",
+  "Hyundai": "hyundai",
+  "INEOS": "ineos",
+  "Infiniti": "infiniti",
+  "Jaecoo": "jaecoo",
+  "Jaguar": "jaguar",
+  "Jeep": "jeep",
+  "Kia": "kia",
+  "Lamborghini": "lamborghini",
+  "Leapmotor": "leapmotor",
+  "Lexus": "lexus",
+  "Lotus": "lotus",
+  "Maserati": "maserati",
+  "Mazda": "mazda",
+  "McLaren": "mclaren",
+  "MG": "mg",
+  "MINI": "mini",
+  "Mitsubishi": "mitsubishi",
+  "Nissan": "nissan",
+  "OMODA": "omoda",
+  "Peugeot": "peugeot",
+  "Polestar": "polestar",
+  "Porsche": "porsche",
+  "Renault": "renault",
+  "SEAT": "seat",
+  "Skoda": "skoda",
+  "Smart": "smart",
+  "SsangYong": "ssangyong",
+  "Subaru": "subaru",
+  "Suzuki": "suzuki",
+  "Tesla": "tesla",
+  "Toyota": "toyota",
+  "Vauxhall": "vauxhall",
+  "Volkswagen": "volkswagen",
+  "Volvo": "volvo",
+  "Xpeng": "xpeng",
+};
+const slugify = (str: string): string =>
+  str
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .replace(/--+/g, "-");
+
+// ──────────────────────────────────────
+// LOGO MAP & CACHE
+// ──────────────────────────────────────
+
+const logoFiles = fs
+  .readdirSync(logosDir)
+  .filter((f) => /\.(png|svg|jpe?g|webp)$/i.test(f));
+
+const logoMap = new Map(
+  logoFiles.map((file) => [path.parse(file).name.toLowerCase(), file])
+);
+
+const brandCache = new Map<string, Brand>();
+
+async function getOrCreateBrand(name: string): Promise<Brand> {
+  if (brandCache.has(name)) return brandCache.get(name)!;
+
+  const slug = BRAND_SLUGS[name] ?? slugify(name);
+  const logo = logoMap.get(slug);
+
+  const brand = await prisma.brand.upsert({
+    where: { name },
+    update: {
+      slug,
+      ...(logo ? { logo } : {}),
+    },
+    create: {
+      name,
+      slug,
+      ...(logo ? { logo } : {}),
+    },
+  });
+
+  brandCache.set(name, brand);
+  return brand;
+}
+// ──────────────────────────────────────
+// UTILS
+// ──────────────────────────────────────
 const parseNumber = (val?: unknown): number | undefined => {
   if (typeof val !== 'string') return undefined;
   if (!val || val.includes('No Data') || val.includes('-')) return undefined;
@@ -19,6 +139,7 @@ const parseNumber = (val?: unknown): number | undefined => {
 function getField(obj: any, key: string): string | undefined {
   return obj?.[`${key} *`] ?? obj?.[key];
 }
+
 function getFromLongdistance(car: any, key: string): string | undefined {
   return car.longdistance?.find((entry: any) => key in entry)?.[key];
 }
@@ -35,18 +156,6 @@ const extractBrandAndModel = (fullName: string) => {
     model: fullName.replace(parts[0], '').trim(),
   };
 };
-
-function slugify(str: string): string {
-  return str
-    .toLowerCase()
-    .normalize("NFD") // transforme les lettres accentuées
-    .replace(/[\u0300-\u036f]/g, "") // supprime les diacritiques
-    .replace(/[^a-z0-9]+/g, "-") // remplace tout caractère non alphanumérique
-    .replace(/^-+|-+$/g, "") // supprime les tirets au début et à la fin
-    .replace(/--+/g, "-"); // évite les doubles tirets
-}
-
-
 function mergeObjectArray(arr: any[]): Record<string, string> {
   return arr.reduce((acc, obj) => ({ ...acc, ...obj }), {});
 }
@@ -60,7 +169,6 @@ function extractEfficiencyDetails(eff: any[]): Record<string, number | undefined
   if (!Array.isArray(eff)) return {};
   const merged = Object.assign({}, ...eff);
 
-
   return {
     rangeKm: parseNumber(merged['Range']),
     vehicleConsumptionWhKm: parseNumber(merged['Vehicle Consumption']),
@@ -70,6 +178,7 @@ function extractEfficiencyDetails(eff: any[]): Record<string, number | undefined
     vehicleFuelEqL100km: parseNumber(merged['Vehicle Fuel Equivalent']),
   };
 }
+
 function extractSafetyRating(car: any): Record<string, number | null> {
   const data = car.longdistance?.find((entry: any) => entry['Adult Occupant'] || entry['Safety Assist']) ?? {};
   const percent = (val: string) => parseInt(val?.replace('%', '').trim(), 10) || null;
@@ -83,34 +192,31 @@ function extractSafetyRating(car: any): Record<string, number | null> {
   };
 }
 
-const importLog: { variant: string; brand: string; status: string; message?: string }[] = [];
-
+// ──────────────────────────────────────
+// IMPORT VOITURES + LOGOS
+// ──────────────────────────────────────
 async function importCars(filePath: string) {
   const raw = fs.readFileSync(filePath, 'utf-8');
   const cars = JSON.parse(raw);
+  const importLog: { variant: string; brand: string; status: string; message?: string }[] = [];
 
   for (const car of cars) {
     try {
-      const { brand, model } = extractBrandAndModel(car.model);
-
-      const brandRecord = await prisma.brand.upsert({
-        where: { name: brand },
-        update: {},
-        create: { name: brand, slug: slugify(brand) },
-      });
+      const { brand: brandName, model } = extractBrandAndModel(car.model);
+      const brand = await getOrCreateBrand(brandName);
 
       const modelRecord = await prisma.model.upsert({
         where: {
           name_brandId: {
             name: model,
-            brandId: brandRecord.id,
+            brandId: brand.id,
           },
         },
         update: { slug: slugify(model) },
         create: {
           name: model,
           slug: slugify(model),
-          brandId: brandRecord.id,
+          brandId: brand.id,
         },
       });
 
@@ -139,7 +245,6 @@ async function importCars(filePath: string) {
               formFactor: getField(car.battery?.[1], 'Form Factor'),
               warrantyPeriod: getField(car.battery?.[0], 'Warranty Period'),
               warrantyMileage: getField(car.battery?.[0], 'Warranty Mileage'),
-              
             },
           },
 
@@ -223,8 +328,6 @@ async function importCars(filePath: string) {
             },
           },
 
-
-
           v2xSpec: {
             create: {
               v2lSupported: car.v2x?.some((v: any) => v['V2L Supported'] === 'Yes'),
@@ -244,7 +347,6 @@ async function importCars(filePath: string) {
             create: {
               availableFrom: new Date(car.availability?.split(' - ')[0] + ' 1'),
               availableTo: new Date(car.availability?.split(' - ')[1] + ' 1'),
-              
             },
           },
         },
@@ -263,7 +365,7 @@ async function importCars(filePath: string) {
         await prisma.price.createMany({ data: priceRecords });
       }
 
-      importLog.push({ variant: variant.name, brand, status: 'Imported' });
+      importLog.push({ variant: variant.name, brand: brandName, status: 'Imported' });
       console.log(`✅ Imported ${variant.name}`);
     } catch (e: any) {
       importLog.push({ variant: car.model, brand: car.model.split(' ')[0], status: 'Failed', message: e.message });
@@ -271,7 +373,7 @@ async function importCars(filePath: string) {
     }
   }
 
-  const logWriter = createObjectCsvWriter({
+  await createObjectCsvWriter({
     path: path.resolve(__dirname, '../../import-log.csv'),
     header: [
       { id: 'variant', title: 'Variant' },
@@ -279,19 +381,54 @@ async function importCars(filePath: string) {
       { id: 'status', title: 'Status' },
       { id: 'message', title: 'Message' },
     ],
-  });
-  await logWriter.writeRecords(importLog);
+  }).writeRecords(importLog);
+
   console.log('📝 Log written to import-log.csv');
 }
 
-const inputPath = path.resolve(__dirname, '../../data/ev-database.json');
-importCars(inputPath)
-  .then(() => {
-    console.log('✅ Import complete');
-    prisma.$disconnect();
-  })
-  .catch((e) => {
-    console.error('❌ Import failed:', e);
-    prisma.$disconnect();
-    process.exit(1);
-  });
+// ──────────────────────────────────────
+// UPDATE LOGOS ONLY (OPTIONAL)
+// ──────────────────────────────────────
+async function updateOnlyBrandLogos() {
+  const brands = await prisma.brand.findMany();
+
+  for (const brand of brands) {
+    const slug = BRAND_SLUGS[brand.name] ?? slugify(brand.name);
+    const logo = logoMap.get(slug);
+
+    if (!logo) {
+      console.warn(`⚠️ Logo manquant pour ${brand.name}`);
+      continue;
+    }
+
+    const updated = await prisma.brand.update({
+      where: { id: brand.id },
+      data: { logo },
+    });
+
+    console.log(`✅ Marque mise à jour : ${updated.name} → ${logo}`);
+  }
+
+  console.log("🎉 Mise à jour des logos terminée.");
+}
+
+// ──────────────────────────────────────
+// CLI
+// ──────────────────────────────────────
+const onlyLogos = process.argv.includes("--logos-only");
+
+if (onlyLogos) {
+  updateOnlyBrandLogos()
+    .then(() => prisma.$disconnect())
+    .catch((e) => {
+      console.error("❌ Erreur update logos:", e);
+      process.exit(1);
+    });
+} else {
+  importCars(inputPath)
+    .then(() => prisma.$disconnect())
+    .catch((e) => {
+      console.error("❌ Erreur import:", e);
+      process.exit(1);
+    });
+}

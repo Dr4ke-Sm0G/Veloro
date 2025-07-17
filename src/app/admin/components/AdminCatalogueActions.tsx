@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Plus, Upload, Filter, Pencil, Trash2 } from "lucide-react";
 
 interface AdminCatalogueActionsProps {
-  onAddVariant: () => void;
+  onAddVariant: (brand: string, model: string) => void; // Modifié pour accepter brand et model
   onImportJSON: (file: File) => void;
   onFilterChange: (filters: Record<string, string>) => void;
   filters: Record<string, string>;
@@ -27,11 +27,17 @@ export default function AdminCatalogueActions({
     }
   };
 
+  const canAddVariant = !!filters.brand && !!filters.model; // Nouvelle vérification
+
   return (
     <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-4">
       {/* Left side: Add + Import */}
       <div className="flex gap-2 items-center">
-        <Button onClick={onAddVariant} className="flex items-center gap-2">
+        <Button
+          onClick={() => onAddVariant(filters.brand, filters.model)} // Appel modifié
+          disabled={!canAddVariant} // Nouveau statut disabled
+          className="flex items-center gap-2"
+        >
           <Plus className="w-4 h-4" /> Ajouter une variante
         </Button>
 
@@ -62,6 +68,18 @@ export default function AdminCatalogueActions({
             className="w-40"
           />
         </div>
+        
+        {/* Nouveau filtre modèle ajouté */}
+        <div className="flex flex-col gap-1">
+          <label className="text-xs text-muted-foreground">Modèle</label>
+          <Input
+            value={filters.model || ""}
+            onChange={(e) => onFilterChange({ ...filters, model: e.target.value })}
+            placeholder="Filtrer par modèle"
+            className="w-40"
+          />
+        </div>
+
         <div className="flex flex-col gap-1">
           <label className="text-xs text-muted-foreground">Année</label>
           <Input
@@ -71,10 +89,7 @@ export default function AdminCatalogueActions({
             className="w-32"
           />
         </div>
-        {/* ... ajouter d'autres filtres si besoin ... */}
       </div>
     </div>
   );
 }
-// This component provides actions for the admin catalogue, including adding variants, importing JSON files, and filtering items.
-// It uses a combination of buttons and input fields to allow for easy interaction and data management.
