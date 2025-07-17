@@ -3,7 +3,9 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ChangeEvent } from "react";
 
+// 🔧 INTERFACES & TYPES
 export interface TechSpecs {
   performanceSpec?: Record<string, any>;
   efficiencySpec?: Record<string, any>;
@@ -20,14 +22,25 @@ interface TechSpecsFormProps {
   onSpecsChange: (specs: TechSpecs) => void;
 }
 
+interface FieldProps {
+  label: string;
+  value: string | number;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  type?: string;
+  step?: string;
+}
+
+// 헬 FONCTIONS UTILITAIRES
 const parseInputValue = (value: string, field: string): string | number | undefined => {
   if (value === "") return undefined;
+  // Champs qui doivent rester des chaînes de caractères
   if (field === "drive" || field.endsWith("Time")) return value;
 
   const num = parseFloat(value);
   return isNaN(num) ? undefined : num;
 };
 
+// Cette fonction peut rester exportée pour être utilisée dans la page parente
 export function cleanSpecs(specs: TechSpecs): TechSpecs {
   const cleanSection = (section?: Record<string, any>) => {
     if (!section) return undefined;
@@ -53,12 +66,35 @@ export function cleanSpecs(specs: TechSpecs): TechSpecs {
     safetyRating: cleanSection(specs.safetyRating),
   };
 
-  // Remove undefined values from the result
   return Object.fromEntries(
     Object.entries(result).filter(([_, v]) => v !== undefined)
   ) as TechSpecs;
 }
 
+// ✅ SOUS-COMPOSANTS STABLES (définis en dehors du composant principal)
+function SectionTitle({ title }: { title: string }) {
+  return (
+    <div className="md:col-span-2 mt-6 mb-2">
+      <h3 className="text-lg font-semibold text-gray-700">{title}</h3>
+    </div>
+  );
+}
+
+function Field({ label, value, onChange, type = "text", step }: FieldProps) {
+  return (
+    <div className="md:col-span-1">
+      <Label>{label}</Label>
+      <Input
+        type={type}
+        step={step}
+        value={value}
+        onChange={onChange}
+      />
+    </div>
+  );
+}
+
+// ✨ COMPOSANT PRINCIPAL
 export default function TechSpecsForm({ specs, onSpecsChange }: TechSpecsFormProps) {
   const handleChange = (
     section: keyof TechSpecs,
@@ -80,10 +116,9 @@ export default function TechSpecsForm({ specs, onSpecsChange }: TechSpecsFormPro
   const getValue = (section: keyof TechSpecs, field: string) => {
     const value = specs[section]?.[field];
     if (value === undefined || value === null) return "";
+    // Gère l'affichage des nombres pour éviter les décimales inutiles
     return typeof value === "number"
-      ? value % 1 === 0
-        ? value.toString()
-        : value.toFixed(2)
+      ? value.toString() // Laisser l'input gérer le formatage pour une meilleure UX
       : value;
   };
 
@@ -92,72 +127,39 @@ export default function TechSpecsForm({ specs, onSpecsChange }: TechSpecsFormPro
       <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4 p-6">
         {/* PERFORMANCE */}
         <SectionTitle title="Performance" />
-        <Field section="performanceSpec" field="totalPowerKw" label="Puissance (kW)" type="number" />
-        <Field section="performanceSpec" field="totalTorqueNm" label="Couple (Nm)" type="number" />
-        <Field section="performanceSpec" field="acceleration0100Sec" label="0–100 km/h (s)" type="number" step="0.1" />
-        <Field section="performanceSpec" field="topSpeedKmh" label="Vitesse max (km/h)" type="number" />
-        <Field section="performanceSpec" field="electricRangeKm" label="Autonomie électrique (km)" type="number" />
-        <Field section="performanceSpec" field="drive" label="Transmission" />
+        <Field label="Puissance (kW)" type="number" value={getValue("performanceSpec", "totalPowerKw")} onChange={(e) => handleChange("performanceSpec", "totalPowerKw", e.target.value)} />
+        <Field label="Couple (Nm)" type="number" value={getValue("performanceSpec", "totalTorqueNm")} onChange={(e) => handleChange("performanceSpec", "totalTorqueNm", e.target.value)} />
+        <Field label="0–100 km/h (s)" type="number" step="0.1" value={getValue("performanceSpec", "acceleration0100Sec")} onChange={(e) => handleChange("performanceSpec", "acceleration0100Sec", e.target.value)} />
+        <Field label="Vitesse max (km/h)" type="number" value={getValue("performanceSpec", "topSpeedKmh")} onChange={(e) => handleChange("performanceSpec", "topSpeedKmh", e.target.value)} />
+        <Field label="Autonomie électrique (km)" type="number" value={getValue("performanceSpec", "electricRangeKm")} onChange={(e) => handleChange("performanceSpec", "electricRangeKm", e.target.value)} />
+        <Field label="Transmission" value={getValue("performanceSpec", "drive")} onChange={(e) => handleChange("performanceSpec", "drive", e.target.value)} />
 
-        {/* EFFICIENCY */}
+        {/* EFFICACITÉ */}
         <SectionTitle title="Efficacité" />
-        <Field section="efficiencySpec" field="rangeKm" label="Autonomie WLTP (km)" type="number" />
-        <Field section="efficiencySpec" field="vehicleConsumptionWhKm" label="Conso. (Wh/km)" type="number" />
-        <Field section="efficiencySpec" field="ratedFuelEqL100km" label="Fuel Eq. (rated)" type="number" step="0.01" />
-        <Field section="efficiencySpec" field="vehicleFuelEqL100km" label="Fuel Eq. (vehicle)" type="number" step="0.01" />
+        <Field label="Autonomie WLTP (km)" type="number" value={getValue("efficiencySpec", "rangeKm")} onChange={(e) => handleChange("efficiencySpec", "rangeKm", e.target.value)} />
+        <Field label="Conso. (Wh/km)" type="number" value={getValue("efficiencySpec", "vehicleConsumptionWhKm")} onChange={(e) => handleChange("efficiencySpec", "vehicleConsumptionWhKm", e.target.value)} />
+        <Field label="Fuel Eq. (rated)" type="number" step="0.01" value={getValue("efficiencySpec", "ratedFuelEqL100km")} onChange={(e) => handleChange("efficiencySpec", "ratedFuelEqL100km", e.target.value)} />
+        <Field label="Fuel Eq. (vehicle)" type="number" step="0.01" value={getValue("efficiencySpec", "vehicleFuelEqL100km")} onChange={(e) => handleChange("efficiencySpec", "vehicleFuelEqL100km", e.target.value)} />
 
-        {/* CHARGING */}
+        {/* RECHARGE */}
         <SectionTitle title="Recharge" />
-        <Field section="chargingSpec" field="acPowerKW" label="Recharge AC (kW)" type="number" />
-        <Field section="chargingSpec" field="acChargeTime" label="Temps recharge AC (h)" />
-        <Field section="chargingSpec" field="dcMaxPowerKW" label="Recharge DC max (kW)" type="number" />
-        <Field section="chargingSpec" field="dcPower10to80KW" label="Recharge DC 10-80 (kW)" type="number" />
-        <Field section="chargingSpec" field="dcChargeSpeedKmH" label="Vitesse recharge DC (km/h)" type="number" />
+        <Field label="Recharge AC (kW)" type="number" value={getValue("chargingSpec", "acPowerKW")} onChange={(e) => handleChange("chargingSpec", "acPowerKW", e.target.value)} />
+        <Field label="Temps recharge AC (h)" value={getValue("chargingSpec", "acChargeTime")} onChange={(e) => handleChange("chargingSpec", "acChargeTime", e.target.value)} />
+        <Field label="Recharge DC max (kW)" type="number" value={getValue("chargingSpec", "dcMaxPowerKW")} onChange={(e) => handleChange("chargingSpec", "dcMaxPowerKW", e.target.value)} />
+        <Field label="Recharge DC 10-80 (kW)" type="number" value={getValue("chargingSpec", "dcPower10to80KW")} onChange={(e) => handleChange("chargingSpec", "dcPower10to80KW", e.target.value)} />
+        <Field label="Vitesse recharge DC (km/h)" type="number" value={getValue("chargingSpec", "dcChargeSpeedKmH")} onChange={(e) => handleChange("chargingSpec", "dcChargeSpeedKmH", e.target.value)} />
 
-        {/* BATTERY */}
+        {/* BATTERIE */}
         <SectionTitle title="Batterie" />
-        <Field section="batterySpec" field="nominalCapacity" label="Capacité nominale (kWh)" type="number" step="0.1" />
-        <Field section="batterySpec" field="useableCapacity" label="Capacité utile (kWh)" type="number" step="0.1" />
-        <Field section="batterySpec" field="nominalVoltage" label="Tension nominale (V)" type="number" />
+        <Field label="Capacité nominale (kWh)" type="number" step="0.1" value={getValue("batterySpec", "nominalCapacity")} onChange={(e) => handleChange("batterySpec", "nominalCapacity", e.target.value)} />
+        <Field label="Capacité utile (kWh)" type="number" step="0.1" value={getValue("batterySpec", "useableCapacity")} onChange={(e) => handleChange("batterySpec", "useableCapacity", e.target.value)} />
+        <Field label="Tension nominale (V)" type="number" value={getValue("batterySpec", "nominalVoltage")} onChange={(e) => handleChange("batterySpec", "nominalVoltage", e.target.value)} />
 
-        {/* DIMENSION */}
+        {/* DIMENSIONS */}
         <SectionTitle title="Dimensions" />
-        <Field section="dimensionSpec" field="turningCircleM" label="Rayon de braquage (m)" type="number" step="0.1" />
+        <Field label="Rayon de braquage (m)" type="number" step="0.1" value={getValue("dimensionSpec", "turningCircleM")} onChange={(e) => handleChange("dimensionSpec", "turningCircleM", e.target.value)} />
+
       </CardContent>
     </Card>
   );
-
-  function Field({
-    section,
-    field,
-    label,
-    type = "text",
-    step,
-  }: {
-    section: keyof TechSpecs;
-    field: string;
-    label: string;
-    type?: string;
-    step?: string;
-  }) {
-    return (
-      <div className="md:col-span-1">
-        <Label>{label}</Label>
-        <Input
-          type={type}
-          step={step}
-          value={getValue(section, field)}
-          onChange={(e) => handleChange(section, field, e.target.value)}
-        />
-      </div>
-    );
-  }
-
-  function SectionTitle({ title }: { title: string }) {
-    return (
-      <div className="md:col-span-2 mt-6 mb-2">
-        <h3 className="text-lg font-semibold text-gray-700">{title}</h3>
-      </div>
-    );
-  }
 }

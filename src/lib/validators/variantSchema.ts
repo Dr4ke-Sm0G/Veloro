@@ -165,3 +165,14 @@ export const VariantSchema = z.object({
 
   prices: z.array(PriceSchema).optional(),
 });
+
+export const TechSpecsSchema = VariantSchema.pick({
+  performanceSpec: true,
+  efficiencySpec: true,
+  chargingSpec: true,
+  batterySpec: true,
+  dimensionSpec: true,
+  realConsumption: true,
+  v2xSpec: true,
+  safetyRating: true,
+});
