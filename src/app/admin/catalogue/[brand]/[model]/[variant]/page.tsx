@@ -358,6 +358,7 @@ export default function VariantEditPage() {
           </TabsList>
 
           {/* Tabs Content */}
+
           <TabsContent value="basic" className="mt-6">
             <Card className="border-none shadow-none bg-transparent dark:bg-transparent">
               <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 sm:p-6">
@@ -393,15 +394,27 @@ export default function VariantEditPage() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="body-type" className="text-gray-700 dark:text-gray-300 mb-1 block">Type de carrosserie</Label>
-                  <Input
+                  <Label htmlFor="body-type" className="text-gray-700 dark:text-gray-300 mb-1 block">
+                    Type de carrosserie
+                  </Label>
+                  <select
                     id="body-type"
                     value={bodyType}
                     onChange={(e) => setBodyType(e.target.value)}
                     className="w-full border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-blue-500 focus:border-blue-500 rounded-md"
                     aria-label="Body type"
-                  />
+                  >
+                    <option value="">Sélectionnez un type</option>
+                    <option value="SUV">SUV</option>
+                    <option value="Hatchback">Hatchback</option>
+                    <option value="Sedan">Berline</option>
+                    <option value="Estate">Break</option>
+                    <option value="MPV">Monospace</option>
+                    <option value="Coupe">Coupé</option>
+                    <option value="Convertible">Cabriolet</option>
+                  </select>
                 </div>
+
               </CardContent>
             </Card>
           </TabsContent>

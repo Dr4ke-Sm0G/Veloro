@@ -25,11 +25,11 @@ interface TechSpecsFormProps {
 interface FieldProps {
   label: string;
   value: string | number;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => void;
   type?: string;
   step?: string;
-  // New prop to indicate if the field is displayed on the car page
   isDisplayedOnCarPage?: boolean;
+  options?: { value: string; label: string }[];
 }
 
 // 헬 FONCTIONS UTILITAIRES
@@ -46,7 +46,7 @@ const parseInputValue = (value: string, field: string): string | number | undefi
 export function cleanSpecs(specs: TechSpecs): TechSpecs {
   const cleanSection = (section?: Record<string, any>) => {
     if (!section) return undefined;
-    
+
     const cleaned: Record<string, any> = {};
     for (const key in section) {
       const val = section[key];
@@ -82,19 +82,37 @@ function SectionTitle({ title }: { title: string }) {
   );
 }
 
-function Field({ label, value, onChange, type = "text", step, isDisplayedOnCarPage }: FieldProps) {
+function Field({
+  label,
+  value,
+  onChange,
+  type = "text",
+  step,
+  isDisplayedOnCarPage,
+  options,
+}: FieldProps) {
   return (
     <div className={`md:col-span-1 ${isDisplayedOnCarPage ? 'border border-green-400 p-2 rounded-md' : ''}`}>
       <Label>{label}</Label>
-      <Input
-        type={type}
-        step={step}
-        value={value}
-        onChange={onChange}
-      />
+      {options ? (
+        <select
+          value={value}
+          onChange={onChange}
+          className="mt-1 block w-full border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-blue-500 focus:border-blue-500 rounded-md"
+        >
+          {options.map((opt) => (
+            <option key={opt.value} value={opt.value}>
+              {opt.label}
+            </option>
+          ))}
+        </select>
+      ) : (
+        <Input type={type} step={step} value={value} onChange={onChange} />
+      )}
     </div>
   );
 }
+
 
 // ✨ COMPOSANT PRINCIPAL
 export default function TechSpecsForm({ specs, onSpecsChange }: TechSpecsFormProps) {
@@ -153,8 +171,20 @@ export default function TechSpecsForm({ specs, onSpecsChange }: TechSpecsFormPro
         <Field label="0–100 km/h (s)" type="number" step="0.1" value={getValue("performanceSpec", "acceleration0100Sec")} onChange={(e) => handleChange("performanceSpec", "acceleration0100Sec", e.target.value)} isDisplayedOnCarPage={isFieldDisplayedOnCarPage("performanceSpec", "acceleration0100Sec")} />
         <Field label="Vitesse max (km/h)" type="number" value={getValue("performanceSpec", "topSpeedKmh")} onChange={(e) => handleChange("performanceSpec", "topSpeedKmh", e.target.value)} isDisplayedOnCarPage={isFieldDisplayedOnCarPage("performanceSpec", "topSpeedKmh")} />
         <Field label="Autonomie électrique (km)" type="number" value={getValue("performanceSpec", "electricRangeKm")} onChange={(e) => handleChange("performanceSpec", "electricRangeKm", e.target.value)} isDisplayedOnCarPage={isFieldDisplayedOnCarPage("performanceSpec", "electricRangeKm")} />
-        <Field label="Transmission" value={getValue("performanceSpec", "drive")} onChange={(e) => handleChange("performanceSpec", "drive", e.target.value)} isDisplayedOnCarPage={isFieldDisplayedOnCarPage("performanceSpec", "drive")} />
-
+        <Field
+          label="Transmission"
+          value={getValue("performanceSpec", "drive")}
+          onChange={(e) =>
+            handleChange("performanceSpec", "drive", (e.target as HTMLSelectElement).value)
+          }
+          options={[
+            { value: "", label: "Sélectionnez la transmission" },
+            { value: "REAR", label: "Propulsion (REAR)" },
+            { value: "FWD", label: "Traction (FWD)" },
+            { value: "AWD", label: "Intégrale (AWD)" },
+          ]}
+          isDisplayedOnCarPage={isFieldDisplayedOnCarPage("performanceSpec", "drive")}
+        />
         {/* EFFICACITÉ */}
         <SectionTitle title="Efficacité" />
         <Field label="Autonomie WLTP (km)" type="number" value={getValue("efficiencySpec", "rangeKm")} onChange={(e) => handleChange("efficiencySpec", "rangeKm", e.target.value)} isDisplayedOnCarPage={isFieldDisplayedOnCarPage("efficiencySpec", "rangeKm")} />
