@@ -142,6 +142,7 @@ export const variantRouter = router({
           prices: {
             orderBy: { country: "asc" },
           },
+          images: true,
         },
       });
     }),
@@ -229,6 +230,7 @@ export const variantRouter = router({
         },
         include: {
           model: { include: { brand: true } },
+          
           batterySpec: true,
           chargingSpec: true,
           performanceSpec: true,

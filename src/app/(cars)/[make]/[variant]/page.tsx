@@ -135,8 +135,6 @@ export default async function VariantPage({
               }}
             />
           </div>
-
-
           {/* Colonne droite sticky */}
           <div className="w-full lg:w-96 mt-10">
             <div className="sticky top-25">

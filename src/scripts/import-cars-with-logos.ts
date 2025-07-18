@@ -131,10 +131,33 @@ async function getOrCreateBrand(name: string): Promise<Brand> {
 // ──────────────────────────────────────
 const parseNumber = (val?: unknown): number | undefined => {
   if (typeof val !== 'string') return undefined;
-  if (!val || val.includes('No Data') || val.includes('-')) return undefined;
-  const cleaned = parseFloat(val.replace(/[^\d.,-]/g, '').replace(',', '.'));
-  return isNaN(cleaned) ? undefined : cleaned;
+  const str = val.trim();
+  if (!str || str.includes('No Data') || str.includes('-')) return undefined;
+
+  // 1. On retire les espaces et les symboles monétaires
+  let cleaned = str.replace(/\s+/g, '').replace(/[^\d.,-]/g, '');
+
+  // 2. On compte virgules et points
+  const commaCount = (cleaned.match(/,/g) || []).length;
+  const dotCount   = (cleaned.match(/\./g) || []).length;
+
+  // 3. Si plusieurs virgules, ou une virgule suivie de 3 chiffres (séparateur de milliers)
+  if (
+    commaCount > 1 ||
+    (commaCount === 1 && /,\d{3}$/.test(cleaned) && dotCount === 0)
+  ) {
+    // => on supprime toutes les virgules
+    cleaned = cleaned.replace(/,/g, '');
+  } else {
+    // => on considère la virgule comme décimale
+    cleaned = cleaned.replace(/,/g, '.');
+  }
+
+  // 4. On parse en float
+  const num = parseFloat(cleaned);
+  return isNaN(num) ? undefined : num;
 };
+
 
 function getField(obj: any, key: string): string | undefined {
   return obj?.[`${key} *`] ?? obj?.[key];
