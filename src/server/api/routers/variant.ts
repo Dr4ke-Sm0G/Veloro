@@ -3,6 +3,7 @@ import { router, publicProcedure } from "@/server/trpc";
 import { prisma } from "@/server/db";
 import { Prisma } from "@prisma/client";
 
+
 type VariantPreviewInput = Prisma.VariantGetPayload<{
   include: {
     model: {
@@ -15,6 +16,7 @@ type VariantPreviewInput = Prisma.VariantGetPayload<{
     chargingSpec: true;
     dimensionSpec: true;
     prices: true;
+    
   };
 }>;
 
@@ -24,6 +26,12 @@ type VariantPreviewInput = Prisma.VariantGetPayload<{
 const WATT_TO_KW = 1 / 1_000;
 const KW_WATTS_THRESHOLD = 600;
 const PRICE_THOUSAND_THRESHOLD = 300;
+
+const toNum = (d?: Prisma.Decimal | number | null): number | null => {
+  if (d == null) return null;
+  if (typeof d === "number") return d;
+  return d instanceof Prisma.Decimal ? d.toNumber() : null;
+}; 
 
 function formatPrice(raw: number, country: string) {
   return country === "United Kingdom"
@@ -57,6 +65,9 @@ function mapVariantToCardPreview(v: VariantPreviewInput) {
     id: v.id,
     name: `${v.model.brand.name} ${v.model.name}`,
     trim: v.name,
+    year: v.year,
+    bodyType: v.bodyType,
+    transmission: v.drive,                        // ✚ année
     slug: slugify(v.name),
     rangeKm: v.efficiencySpec?.rangeKm ?? null,
     powerKw: kWint || null,
@@ -73,6 +84,97 @@ function mapVariantToCardPreview(v: VariantPreviewInput) {
   };
 }
 
+type VariantFullInput = Prisma.VariantGetPayload<{
+  include: {
+    model: { include: { brand: true } };
+    performanceSpec: true;
+    batterySpec: true;
+    chargingSpec: true;
+    dimensionSpec: true;
+    v2xSpec: true;
+    efficiencySpec: true;
+    prices: true;
+  };
+}>;
+
+export function mapVariantToComparison(v: VariantFullInput) {
+  const perf = v.performanceSpec;
+  const bat = v.batterySpec;
+  const ch = v.chargingSpec;
+  const dim = v.dimensionSpec;
+  const v2x = v.v2xSpec;
+  const eff = v.efficiencySpec;
+  const best = v.prices[0];
+
+  // Calcul puissance
+  let kW = toNum(perf?.totalPowerKw) ?? 0;
+  if (kW > KW_WATTS_THRESHOLD) kW *= WATT_TO_KW;
+  const kWint = Math.round(kW);
+  const hp = kW ? Math.round(kW * 1.341) : null;
+
+  // Format prix
+  let priceStr = "N/A";
+  if (best?.price != null) {
+    let raw = Number(best.price);
+    if (raw < PRICE_THOUSAND_THRESHOLD) raw *= 1000;
+    priceStr = formatPrice(raw, best.country);
+  }
+
+  return {
+    id: v.id,
+    trim: v.name,
+    year: v.year,
+    brandName: v.model.brand.name,
+    modelName: v.model.name,
+    price: priceStr,
+    bodyType: v.bodyType,
+
+    performanceSpec: {
+      acceleration0100Sec: toNum(perf?.acceleration0100Sec),
+      topSpeedKmh: toNum(perf?.topSpeedKmh),
+      electricRangeKm: toNum(perf?.electricRangeKm),
+      totalPowerKw: kWint || null,
+      totalTorqueNm: toNum(perf?.totalTorqueNm),
+      drive: v.drive ?? null,
+    },
+
+    batterySpec: {
+      useableCapacity: toNum(bat?.useableCapacity),
+      architecture: bat?.architecture ?? null,
+      warrantyPeriod: bat?.warrantyPeriod ?? null,
+      warrantyMileage: bat?.warrantyMileage ?? null,
+    },
+
+    chargingSpec: {
+      acPowerKW: toNum(ch?.acPowerKW),
+      dcMaxPowerKW: toNum(ch?.dcMaxPowerKW),
+      dcChargeSpeedKmH: toNum(ch?.dcChargeSpeedKmH),
+      preconditioningNav: ch?.preconditioningNav ?? null,
+    },
+
+    dimensionSpec: {
+      seats: dim?.seats ?? null,
+      lengthMm: dim?.lengthMm ?? null,
+      widthMm: dim?.widthMm ?? null,
+      heightMm: dim?.heightMm ?? null,
+      weightUnladenKg: dim?.weightUnladenKg ?? null,
+      cargoVolumeL: dim?.cargoVolumeL ?? null,
+      frunkVolumeL: dim?.frunkVolumeL ?? null,
+      towingWeightBrakedKg: dim?.towingWeightBrakedKg ?? null,
+      towHitchPossible: dim?.towHitchPossible ?? null,
+      heatPump: dim?.heatPump ?? null,
+      evDedicatedPlatform: dim?.evDedicatedPlatform ?? null,
+    },
+
+    v2xSpec: {
+      v2lSupported: v2x?.v2lSupported ?? null,
+    },
+
+    efficiencySpec: {
+      vehicleConsumptionWhKm: toNum(eff?.vehicleConsumptionWhKm),
+    },
+  };
+}
 /* ────────────────────────────────────
  * Router
  * ──────────────────────────────────*/
@@ -405,4 +507,26 @@ getBodyTypesWithCounts: publicProcedure.query(async () => {
   }));
 }),
 
+
+ getVariantsByIds: publicProcedure
+    .input(z.object({ ids: z.array(z.string()).max(3) }))
+    .query(async ({ ctx, input }) => {
+      const raws = await ctx.prisma.variant.findMany({
+        where: { id: { in: input.ids } },
+        include: {
+          model: { include: { brand: true } },
+          performanceSpec: true,
+          batterySpec: true,
+          chargingSpec: true,
+          dimensionSpec: true,
+          v2xSpec: true,
+          efficiencySpec: true,
+          prices: true,
+        },
+      });
+      // on renvoie des ComparisonVariant[]
+      return raws.map(mapVariantToComparison);
+    }),
 });
+
+

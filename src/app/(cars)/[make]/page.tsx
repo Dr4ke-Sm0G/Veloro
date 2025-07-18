@@ -3,6 +3,7 @@
 import { useParams } from "next/navigation";
 import { trpc } from "@/lib/trpc";
 import CarCard from "@/components/cars/CarCard";
+import ComparisonBar from "@/components/comparison/ComparisonBar";
 
 export default function BrandPage() {
   const { make } = useParams() as { make: string };
