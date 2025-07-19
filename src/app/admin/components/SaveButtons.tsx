@@ -1,16 +1,36 @@
-// SaveButtons “simple”
 import { Button } from "@/components/ui/button";
 import { Save, Upload } from "lucide-react";
 
-export default function SaveButtons({ loading }: { loading?: boolean }) {
+interface SaveButtonsProps {
+  onSave: () => void;
+  onPublish: () => void;
+  loading?: boolean;
+}
+
+export default function SaveButtons({
+  onSave,
+  onPublish,
+  loading,
+}: SaveButtonsProps) {
   return (
     <div className="flex gap-2">
-<Button
-  type="submit"
-  onClick={() => console.log("👉 BOUTON CLIQUÉ")}
->
-  Enregistrer
-</Button>
+      <Button
+        onClick={onSave}
+        disabled={loading}
+        className="flex items-center gap-2"
+      >
+        <Save className="w-4 h-4" />
+        Enregistrer
+      </Button>
+      <Button
+        variant="secondary"
+        onClick={onPublish}
+        disabled={loading}
+        className="flex items-center gap-2"
+      >
+        <Upload className="w-4 h-4" />
+        Publier
+      </Button>
     </div>
   );
 }

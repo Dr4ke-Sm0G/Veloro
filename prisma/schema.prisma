@@ -432,11 +432,14 @@ model Article {
 }
 
 model Category {
-  id         String     @id @default(cuid())
-  name       String     @unique
-  slug       String     @unique
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+  description String?  // Added: Optional description field
+  image       String?  // Added: Optional URL for the category image
+  visible     Boolean  @default(true) // Added: Boolean to control public visibility
 
-  articles   Article[] // ✅ aucune annotation ici non plus
+  articles    Article[] // Assuming you have an Article model that links to Category
 }
 
 /// ----------------------------
