@@ -51,40 +51,41 @@ export default async function Home() {
         items={items}
       />
 
+      {/*
+<ContentGridSection
+  title="Popular in-depth reviews"
+  bg="dark"
+  buttonLabel="Read more reviews"
+  buttonHref="/reviews"
+  items={[
+    {
+      img: "images/daciaspring.jpg",
+      title: "Dacia Spring",
+      href: "#",
+      badge: "9/10",
+    },
+    {
+      img: "images/daciaspring.jpg",
+      title: "Dacia Spring",
+      href: "#",
+      badge: "9/10",
+    },
+    {
+      img: "images/2025-bmw-m5.avif",
+      title: "BMW Starge X",
+      href: "#",
+      badge: "9/10",
+    },
+    {
+      img: "images/byd.jpg",
+      title: "BYD Seal Review",
+      href: "#",
+      badge: "9/10",
+    },
+  ]}
+/>
+*/}
 
-      {/* Reviews section */}
-      <ContentGridSection
-        title="Popular in-depth reviews"
-        bg="dark"
-        buttonLabel="Read more reviews"
-        buttonHref="/reviews"
-        items={[
-          {
-            img: "images/daciaspring.jpg",
-            title: "Dacia Spring",
-            href: "#",
-            badge: "9/10",
-          },
-          {
-            img: "images/daciaspring.jpg",
-            title: "Dacia Spring",
-            href: "#",
-            badge: "9/10",
-          },
-          {
-            img: "images/2025-bmw-m5.avif",
-            title: "BMW Starge X",
-            href: "#",
-            badge: "9/10",
-          },
-          {
-            img: "images/byd.jpg",
-            title: "BYD Seal Review",
-            href: "#",
-            badge: "9/10",
-          },
-        ]}
-      />
       <ContentGridSection
         title="Latest videos"
         bg="dark"

@@ -13,6 +13,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
+// Définir les liens avec leurs hrefs correspondants
+const navLinks = [
+  { label: "Electric", href: "/search" }, // Assurez-vous que cette page existe
+  { label: "Hybrid", href: "#" },     // Assurez-vous que cette page existe
+  { label: "Compare", href: "/compare" },   // Le lien vers la page de comparaison
+ // { label: "Reviews", href: "#" },   // Assurez-vous que cette page existe
+  { label: "News", href: "/news" },         // Le lien vers la page d'actualités
+];
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -22,7 +31,6 @@ export default function Navbar() {
 
   // pour l’effet de scroll
   useEffect(() => {
-    import("flowbite");
     const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     handleScroll();
@@ -54,13 +62,13 @@ export default function Navbar() {
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex items-center space-x-6 font-medium">
-          {["Electric", "Hybrid", "Compare", "Reviews", "News"].map((item) => (
-            <li key={item}>
+          {navLinks.map((item) => ( // Utilisez navLinks ici
+            <li key={item.label}>
               <Link
-                href="#"
+                href={item.href} // <--- LIEN MIS À JOUR ICI
                 className="block py-2 px-3 rounded transition hover:text-blue-600 dark:hover:text-blue-400"
               >
-                {item}
+                {item.label}
               </Link>
             </li>
           ))}
@@ -124,14 +132,14 @@ export default function Navbar() {
         {menuOpen && (
           <div className="absolute top-full left-0 w-full bg-white dark:bg-gray-900 shadow-md md:hidden">
             <ul className="flex flex-col space-y-2 p-4">
-              {["Electric", "Hybrid", "Compare", "Reviews", "News"].map((item) => (
-                <li key={item}>
+              {navLinks.map((item) => ( // Utilisez navLinks ici
+                <li key={item.label}>
                   <Link
-                    href="#"
+                    href={item.href} // <--- LIEN MIS À JOUR ICI
                     onClick={() => setMenuOpen(false)}
                     className="block py-2 px-3 rounded transition hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
-                    {item}
+                    {item.label}
                   </Link>
                 </li>
               ))}
@@ -165,7 +173,7 @@ export default function Navbar() {
   );
 }
 
-// Composants auxiliaires
+// Composants auxiliaires (inchangés)
 function LanguageDropdown({ inMobile = false, onSelect }: { inMobile?: boolean; onSelect?: () => void }) {
   const langs = [
     { lang: "English (US)", flag: "🇺🇸" },
