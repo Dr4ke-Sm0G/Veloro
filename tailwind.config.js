@@ -6,8 +6,7 @@ module.exports = {
             "./node_modules/flowbite-react/**/*.js"],
   theme: { extend: {
     fontFamily: {
-      walsheim: ['"GT Walsheim"', 'sans-serif'],
-    },
+        sans: ['var(--font-inter)', 'ui-sans-serif', 'system-ui'],    },
   } },
   corePlugins: {
     preflight: true,
@@ -16,6 +15,5 @@ module.exports = {
   plugins: [  require('flowbite/plugin')],
 };
 export default {
-  darkMode: false, // désactive complètement
-  // ou "media" si tu veux forcer le dark uniquement par préférences système
+  darkMode: false, 
 }

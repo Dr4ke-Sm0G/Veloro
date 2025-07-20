@@ -1,10 +1,11 @@
 // src/server/auth.ts
-import { PrismaAdapter } from "@auth/prisma-adapter";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { type AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { compare } from "bcryptjs";
 import { prisma } from "@/server/db";
+import { Role } from "@prisma/client";   
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -36,28 +37,13 @@ export const authOptions: AuthOptions = {
     }),
   ],
   pages: {
-    signIn: "/(auth)/login",
+    signIn: "/login",
   },
   session: {
     strategy: "jwt",
   },
   callbacks: {
-    async signIn({ user, account }) {
-      if (account?.provider === "google" && user.email) {
-        const existingUser = await prisma.user.findUnique({
-          where: { email: user.email },
-        });
-
-        // Détection d'un nouvel utilisateur Google
-        if (!existingUser) {
-          // L'utilisateur sera automatiquement créé par PrismaAdapter
-          // On peut marquer le flag "isNewUser" dans le token via jwt()
-          return true;
-        }
-      }
-
-      return true;
-    },
+    // → Ajoute token.role ici
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
@@ -65,13 +51,16 @@ export const authOptions: AuthOptions = {
           typeof user.image === "string" && user.image.startsWith("data:image")
             ? null
             : user.image || null;
+        token.role = (user as any).role as Role;  // ← **nouveau**
       }
       return token;
     },
+    // → Expose role dans session.user
     async session({ session, token }) {
-      if (token?.sub && session.user) {
-        session.user.id = token.sub;
-        session.user.image = token.picture ?? null;
+      if (session.user) {
+        session.user.id = token.sub!;
+        session.user.image = token.picture as string | null;
+        session.user.role = token.role as Role;  
       }
       return session;
     },

@@ -13,21 +13,28 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
-// Définir les liens avec leurs hrefs correspondants
-const navLinks = [
-  { label: "Electric", href: "/search" }, // Assurez-vous que cette page existe
-  { label: "Hybrid", href: "#" },     // Assurez-vous que cette page existe
-  { label: "Compare", href: "/compare" },   // Le lien vers la page de comparaison
- // { label: "Reviews", href: "#" },   // Assurez-vous que cette page existe
-  { label: "News", href: "/news" },         // Le lien vers la page d'actualités
-];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { theme } = useTheme();
   const { data: session, status } = useSession();
+
+   // 👤 Premier prénom pour le dropdown
   const userFirstName = session?.user?.name?.split(" ")[0] ?? "";
+
+  // 🛂 Est‑ce un administrateur ?
+  const isAdmin = session?.user?.role === "ADMIN";
+
+// Définir les liens avec leurs hrefs correspondants
+const navLinks = [
+  { label: "Electric", href: "/search" }, // Assurez-vous que cette page existe
+  { label: "Hybrid", href: "#" },     // Assurez-vous que cette page existe
+  { label: "Compare", href: "/compare" },   // Le lien vers la page de comparaison
+ // { label: "Reviews", href: "#" },   // Assurez-vous que cette page existe
+  { label: "News", href: "/news" },
+    ...(isAdmin ? [{ label: "Admin", href: "/admin" }] : []),
+  ];
 
   // pour l’effet de scroll
   useEffect(() => {
@@ -38,7 +45,6 @@ export default function Navbar() {
   }, []);
 
   const isDark = theme === "dark";
-
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300
@@ -89,7 +95,8 @@ export default function Navbar() {
             <Button
               variant="ghost"
               onClick={() => signIn()}
-              className="text-sm font-medium px-4 py-2"
+              className="text-sm font-medium px-4 py-2 font-sans"
+              
             >
               Login
             </Button>
