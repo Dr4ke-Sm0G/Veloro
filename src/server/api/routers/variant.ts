@@ -183,7 +183,7 @@ export const variantRouter = router({
    * 🔍 Liste des variantes récentes (ex: page d’accueil)
    */
   listPreview: publicProcedure
-    .input(z.object({ limit: z.number().min(1).max(100).default(12) }).optional())
+  .input(z.object({ limit: z.number().min(1).max(100).default(12) }))
     .query(async ({ input }) => {
       const limit = input?.limit ?? 12;
 

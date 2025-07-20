@@ -1,5 +1,7 @@
+// page.tsx
 "use client";
 
+import { useEffect, useState } from "react";
 import { trpc } from "@/lib/trpc";
 import type { inferRouterOutputs } from "@trpc/server";
 import type { AppRouter } from "@/server/api/root";
@@ -12,14 +14,49 @@ import HeroBanner from "@/components/sections/HeroBanner";
 import QuickCategories from "@/components/sections/QuickCategories";
 import DealsSection from "@/components/sections/DealsSection";
 import Testimonials from "@/components/sections/Testimonials";
-import { getLatestArticles } from "@/lib/api";
+
+// No longer importing getLatestArticles directly here as it's a server function
 
 /** Type d’un élément renvoyé par listPreview */
 type VariantPreview = inferRouterOutputs<AppRouter>["variant"]["listPreview"][number];
 
-export default async function Home() {
+// Define a type for your articles if you haven't already
+type Article = {
+  id: string;
+  title: string;
+  slug: string;
+  coverImage: string | null;
+};
+
+export default function Home() {
   const { data = [], isLoading } = trpc.variant.listPreview.useQuery({ limit: 3 });
-  const articles = await getLatestArticles(6);
+
+  const [articles, setArticles] = useState<Article[]>([]); // State to hold articles
+  const [articlesLoading, setArticlesLoading] = useState(true); // State to manage loading
+  const [articlesError, setArticlesError] = useState<string | null>(null); // State for error handling
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        setArticlesLoading(true);
+        setArticlesError(null);
+        // Fetch from your new API route
+        const response = await fetch('/api/articles/latest?limit=6'); 
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data: Article[] = await response.json();
+        setArticles(data);
+      } catch (error: any) {
+        console.error("Error fetching articles:", error);
+        setArticlesError("Failed to load latest news. Please try again later.");
+      } finally {
+        setArticlesLoading(false);
+      }
+    };
+
+    fetchArticles();
+  }, []); // Empty dependency array means this runs once on mount
 
   const items = articles.map((article) => ({
     img: article.coverImage ?? "/placeholder.jpg",
@@ -32,7 +69,7 @@ export default async function Home() {
       {/* Hero Section */}
       <HeroBanner />
 
-      {/* Catégories rapides */}
+      {/* Quick Categories */}
       <QuickCategories />
 
       {/* Deals section */}
@@ -41,50 +78,22 @@ export default async function Home() {
       {/* Testimonials section */}
       <Testimonials />
 
-
       {/* News section */}
-      <ContentGridSection
-        title="Latest car news"
-        bg="dark"
-        buttonLabel="View more car news"
-        buttonHref="/news"
-        items={items}
-      />
+      {articlesError ? (
+        <div className="text-red-500 text-center py-8">{articlesError}</div>
+      ) : articlesLoading ? (
+        <div className="py-8 text-center text-gray-500">Loading latest car news...</div> 
+      ) : (
+        <ContentGridSection
+          title="Latest car news"
+          bg="dark"
+          buttonLabel="View more car news"
+          buttonHref="/news"
+          items={items}
+        />
+      )}
 
-      {/*
-<ContentGridSection
-  title="Popular in-depth reviews"
-  bg="dark"
-  buttonLabel="Read more reviews"
-  buttonHref="/reviews"
-  items={[
-    {
-      img: "images/daciaspring.jpg",
-      title: "Dacia Spring",
-      href: "#",
-      badge: "9/10",
-    },
-    {
-      img: "images/daciaspring.jpg",
-      title: "Dacia Spring",
-      href: "#",
-      badge: "9/10",
-    },
-    {
-      img: "images/2025-bmw-m5.avif",
-      title: "BMW Starge X",
-      href: "#",
-      badge: "9/10",
-    },
-    {
-      img: "images/byd.jpg",
-      title: "BYD Seal Review",
-      href: "#",
-      badge: "9/10",
-    },
-  ]}
-/>
-*/}
+      {/* ... rest of your components ... */}
 
       <ContentGridSection
         title="Latest videos"
@@ -113,7 +122,6 @@ export default async function Home() {
           },
         ]}
       />
-
 
       <ContentGridSection
         icon={<svg
