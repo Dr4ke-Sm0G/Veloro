@@ -129,7 +129,7 @@ export default function NewArticlePage() {
                     throw new Error(`Upload failed: ${uploadResponse.statusText}. Details: ${errorDetails}`);
                 }
                 const uploadData = await uploadResponse.json();
-                
+
                 // Ensure the URL exists and is a string
                 if (uploadData && typeof uploadData.url === 'string' && uploadData.url.trim() !== '') {
                     coverImageUrl = uploadData.url;
@@ -179,7 +179,7 @@ export default function NewArticlePage() {
     if (isLoadingCategories) {
         return <div className="min-h-screen flex items-center justify-center text-gray-700 dark:text-gray-300">Loading categories...</div>;
     }
-
+    const data = categories?.categories ?? [];
     return (
         <div className="flex flex-col min-h-screen p-8 bg-gray-50 dark:bg-gray-950">
             {/* Back Button */}
@@ -297,11 +297,14 @@ export default function NewArticlePage() {
                                         <SelectTrigger className="w-full mt-1">
                                             <SelectValue placeholder="Select a category" />
                                         </SelectTrigger>
+
                                         <SelectContent>
-                                            {categories?.length === 0 ? (
-                                                <SelectItem value="no-categories" disabled>No categories available</SelectItem>
+                                            {data.length === 0 ? (
+                                                <SelectItem value="no-categories" disabled>
+                                                    No categories available
+                                                </SelectItem>
                                             ) : (
-                                                categories?.map((category) => (
+                                                data.map((category) => (
                                                     <SelectItem key={category.id} value={category.id}>
                                                         {category.name}
                                                     </SelectItem>

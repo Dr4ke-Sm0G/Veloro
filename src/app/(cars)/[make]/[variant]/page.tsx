@@ -4,6 +4,8 @@ import Image from "next/image";
 import CarFeaturesSection from "@/components/sections/CarFeaturesSection";
 import CarImageDisplay from "@/components/sections/CarImageDisplay";
 import VariantCompareButton from "@/components/comparison/VariantCompareButton";
+import type { Metadata, ResolvingMetadata } from "next";
+
 
 function toNumber(value?: any): number | undefined {
   if (!value) return undefined;
@@ -30,12 +32,18 @@ function serializeDecimal(value: any): any {
   return value;
 }
 
-export default async function VariantPage({
-  params,
-}: {
-  params: { make: string; variant: string };
-}) {
-  const { make, variant } =  params;
+export async function generateMetadata(
+  { params }: { params: Promise<{ make: string; variant: string }> },
+  _parent: ResolvingMetadata
+): Promise<Metadata> {
+  const { make, variant } = await params;  
+  return { title: `${make.toUpperCase()} ${variant}` };
+}
+
+export default async function VariantPage(
+  { params }: { params: Promise<{ make: string; variant: string }> }
+) {
+  const { make, variant } = await params;     
 
   const caller = await serverClient();
   const data = await caller.variant.getByBrandAndVariant({ brand: make, variant });
@@ -184,15 +192,4 @@ export default async function VariantPage({
       </div>
     </div>
   );
-}
-
-export async function generateMetadata({
-  params,
-}: {
-  params: { make: string; variant: string };
-}) {
-  const { make, variant } =  params;
-  return {
-    title: `${make.toUpperCase()} ${variant} ${variant}`,
-  };
 }

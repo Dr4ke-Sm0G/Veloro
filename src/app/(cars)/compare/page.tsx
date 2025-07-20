@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { api } from "@/utils/api";
 import ComparisonTable from "@/components/cars/ComparisonTable";
 import CarSelectCombobox from "@/components/cars/CarSelectCombobox";
 
-export default function ComparePage() {
+function CompareContent() {
   const searchParams = useSearchParams();
   const idsFromUrl = searchParams.get("ids")?.split(",").filter(Boolean) ?? [];
 
@@ -29,10 +29,9 @@ export default function ComparePage() {
 
   // Si l'URL change, on recharge les IDs (utile pour bouton "Comparer")
   useEffect(() => {
-    if (idsFromUrl.length > 0) {
-      setSelectedIds(idsFromUrl);
-    }
-  }, [searchParams]);
+    if (idsFromUrl.length > 0) setSelectedIds(idsFromUrl);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);               // searchParams is stable; fine for Next
 
   return (
     <div className="p-8 space-y-6">
@@ -63,5 +62,12 @@ export default function ComparePage() {
         <ComparisonTable variants={variants} />
       )}
     </div>
+  );
+}
+export default function ComparePage() {
+  return (
+    <Suspense fallback={<div className="p-8">Chargement…</div>}>
+      <CompareContent />
+    </Suspense>
   );
 }

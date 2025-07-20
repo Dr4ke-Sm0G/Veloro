@@ -1,14 +1,34 @@
 // app/(main)/news/[slug]/page.tsx
 
 import { notFound } from "next/navigation";
-import { Metadata } from "next";
+import { Metadata,ResolvingMetadata  } from "next";
 import { getArticleBySlug } from "@/lib/api";
 import Image from "next/image";
 import Link from "next/link";
 
 
-export default async function ArticlePage({ params }: { params: { slug: string } }) {
-  const { slug } =  params;
+export async function generateMetadata(
+  { params }: { params: Promise<{ slug: string }> },
+  _parent: ResolvingMetadata
+): Promise<Metadata> {
+  const { slug } = await params;        
+
+  const article = await getArticleBySlug(slug);
+  if (!article) return {};
+
+  return {
+    title: article.title,
+    description: article.excerpt ?? undefined,
+    openGraph: {
+      title: article.title,
+      description: article.excerpt ?? undefined,
+      images: article.coverImage ? [article.coverImage] : [],
+    },
+  };
+}
+
+export default async function ArticlePage({ params }: { params: Promise<{ slug : string }>}) {
+  const { slug } = await params;
 
   const article = await getArticleBySlug(slug);
   if (!article) return notFound();
@@ -95,22 +115,3 @@ export default async function ArticlePage({ params }: { params: { slug: string }
   );
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
-  const { slug } =  params;
-  const article = await getArticleBySlug(slug);
-  if (!article) return {};
-
-  return {
-    title: article.title,
-    description: article.excerpt ?? undefined,
-    openGraph: {
-      title: article.title,
-      description: article.excerpt ?? undefined,
-      images: article.coverImage ? [article.coverImage] : [],
-    },
-  };
-}

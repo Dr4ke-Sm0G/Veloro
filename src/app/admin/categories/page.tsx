@@ -35,7 +35,6 @@ export default function AdminCategoriesListPage() {
         // Keep previous data when fetching new pages (e.g., on search)
         // This is useful if you want to display results as they load or if a search updates an existing list
         // You might consider removing this if you always want a fresh search result
-        keepPreviousData: true,
       }
     );
 

@@ -3,36 +3,47 @@ import { notFound } from 'next/navigation';
 import { serverClient } from "@/lib/trpc/server";
 import { CategoryForm } from '@/components/forms/CategoryForm';
 import { Separator } from '@/components/ui/separator';
-import { Metadata } from 'next';
+import type { Metadata, ResolvingMetadata } from "next";
 
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const { slug } = params;
+export async function generateMetadata(
+  { params }: { params: Promise<{ slug: string }> },
+  _parent: ResolvingMetadata
+): Promise<Metadata> {
+  const { slug } = await params;                     // ✅ on attend le proxy
 
   try {
     const category = await (await serverClient()).category.getBySlug({ slug });
+
     return {
-      title: `Modifier: ${category.name} - Admin`,
+      title: `Modifier : ${category.name} - Admin`,
       description: `Modifier les détails de la catégorie ${category.name}.`,
     };
   } catch (error) {
     console.error(`Error generating metadata for slug ${slug}:`, error);
+
     return {
-      title: 'Modifier Catégorie - Admin',
-      description: 'Modifier une catégorie existante.',
+      title: "Modifier Catégorie - Admin",
+      description: "Modifier une catégorie existante.",
     };
   }
 }
 
-export default async function EditCategoryPage({ params }: { params: { slug: string } }) {
-  const slug = params.slug;
-  let categoryData;
+export default async function EditCategoryPage(
+  { params }: { params: Promise<{ slug: string }> }
+) {
 
+  const { slug } = await params;        
+
+  let categoryData;
   try {
-    categoryData = await (await serverClient()).category.getBySlug({ slug });
+    const caller = await serverClient();
+    categoryData = await caller.category.getBySlug({ slug });
+
+    if (!categoryData) return notFound();     
   } catch (error) {
-    console.error(`Failed to load category with slug ${slug}:`, error);
-    notFound();
+    console.error(`Failed to load category with slug "${slug}":`, error);
+    return notFound();                        
   }
 
   return (

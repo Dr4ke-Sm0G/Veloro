@@ -2,13 +2,29 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/server/db";
 import ContentGridSection from "@/components/sections/ContentGridSection";
 import Image from "next/image";
+import { Metadata,ResolvingMetadata  } from "next";
 
-export default async function CategoryPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const { slug } = params;
+
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ slug: string }> },
+  _parent: ResolvingMetadata
+): Promise<Metadata> {
+  const { slug } = await params;
+
+  const category = await prisma.category.findUnique({ where: { slug } });
+  if (!category) return {};
+
+  return {
+    title: `Catégorie : ${category.name}`,
+    description:
+      category.description ??
+      `Explorez les dernières actualités et articles dans ${category.name}`,
+  };
+}
+
+export default async function CategoryPage({ params }: { params: Promise<{ slug : string }>}) {
+  const { slug } = await params;
 
   const category = await prisma.category.findUnique({
     where: { slug },
@@ -65,20 +81,3 @@ export default async function CategoryPage({
   );
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const { slug } = params;
-
-  const category = await prisma.category.findUnique({ where: { slug } });
-  if (!category) return {};
-
-  return {
-    title: `Catégorie : ${category.name}`,
-    description:
-      category.description ||
-      `Explorez les dernières actualités et articles dans ${category.name}`,
-  };
-}
