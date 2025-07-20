@@ -1,15 +1,16 @@
+export const runtime = "nodejs";
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 // app/api/variants/[variantId]/images/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import formidable from 'formidable';
 import fs from 'fs';
 import { saveCarImage } from '@/utils/image-manager'; // Assuming this path is correct
 
-// Set config to disable Next.js body parser, so formidable can handle it
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+
 
 export async function POST(
   req: NextRequest,
