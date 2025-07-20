@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function HeroBanner() {
   return (
     <section
@@ -15,12 +17,12 @@ export default function HeroBanner() {
           </h1>
 
           <div className="mt-8">
-            <a
+            <Link
               href="/search"
               className="bg-cyan-400 hover:bg-cyan-500 text-black font-semibold px-6 py-3 rounded-lg transition"
             >
               Find Your Perfect Car
-            </a>
+            </Link>
           </div>
         </div>
       </div>

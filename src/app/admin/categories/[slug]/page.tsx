@@ -5,25 +5,17 @@ import { CategoryForm } from '@/components/forms/CategoryForm';
 import { Separator } from '@/components/ui/separator';
 import { Metadata } from 'next';
 
-interface EditCategoryPageProps {
-  params: {
-    slug: string;
-  };
-}
 
-// Generate metadata dynamically (optional, but good for SEO/UX)
-export async function generateMetadata(props: EditCategoryPageProps): Promise<Metadata> {
-  const { slug } = await props.params; // 
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const { slug } = params;
+
   try {
-
-    // Use serverClient to fetch data for metadata
     const category = await (await serverClient()).category.getBySlug({ slug });
     return {
       title: `Modifier: ${category.name} - Admin`,
       description: `Modifier les détails de la catégorie ${category.name}.`,
     };
   } catch (error) {
-    // If category not found or error, provide a generic title
     console.error(`Error generating metadata for slug ${slug}:`, error);
     return {
       title: 'Modifier Catégorie - Admin',
@@ -32,12 +24,11 @@ export async function generateMetadata(props: EditCategoryPageProps): Promise<Me
   }
 }
 
-export default async function EditCategoryPage({ params }: EditCategoryPageProps) {
-  const slug = (await params).slug;
+export default async function EditCategoryPage({ params }: { params: { slug: string } }) {
+  const slug = params.slug;
   let categoryData;
 
   try {
-    // Use serverClient to fetch data for the page
     categoryData = await (await serverClient()).category.getBySlug({ slug });
   } catch (error) {
     console.error(`Failed to load category with slug ${slug}:`, error);
@@ -52,8 +43,6 @@ export default async function EditCategoryPage({ params }: EditCategoryPageProps
         </h1>
       </div>
       <Separator className="mb-8" />
-
-      {/* Pass the fetched category data as initialData to the form */}
       <CategoryForm initialData={categoryData} />
     </div>
   );

@@ -33,9 +33,9 @@ function serializeDecimal(value: any): any {
 export default async function VariantPage({
   params,
 }: {
-  params: Promise<{ make: string; variant: string }>;
+  params: { make: string; variant: string };
 }) {
-  const { make, variant } = await params;
+  const { make, variant } =  params;
 
   const caller = await serverClient();
   const data = await caller.variant.getByBrandAndVariant({ brand: make, variant });
@@ -189,9 +189,9 @@ export default async function VariantPage({
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ make: string; variant: string }>;
+  params: { make: string; variant: string };
 }) {
-  const { make, variant } = await params;
+  const { make, variant } =  params;
   return {
     title: `${make.toUpperCase()} ${variant} ${variant}`,
   };

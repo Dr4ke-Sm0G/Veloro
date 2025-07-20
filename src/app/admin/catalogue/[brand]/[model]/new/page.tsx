@@ -263,7 +263,7 @@ export default function VariantCreatePage() {
                     for image upload separately, similar to the VariantEditPage.
                     For now, images will be uploaded as part of the variant creation. */}
                 <p className="text-gray-500 dark:text-gray-400 text-sm mt-4">
-                  Les images seront téléversées lorsque vous cliquerez sur "Créer la variante".
+                  Les images seront téléversées lorsque vous cliquerez sur Créer la variante.
                 </p>
               </CardContent>
             </Card>

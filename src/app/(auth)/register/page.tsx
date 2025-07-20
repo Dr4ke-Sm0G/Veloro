@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { api } from '@/utils/api'
+import { Link } from 'lucide-react'
 
 export default function RegisterPage() {
   const [email, setEmail] = useState('')
@@ -35,7 +36,7 @@ export default function RegisterPage() {
         <div className="hidden lg:flex flex-col justify-center items-center text-white bg-[#5EABD6] px-12 py-12 w-full lg:w-1/2 text-center">
           <h2 className="text-2xl font-bold mb-4">Welcome back!</h2>
           <p className="text-base max-w-xs">
-            We're so happy to have you here. It’s great to see you again. We hope you had a safe and enjoyable time away.
+              We&apos;re so happy to have you here. It&apos;s great to see you again. We hope you had a safe and enjoyable time away.
           </p>
         </div>
 
@@ -122,9 +123,9 @@ export default function RegisterPage() {
           </form>
 
           <div className="mt-4 text-center">
-            <a href="/login" className="text-sm text-gray-500 hover:text-cyan-600">
+            <Link href="/login" className="text-sm text-gray-500 hover:text-cyan-600">
               Already have an account? Sign in
-            </a>
+            </Link>
           </div>
         </div>
       </div>

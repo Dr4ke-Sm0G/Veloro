@@ -39,7 +39,7 @@ export default function Testimonials() {
                 ))}
               </div>
 
-              <p className="text-gray-700 mb-6 italic">"{text}"</p>
+              <p className="text-gray-700 mb-6 italic">{text}</p>
 
               <div className="mt-auto pt-4 border-t border-gray-100">
                 <p className="text-gray-900 font-semibold">{author}</p>

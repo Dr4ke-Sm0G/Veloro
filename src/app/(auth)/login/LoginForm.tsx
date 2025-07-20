@@ -4,6 +4,7 @@
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
@@ -121,7 +122,7 @@ export default function LoginForm() {
             <div className="mt-4">
               <div className="flex justify-between">
                 <label className="block text-gray-700 text-sm font-bold mb-2">Password</label>
-                <a href="#" className="text-xs text-gray-500">Forgot Password?</a>
+                <Link href="#" className="text-xs text-gray-500">Forgot Password?</Link>
               </div>
               <input
                 className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
@@ -145,7 +146,7 @@ export default function LoginForm() {
 
           <div className="mt-4 flex items-center justify-between">
             <span className="border-b w-1/5 md:w-1/4" />
-            <a href="/register" className="text-xs text-gray-500 uppercase">or sign up</a>
+<Link href="/register" className="text-xs text-gray-500 uppercase">or sign up</Link>
             <span className="border-b w-1/5 md:w-1/4" />
           </div>
         </div>

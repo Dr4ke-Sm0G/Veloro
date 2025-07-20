@@ -6,12 +6,9 @@ import { getArticleBySlug } from "@/lib/api";
 import Image from "next/image";
 import Link from "next/link";
 
-type Props = {
-  params: Promise<{ slug: string }>;
-};
 
-export default async function ArticlePage({ params }: Props) {
-  const { slug } = await params;
+export default async function ArticlePage({ params }: { params: { slug: string } }) {
+  const { slug } =  params;
 
   const article = await getArticleBySlug(slug);
   if (!article) return notFound();
@@ -101,9 +98,9 @@ export default async function ArticlePage({ params }: Props) {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug } =  params;
   const article = await getArticleBySlug(slug);
   if (!article) return {};
 

@@ -16,7 +16,7 @@ type VariantPreviewInput = Prisma.VariantGetPayload<{
     chargingSpec: true;
     dimensionSpec: true;
     prices: true;
-    
+
   };
 }>;
 
@@ -31,7 +31,7 @@ const toNum = (d?: Prisma.Decimal | number | null): number | null => {
   if (d == null) return null;
   if (typeof d === "number") return d;
   return d instanceof Prisma.Decimal ? d.toNumber() : null;
-}; 
+};
 
 function formatPrice(raw: number, country: string) {
   return country === "United Kingdom"
@@ -183,7 +183,7 @@ export const variantRouter = router({
    * 🔍 Liste des variantes récentes (ex: page d’accueil)
    */
   listPreview: publicProcedure
-  .input(z.object({ limit: z.number().min(1).max(100).default(12) }))
+    .input(z.object({ limit: z.number().min(1).max(100).default(12) }))
     .query(async ({ input }) => {
       const limit = input?.limit ?? 12;
 
@@ -332,7 +332,7 @@ export const variantRouter = router({
         },
         include: {
           model: { include: { brand: true } },
-          
+
           batterySpec: true,
           chargingSpec: true,
           performanceSpec: true,
@@ -349,54 +349,57 @@ export const variantRouter = router({
       });
     }),
 
-filterVariants: publicProcedure
-  .input(
-    z.object({
-      condition: z.enum(["NEW", "USED"]).optional(),
-      bodyType: z.string().optional(),
-      priceMax: z.number().optional(),
-      yearMin: z.number().optional(),
-      yearMax: z.number().optional(),
-      mileageMin: z.number().optional(),
-      mileageMax: z.number().optional(),
-      availability: z.enum(["ALL", "STOCK", "ORDER"]).optional(),
-      make: z.string().optional(),
-      drive: z.string().optional(),
-      seats: z.number().optional(),
-      towHitchPossible: z.boolean().optional(),
-      evDedicatedPlatform: z.boolean().optional(),
-      roofRails: z.boolean().optional(),
-      heatPump: z.boolean().optional(),
-      page: z.number().min(1).default(1),
-      limit: z.number().min(1).max(100).default(10),
-    })
-  )
-  .query(async ({ input }) => {
-    const skip = (input.page - 1) * input.limit;
+  filterVariants: publicProcedure
+    .input(
+      z.object({
+        condition: z.enum(["NEW", "USED"]).optional(),
+        bodyType: z.string().optional(),
+        priceMax: z.number().optional(),
+        priceMin: z.number().optional(),
+        yearMin: z.number().optional(),
+        yearMax: z.number().optional(),
+        mileageMin: z.number().optional(),
+        mileageMax: z.number().optional(),
+        availability: z.enum(["ALL", "STOCK", "ORDER"]).optional(),
+        make: z.string().optional(),
+        drive: z.string().optional(),
+        seats: z.number().optional(),
+        towHitchPossible: z.boolean().optional(),
+        evDedicatedPlatform: z.boolean().optional(),
+        roofRails: z.boolean().optional(),
+        heatPump: z.boolean().optional(),
+        page: z.number().min(1).default(1),
+        limit: z.number().min(1).max(100).default(10),
+      })
+    )
+    .query(async ({ input }) => {
+      const skip = (input.page - 1) * input.limit;
 
-    const where: Prisma.VariantWhereInput = {
-      AND: [
-        input.bodyType ? { bodyType: input.bodyType } : {},
-        input.drive ? { drive: input.drive } : {},
-        input.yearMin ? { year: { gte: input.yearMin } } : {},
-        input.yearMax ? { year: { lte: input.yearMax } } : {},
-        input.availability && input.availability !== "ALL"
-          ? { availabilityId: input.availability }
-          : {},
-        input.priceMax
-          ? {
+      const where: Prisma.VariantWhereInput = {
+        AND: [
+          input.bodyType ? { bodyType: input.bodyType } : {},
+          input.drive ? { drive: input.drive } : {},
+          input.yearMin ? { year: { gte: input.yearMin } } : {},
+          input.yearMax ? { year: { lte: input.yearMax } } : {},
+          input.availability && input.availability !== "ALL"
+            ? { availabilityId: input.availability }
+            : {},
+
+          (input.priceMin || input.priceMax)
+            ? {
               prices: {
                 some: {
-                  price: { lt: input.priceMax },
                   country: {
                     in: ["Germany", "United Kingdom", "Netherlands"],
                   },
+                  ...(input.priceMin ? { price: { gte: input.priceMin } } : {}),
+                  ...(input.priceMax ? { price: { lte: input.priceMax } } : {}),
                 },
               },
             }
-          : {},
-        input.condition || input.mileageMin || input.mileageMax
-          ? {
+            : {},
+          input.condition || input.mileageMin || input.mileageMax
+            ? {
               carListings: {
                 some: {
                   status: "ACTIVE",
@@ -408,107 +411,107 @@ filterVariants: publicProcedure
                   }),
                   ...(input.mileageMin || input.mileageMax
                     ? {
-                        car: {
-                          mileage: {
-                            ...(input.mileageMin
-                              ? { gte: input.mileageMin }
-                              : {}),
-                            ...(input.mileageMax
-                              ? { lte: input.mileageMax }
-                              : {}),
-                          },
+                      car: {
+                        mileage: {
+                          ...(input.mileageMin
+                            ? { gte: input.mileageMin }
+                            : {}),
+                          ...(input.mileageMax
+                            ? { lte: input.mileageMax }
+                            : {}),
                         },
-                      }
+                      },
+                    }
                     : {}),
                 },
               },
             }
-          : {},
-        input.make
-          ? {
+            : {},
+          input.make
+            ? {
               model: {
                 brand: {
                   id: input.make,
                 },
               },
             }
-          : {},
-        {
-          dimensionSpec: {
-            ...(input.seats !== undefined && { seats: input.seats }),
-            ...(input.towHitchPossible !== undefined && {
-              towHitchPossible: input.towHitchPossible,
-            }),
-            ...(input.evDedicatedPlatform !== undefined && {
-              evDedicatedPlatform: input.evDedicatedPlatform,
-            }),
-            ...(input.roofRails !== undefined && {
-              roofRails: input.roofRails,
-            }),
-            ...(input.heatPump !== undefined && {
-              heatPump: input.heatPump,
-            }),
-          },
-        },
-      ],
-    };
-
-    const [variants, total] = await Promise.all([
-      prisma.variant.findMany({
-        where,
-        skip,
-        take: input.limit,
-        include: {
-          model: { include: { brand: true } },
-          performanceSpec: true,
-          efficiencySpec: true,
-          chargingSpec: true,
-          dimensionSpec: true,
-          prices: {
-            where: {
-              country: {
-                in: ["Germany", "Netherlands", "United Kingdom"],
-              },
+            : {},
+          {
+            dimensionSpec: {
+              ...(input.seats !== undefined && { seats: input.seats }),
+              ...(input.towHitchPossible !== undefined && {
+                towHitchPossible: input.towHitchPossible,
+              }),
+              ...(input.evDedicatedPlatform !== undefined && {
+                evDedicatedPlatform: input.evDedicatedPlatform,
+              }),
+              ...(input.roofRails !== undefined && {
+                roofRails: input.roofRails,
+              }),
+              ...(input.heatPump !== undefined && {
+                heatPump: input.heatPump,
+              }),
             },
-            orderBy: { country: "asc" },
           },
-        },
-      }),
-      prisma.variant.count({ where }),
-    ]);
+        ],
+      };
 
-    return {
-      variants: variants.map(mapVariantToCardPreview),
-      total,
-    };
+      const [variants, total] = await Promise.all([
+        prisma.variant.findMany({
+          where,
+          skip,
+          take: input.limit,
+          include: {
+            model: { include: { brand: true } },
+            performanceSpec: true,
+            efficiencySpec: true,
+            chargingSpec: true,
+            dimensionSpec: true,
+            prices: {
+              where: {
+                country: {
+                  in: ["Germany", "Netherlands", "United Kingdom"],
+                },
+              },
+              orderBy: { country: "asc" },
+            },
+          },
+        }),
+        prisma.variant.count({ where }),
+      ]);
+
+      return {
+        variants: variants.map(mapVariantToCardPreview),
+        total,
+      };
+    }),
+
+  getBodyTypesWithCounts: publicProcedure.query(async () => {
+    const results = await prisma.variant.groupBy({
+      by: ["bodyType"],
+      where: {
+        bodyType: {
+          not: null,
+        },
+      },
+      _count: {
+        bodyType: true,
+      },
+      orderBy: {
+        _count: {
+          bodyType: "desc",
+        },
+      },
+    });
+
+    return results.map((entry) => ({
+      type: entry.bodyType!,
+      count: entry._count.bodyType,
+    }));
   }),
 
-getBodyTypesWithCounts: publicProcedure.query(async () => {
-  const results = await prisma.variant.groupBy({
-    by: ["bodyType"],
-    where: {
-      bodyType: {
-        not: null,
-      },
-    },
-    _count: {
-      bodyType: true,
-    },
-    orderBy: {
-      _count: {
-        bodyType: "desc",
-      },
-    },
-  });
 
-  return results.map((entry) => ({
-    type: entry.bodyType!,
-    count: entry._count.bodyType,
-  }));
-}),
-
-
- getVariantsByIds: publicProcedure
+  getVariantsByIds: publicProcedure
     .input(z.object({ ids: z.array(z.string()).max(3) }))
     .query(async ({ ctx, input }) => {
       const raws = await ctx.prisma.variant.findMany({

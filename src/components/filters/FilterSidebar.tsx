@@ -1,3 +1,4 @@
+// components/filters/FilterSidebar.tsx
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -10,19 +11,18 @@ import {
   ShoppingCart,
   Clock,
   Search as MagnifyingGlassIcon,
-  DollarSign, // For price filter icon (if added)
-  Gauge, // For mileage filter icon (if added)
+  DollarSign, // For price filter icon
+  Gauge, // For mileage filter icon
 } from 'lucide-react';
 import { useFilterStore } from '@/store/filter-store';
 import { api } from '@/utils/api';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { Slider } from '@radix-ui/react-slider';
-// Assuming you have Shadcn UI Slider component
-// import { Slider } from '@/components/ui/slider'; // You'd need to import or implement this
+import { Input } from '@/components/ui/input'; // Assuming you have a Shadcn UI Input component
+import { useCallback,startTransition  } from 'react';
 
 // Define the types for filter sections to ensure type safety
-type FilterSections = 'availability' | 'year' | 'mileage' | 'make' | 'bodyType' | 'driveAndFeatures'; // Renamed 'age' to 'year' for clarity
+type FilterSections = 'availability' | 'year' | 'mileage' | 'make' | 'bodyType' | 'driveAndFeatures' | 'price'; // Added 'price'
 
 interface FilterSidebarProps {
   /** Displayed in mobile drawer mode (e.g., full width, different positioning) */
@@ -52,17 +52,34 @@ export function FilterSidebar({ inDrawer = false, onApply, resultCount }: Filter
     mileage: true,
     make: true,
     bodyType: true,
-    driveAndFeatures: true, // New group for drive and features
+    driveAndFeatures: true,
+    price: true, // Set to true to open price filter by default
   });
 
+const [minPriceInput, setMinPriceInput] = useState(filters.priceMin?.toString() ?? '');
+const [maxPriceInput, setMaxPriceInput] = useState(filters.priceMax?.toString() ?? '');
+
+
+  // --- Effect for Price Filter Updates ---
+  // This useEffect will run only when debouncedMinPrice or debouncedMaxPrice changes.
+const commitPrice = useCallback(() => {
+  const min = minPriceInput === '' ? undefined : Number(minPriceInput);
+  const max = maxPriceInput === '' ? undefined : Number(maxPriceInput);
+  if (min !== filters.priceMin) setFilter('priceMin', min);
+  if (max !== filters.priceMax) setFilter('priceMax', max);
+}, [minPriceInput, maxPriceInput, filters.priceMin, filters.priceMax, setFilter]);
+
   // Synchronize filters with the URL's query parameters whenever filters change.
+  // This useEffect will now react to `setFilter` calls which are triggered by the debounced values.
   useEffect(() => {
     const params = new URLSearchParams();
     Object.entries(filters).forEach(([key, value]) => {
-      if (value !== undefined) {
+      // Ensure we only add defined values to URL params
+      if (value !== undefined && value !== null && value !== '') {
         params.set(key, String(value));
       }
     });
+    // Use replace to avoid polluting browser history with every filter change
     router.replace(`/search?${params.toString()}`);
   }, [filters, router]);
 
@@ -111,6 +128,17 @@ export function FilterSidebar({ inDrawer = false, onApply, resultCount }: Filter
     </div>
   );
 
+  const handleResetFilters = () => {
+    resetAllFilters();
+    // Also reset local states for debounced inputs
+    setMinPriceInput('');
+    setMaxPriceInput('');
+    // Optionally, if `inDrawer` is true and you want to close the drawer after reset
+    if (inDrawer && onApply) {
+      onApply();
+    }
+  };
+
   return (
     <aside
       className={cn(
@@ -131,7 +159,7 @@ export function FilterSidebar({ inDrawer = false, onApply, resultCount }: Filter
             )}
             <Button
               variant="ghost"
-              onClick={resetAllFilters}
+              onClick={handleResetFilters} // Use the new handler
               className="text-red-600 hover:text-red-700 dark:text-red-500 dark:hover:text-red-600 flex items-center gap-1 font-semibold text-sm"
               aria-label="Réinitialiser tous les filtres"
             >
@@ -147,19 +175,58 @@ export function FilterSidebar({ inDrawer = false, onApply, resultCount }: Filter
           </div>
         )}
 
-        {/* Availability Filter Section */}
+        {/* --- NEW: Price Filter Section (using Input for debouncing) --- */}
+        <FilterSection
+          title="Prix"
+          filterKey="price"
+          icon={DollarSign}
+          currentValueDisplay={`${filters.priceMin?.toLocaleString('fr-FR') ?? 'Min'} - ${filters.priceMax?.toLocaleString('fr-FR') ?? 'Max'} €`}
+        >
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label htmlFor="min-price-input" className="sr-only">Prix minimal</label>
+              <Input
+                id="min-price-input"
+                type="number"
+                value={minPriceInput} // Bind to local state
+                onChange={(e) => setMinPriceInput(e.target.value)} // Update local state immediately
+                onBlur={commitPrice}
+                onKeyDown={e => e.key === 'Enter' && commitPrice()}
+                placeholder="Min"
+                className="w-full"
+                aria-label="Prix minimum"
+              />
+            </div>
+            <div>
+              <label htmlFor="max-price-input" className="sr-only">Prix maximal</label>
+              <Input
+                id="max-price-input"
+                type="number"
+                value={maxPriceInput} // Bind to local state
+                onChange={(e) => setMaxPriceInput(e.target.value)} // Update local state immediately
+                onBlur={commitPrice}
+                onKeyDown={e => e.key === 'Enter' && commitPrice()}
+                placeholder="Max"
+                className="w-full"
+                aria-label="Prix maximum"
+              />
+            </div>
+          </div>
+        </FilterSection>
+
+        {/* Availability Filter Section (No change needed, uses buttons/discrete selection) */}
         <FilterSection
           title="Condition"
           filterKey="availability"
           currentValueDisplay={filters.availability ? (filters.availability === 'ALL' ? 'Toutes' : filters.availability === 'STOCK' ? 'En stock' : 'Sur commande') : ''}
         >
-          <div className="grid grid-cols-3 gap-3"> {/* Increased gap */}
+          <div className="grid grid-cols-3 gap-3">
             {availabilityOptions.map(status => (
               <button
                 key={status}
                 onClick={() => setFilter('availability', status)}
                 className={cn(
-                  'flex flex-col items-center justify-center px-3 py-4 rounded-xl border-2 text-sm font-medium transition-all duration-200 ease-in-out', // Increased border and padding
+                  'flex flex-col items-center justify-center px-3 py-4 rounded-xl border-2 text-sm font-medium transition-all duration-200 ease-in-out',
                   filters.availability === status
                     ? 'bg-blue-600 text-white border-blue-600 dark:bg-blue-700 dark:border-blue-700 shadow-md'
                     : 'bg-white text-gray-700 border-gray-300 hover:bg-blue-50 hover:border-blue-200 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:border-gray-600'
@@ -182,33 +249,15 @@ export function FilterSidebar({ inDrawer = false, onApply, resultCount }: Filter
           </div>
         </FilterSection>
 
-        {/* Year Filter Section */}
+        {/* Year Filter Section (No debouncing for selects is usually needed) */}
         <FilterSection
           title="Année"
           filterKey="year"
           currentValueDisplay={`${filters.yearMin ?? 'Min'} - ${filters.yearMax ?? 'Max'}`}
         >
-          {/*
-          // Ideal: Implement a dual-thumb slider here using a component like Shadcn's Slider
-          <Slider
-            min={2011}
-            max={currentYear}
-            step={1}
-            value={[filters.yearMin ?? 2011, filters.yearMax ?? currentYear]}
-            onValueChange={([newMin, newMax]) => {
-              setFilter('yearMin', newMin);
-              setFilter('yearMax', newMax);
-            }}
-            aria-label="Sélectionner une plage d'années"
-          />
-          <div className="flex justify-between text-sm mt-2 text-gray-600 dark:text-gray-400">
-            <span>{filters.yearMin ?? 2011}</span>
-            <span>{filters.yearMax ?? currentYear}</span>
-          </div>
-          */}
-          <div className="grid grid-cols-2 gap-3"> {/* Use grid for better alignment */}
+          <div className="grid grid-cols-2 gap-3">
             <div>
-              <label htmlFor="year-min-select" className="sr-only">Année minimale</label> {/* SR-only for visual label in select */}
+              <label htmlFor="year-min-select" className="sr-only">Année minimale</label>
               <select
                 id="year-min-select"
                 className="w-full border border-gray-300 px-3 py-2 rounded-md text-sm bg-white dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -225,7 +274,7 @@ export function FilterSidebar({ inDrawer = false, onApply, resultCount }: Filter
               </select>
             </div>
             <div>
-              <label htmlFor="year-max-select" className="sr-only">Année maximale</label> {/* SR-only for visual label in select */}
+              <label htmlFor="year-max-select" className="sr-only">Année maximale</label>
               <select
                 id="year-max-select"
                 className="w-full border border-gray-300 px-3 py-2 rounded-md text-sm bg-white dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -244,31 +293,13 @@ export function FilterSidebar({ inDrawer = false, onApply, resultCount }: Filter
           </div>
         </FilterSection>
 
-        {/* Mileage Filter Section */}
+        {/* Mileage Filter Section (No debouncing for selects is usually needed) */}
         <FilterSection
           title="Kilométrage"
           filterKey="mileage"
           icon={Gauge}
           currentValueDisplay={`${filters.mileageMin?.toLocaleString('fr-FR') ?? 'Min'} - ${filters.mileageMax?.toLocaleString('fr-FR') ?? 'Max'} km`}
         >
-          {/*
-          // Ideal: Implement a dual-thumb slider here using a component like Shadcn's Slider
-          <Slider
-            min={0}
-            max={mileageSteps[mileageSteps.length - 1]}
-            step={5000}
-            value={[filters.mileageMin ?? 0, filters.mileageMax ?? mileageSteps[mileageSteps.length - 1]]}
-            onValueChange={([newMin, newMax]) => {
-              setFilter('mileageMin', newMin);
-              setFilter('mileageMax', newMax);
-            }}
-            aria-label="Sélectionner une plage de kilométrage"
-          />
-          <div className="flex justify-between text-sm mt-2 text-gray-600 dark:text-gray-400">
-            <span>{filters.mileageMin?.toLocaleString('fr-FR') ?? '0'} km</span>
-            <span>{filters.mileageMax?.toLocaleString('fr-FR') ?? mileageSteps[mileageSteps.length - 1].toLocaleString('fr-FR')} km</span>
-          </div>
-          */}
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label htmlFor="mileage-min-select" className="sr-only">Kilométrage minimal</label>
@@ -307,11 +338,11 @@ export function FilterSidebar({ inDrawer = false, onApply, resultCount }: Filter
           </div>
         </FilterSection>
 
-        {/* Make Filter Section */}
+        {/* Make Filter Section (Search input does not need debouncing here as it filters local list, not API) */}
         <FilterSection
           title="Marque"
           filterKey="make"
-          icon={ShoppingCart} // Using ShoppingCart for 'Make' as a placeholder
+          icon={ShoppingCart}
         >
           <div className="relative mb-3">
             <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
@@ -324,7 +355,7 @@ export function FilterSidebar({ inDrawer = false, onApply, resultCount }: Filter
               aria-label="Rechercher des marques"
             />
           </div>
-          <div className="max-h-64 overflow-y-auto space-y-2 pr-2 custom-scrollbar"> {/* Added custom-scrollbar class for styling */}
+          <div className="max-h-64 overflow-y-auto space-y-2 pr-2 custom-scrollbar">
             {isLoadingBrands ? (
               <div className="text-gray-500 dark:text-gray-400 text-sm text-center py-4">Chargement des marques...</div>
             ) : brands?.length === 0 ? (
@@ -344,8 +375,8 @@ export function FilterSidebar({ inDrawer = false, onApply, resultCount }: Filter
                     )}
                     aria-pressed={filters.make === brand.id}
                   >
-                    <div className="flex items-center gap-3"> {/* Increased gap for icon and text */}
-                      {brand.logo && <img src={brand.logo} alt={`Logo ${brand.name}`} className="h-6 w-auto object-contain" />} {/* Adjusted height, object-contain */}
+                    <div className="flex items-center gap-3">
+                      {brand.logo && <img src={brand.logo} alt={`Logo ${brand.name}`} className="h-6 w-auto object-contain" />}
                       <span className="text-sm font-medium">{brand.name}</span>
                     </div>
                     <span className="text-xs font-bold text-inherit">{brand.count?.toLocaleString() ?? 0}</span>
@@ -355,11 +386,11 @@ export function FilterSidebar({ inDrawer = false, onApply, resultCount }: Filter
           </div>
         </FilterSection>
 
-        {/* Body style Filter Section */}
+        {/* Body style Filter Section (No change needed, uses radio buttons/discrete selection) */}
         <FilterSection
           title="Carrosserie"
           filterKey="bodyType"
-          icon={Box} // Placeholder icon
+          icon={Box}
         >
           <div className="max-h-64 overflow-y-auto border border-gray-300 dark:border-gray-700 rounded-lg p-3 space-y-2 bg-white dark:bg-gray-900 custom-scrollbar">
             {isLoadingBodyTypes ? (
@@ -391,11 +422,11 @@ export function FilterSidebar({ inDrawer = false, onApply, resultCount }: Filter
           </div>
         </FilterSection>
 
-        {/* Drive & Features Section (grouped for better organization) */}
+        {/* Drive & Features Section (No debouncing needed, uses selects/checkboxes/discrete selection) */}
         <FilterSection
           title="Conduite & Fonctionnalités"
           filterKey="driveAndFeatures"
-          icon={DollarSign} // Placeholder icon for this group
+          icon={DollarSign}
         >
           <div className="space-y-4">
             {/* Drive type */}
@@ -436,7 +467,7 @@ export function FilterSidebar({ inDrawer = false, onApply, resultCount }: Filter
             </div>
 
             {/* Binary options (checkboxes) */}
-            <div className="grid grid-cols-2 gap-x-4 gap-y-3"> {/* Adjusted gaps */}
+            <div className="grid grid-cols-2 gap-x-4 gap-y-3">
               <label className="flex items-center gap-3 text-sm cursor-pointer text-gray-800 dark:text-gray-200">
                 <input
                   type="checkbox"
@@ -484,4 +515,3 @@ export function FilterSidebar({ inDrawer = false, onApply, resultCount }: Filter
     </aside>
   );
 }
-

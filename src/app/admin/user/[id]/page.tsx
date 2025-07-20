@@ -68,7 +68,7 @@ export default function EditUserPage() {
   return (
     <div className="max-w-2xl mx-auto py-10 px-4">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold">Modifier l'utilisateur</h1>
+        <h1 className="text-3xl font-bold">Modifier l&apos;utilisateur</h1>
         <Link href="/admin/users" className="text-sm text-blue-600 hover:underline">← Retour à la liste</Link>
       </div>
 
@@ -147,7 +147,7 @@ export default function EditUserPage() {
       <DialogHeader>
         <DialogTitle>Confirmer la suppression</DialogTitle>
       </DialogHeader>
-      <p className="text-sm text-gray-600">Cette action est irréversible. L'utilisateur sera définitivement supprimé de la base de données.</p>
+      <p className="text-sm text-gray-600">Cette action est irréversible. L&apos;utilisateur sera définitivement supprimé de la base de données.</p>
       <DialogFooter>
         <Button variant="outline" onClick={() => setOpen(false)}>Annuler</Button>
         <Button variant="destructive" onClick={handleDelete} disabled={deleteUser.isPending}>Confirmer</Button>

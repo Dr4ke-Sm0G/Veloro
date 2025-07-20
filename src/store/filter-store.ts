@@ -8,6 +8,7 @@ condition?: "NEW" | "USED";
   drive?: string; // ✅ requis
   seats?: number; // ✅ requis
   priceMax?: number;
+  priceMin?: number;
   availability?: "ALL" | "STOCK" | "ORDER";
   yearMin?: number;
   yearMax?: number;
