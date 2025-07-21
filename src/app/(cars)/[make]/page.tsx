@@ -24,9 +24,9 @@ export default function BrandPage() {
         )}
 
         {isLoading ? (
-          <p className="text-gray-600">Chargement des véhicules...</p>
+          <p className="text-gray-600">Loading cars...</p>
         ) : data.length === 0 ? (
-          <p className="text-gray-600">Aucun véhicule trouvé pour cette marque.</p>
+          <p className="text-gray-600">No vehicles found for this brand.</p>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {data.map((variant) => (

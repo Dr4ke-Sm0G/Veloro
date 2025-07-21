@@ -35,7 +35,7 @@ function CompareContent() {
 
   return (
     <div className="p-8 space-y-6">
-      <h1 className="text-3xl font-bold">Comparateur de variants</h1>
+      <h1 className="text-3xl font-bold">Car comparison</h1>
 
       <div className="flex flex-col md:flex-row gap-4">
         {Array.from({ length: 3 }).map((_, idx) => (
@@ -55,7 +55,7 @@ function CompareContent() {
       </div>
 
       {(loadingPreviews || loadingVariants) && (
-        <div className="text-center py-12">Chargement…</div>
+        <div className="text-center py-12">Loading…</div>
       )}
 
       {variants && variants.length > 0 && (
@@ -66,7 +66,7 @@ function CompareContent() {
 }
 export default function ComparePage() {
   return (
-    <Suspense fallback={<div className="p-8">Chargement…</div>}>
+    <Suspense fallback={<div className="p-8">Loading…</div>}>
       <CompareContent />
     </Suspense>
   );

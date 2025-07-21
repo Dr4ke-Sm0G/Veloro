@@ -6,8 +6,8 @@ import StatCard from "./components/StatCard";
 export default function AdminDashboard() {
   const { data, isLoading, error } = api.admin.getStats.useQuery();
 
-  if (isLoading) return <p>Chargement...</p>;
-  if (error) return <p>Erreur : {error.message}</p>;
+  if (isLoading) return <p>Loading…</p>;
+  if (error) return <p>Error : {error.message}</p>;
   if (!data) return null; // sécurité supplémentaire
 
   return (
