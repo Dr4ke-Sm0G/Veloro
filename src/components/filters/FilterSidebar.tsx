@@ -19,7 +19,7 @@ import { api } from '@/utils/api';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input'; // Assuming you have a Shadcn UI Input component
-import { useCallback,startTransition  } from 'react';
+import { useCallback, startTransition } from 'react';
 
 // Define the types for filter sections to ensure type safety
 type FilterSections = 'availability' | 'year' | 'mileage' | 'make' | 'bodyType' | 'driveAndFeatures' | 'price'; // Added 'price'
@@ -38,6 +38,7 @@ interface FilterSidebarProps {
  * It manages filter states, synchronizes them with the URL,
  * and displays various filter options like availability, year, mileage, make, and body type.
  */
+
 export function FilterSidebar({ inDrawer = false, onApply, resultCount }: FilterSidebarProps) {
   const router = useRouter();
   const { filters, setFilter, resetAllFilters } = useFilterStore();
@@ -56,32 +57,35 @@ export function FilterSidebar({ inDrawer = false, onApply, resultCount }: Filter
     price: true, // Set to true to open price filter by default
   });
 
-const [minPriceInput, setMinPriceInput] = useState(filters.priceMin?.toString() ?? '');
-const [maxPriceInput, setMaxPriceInput] = useState(filters.priceMax?.toString() ?? '');
+  const [draftPrice, setDraftPrice] = useState({
+    min: filters.priceMin?.toString() ?? '',
+    max: filters.priceMax?.toString() ?? '',
+  });
 
+  // détecte qu’on tape encore
+  const editingPrice =
+    draftPrice.min !== (filters.priceMin?.toString() ?? '') ||
+    draftPrice.max !== (filters.priceMax?.toString() ?? '');
 
-  // --- Effect for Price Filter Updates ---
-  // This useEffect will run only when debouncedMinPrice or debouncedMaxPrice changes.
-const commitPrice = useCallback(() => {
-  const min = minPriceInput === '' ? undefined : Number(minPriceInput);
-  const max = maxPriceInput === '' ? undefined : Number(maxPriceInput);
-  if (min !== filters.priceMin) setFilter('priceMin', min);
-  if (max !== filters.priceMax) setFilter('priceMax', max);
-}, [minPriceInput, maxPriceInput, filters.priceMin, filters.priceMax, setFilter]);
+  // ---- commit ----
+  const applyPrice = () => {
+    setFilter('priceMin', draftPrice.min ? Number(draftPrice.min) : undefined);
+    setFilter('priceMax', draftPrice.max ? Number(draftPrice.max) : undefined);
+  };
 
-  // Synchronize filters with the URL's query parameters whenever filters change.
-  // This useEffect will now react to `setFilter` calls which are triggered by the debounced values.
-  useEffect(() => {
-    const params = new URLSearchParams();
-    Object.entries(filters).forEach(([key, value]) => {
-      // Ensure we only add defined values to URL params
-      if (value !== undefined && value !== null && value !== '') {
-        params.set(key, String(value));
-      }
-    });
-    // Use replace to avoid polluting browser history with every filter change
-    router.replace(`/search?${params.toString()}`);
-  }, [filters, router]);
+useEffect(() => {
+  if (editingPrice) return;
+
+  const params = new URLSearchParams();
+  Object.entries(filters).forEach(([key, value]) => {
+    if (value != null && value !== '') {
+      params.set(key, String(value));
+    }
+  });
+
+  // On retire shallow, et on garde scroll uniquement si besoin
+  router.replace(`/search?${params.toString()}`, { scroll: false });
+}, [filters, editingPrice, router]);
 
   const availabilityOptions = ['ALL', 'STOCK', 'ORDER'] as const;
   const currentYear = new Date().getFullYear();
@@ -131,8 +135,6 @@ const commitPrice = useCallback(() => {
   const handleResetFilters = () => {
     resetAllFilters();
     // Also reset local states for debounced inputs
-    setMinPriceInput('');
-    setMaxPriceInput('');
     // Optionally, if `inDrawer` is true and you want to close the drawer after reset
     if (inDrawer && onApply) {
       onApply();
@@ -184,32 +186,30 @@ const commitPrice = useCallback(() => {
         >
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label htmlFor="min-price-input" className="sr-only">Prix minimal</label>
+              <label className="sr-only">Prix minimal</label>
               <Input
-                id="min-price-input"
                 type="number"
-                value={minPriceInput} // Bind to local state
-                onChange={(e) => setMinPriceInput(e.target.value)} // Update local state immediately
-                onBlur={commitPrice}
-                onKeyDown={e => e.key === 'Enter' && commitPrice()}
+                value={draftPrice.min}
+                onChange={e => setDraftPrice(p => ({ ...p, min: e.target.value }))}
+                onBlur={applyPrice}
+                onKeyDown={e => e.key === 'Enter' && applyPrice()}
                 placeholder="Min"
-                className="w-full"
-                aria-label="Prix minimum"
               />
             </div>
             <div>
-              <label htmlFor="max-price-input" className="sr-only">Prix maximal</label>
-              <Input
-                id="max-price-input"
-                type="number"
-                value={maxPriceInput} // Bind to local state
-                onChange={(e) => setMaxPriceInput(e.target.value)} // Update local state immediately
-                onBlur={commitPrice}
-                onKeyDown={e => e.key === 'Enter' && commitPrice()}
-                placeholder="Max"
-                className="w-full"
-                aria-label="Prix maximum"
-              />
+              <label className="sr-only">Prix maximal</label>
+<Input
+  type="number"
+  value={draftPrice.max}
+  onChange={e => setDraftPrice(p => ({ ...p, max: e.target.value }))}
+  onBlur={applyPrice}
+  onKeyDown={e => e.key === 'Enter' && applyPrice()}
+  placeholder="Max"
+/>
+
+<Button size="sm" className="mt-3 w-full" onClick={applyPrice}>
+  Apply
+</Button>
             </div>
           </div>
         </FilterSection>

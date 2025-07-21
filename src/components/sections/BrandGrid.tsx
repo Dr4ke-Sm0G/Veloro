@@ -40,7 +40,7 @@ const brands = [
   { name: "Maserati", slug: "maserati" },
   { name: "Mazda", slug: "mazda" },
   { name: "McLaren", slug: "mclaren" },
-  { name: "Mercedes-Benz", slug: "mercedesbenz" },
+  { name: "Mercedes-Benz", slug: "mercedes-benz" },
   { name: "MG", slug: "mg" },
   { name: "MINI", slug: "mini" },
   { name: "Mitsubishi", slug: "mitsubishi" },

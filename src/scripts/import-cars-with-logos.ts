@@ -22,7 +22,7 @@ const inputPath = path.resolve(__dirname, '../../data/ev-database.json');
 // SLUG UTILS
 // ──────────────────────────────────────
 const BRAND_SLUGS: Record<string, string> = {
-  "Mercedes-Benz": "mercedesbenz",
+  "Mercedes-Benz": "mercedes-benz",
   "Aston Martin": "astonmartin",
   "Land Rover": "landrover",
   "Alfa Romeo": "alfaromeo",
