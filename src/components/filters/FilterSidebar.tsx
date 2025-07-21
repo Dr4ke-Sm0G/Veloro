@@ -1,517 +1,352 @@
-// components/filters/FilterSidebar.tsx
-'use client';
-
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+// src/components/filters/FilterSidebar.tsx
+import React, { useState, useEffect, useMemo } from "react"; // Ensure React is imported
+import { useFilterStore, VariantFilterInput } from "@/store/filter-store";
+import { Accordion } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
-  RefreshCcw,
-  ChevronDown,
-  ChevronUp,
-  Box,
-  ShoppingCart,
-  Clock,
-  Search as MagnifyingGlassIcon,
-  DollarSign, // For price filter icon
-  Gauge, // For mileage filter icon
-} from 'lucide-react';
-import { useFilterStore } from '@/store/filter-store';
-import { api } from '@/utils/api';
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input'; // Assuming you have a Shadcn UI Input component
-import { useCallback, startTransition } from 'react';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { FilterSection } from "./FilterSection";
+import { PriceRangeSlider } from "./PriceRangeSlider";
+import { YearRangeSlider } from "./YearRangeSlider";
+import { SearchInputWithSuggestions } from "./SearchInputWithSuggestions";
+import {
+  Tag,
+  Car,
+  DollarSign,
+  Calendar,
+  Gauge,
+  Package,
+  CarFront,
+  HardHat,
+  Armchair,
+  Truck,
+  BatteryCharging,
+  Sun
+} from "lucide-react";
 
-// Define the types for filter sections to ensure type safety
-type FilterSections = 'availability' | 'year' | 'mileage' | 'make' | 'bodyType' | 'driveAndFeatures' | 'price'; // Added 'price'
+
+type LocalFilterState = Partial<VariantFilterInput>;
 
 interface FilterSidebarProps {
-  /** Displayed in mobile drawer mode (e.g., full width, different positioning) */
   inDrawer?: boolean;
-  /** Callback to close/apply filters, typically used when inDrawer is true */
   onApply?: () => void;
-  /** Optional: Number of results matching the current filters */
-  resultCount?: number;
 }
 
-/**
- * FilterSidebar component for filtering search results.
- * It manages filter states, synchronizes them with the URL,
- * and displays various filter options like availability, year, mileage, make, and body type.
- */
-
-export function FilterSidebar({ inDrawer = false, onApply, resultCount }: FilterSidebarProps) {
-  const router = useRouter();
+export function FilterSidebar({ inDrawer, onApply }: FilterSidebarProps) {
   const { filters, setFilter, resetAllFilters } = useFilterStore();
 
-  const { data: brands, isLoading: isLoadingBrands } = api.brand.getWithVariantCounts.useQuery();
-  const { data: bodyTypes, isLoading: isLoadingBodyTypes } = api.variant.getBodyTypesWithCounts.useQuery();
+  const [localFilters, setLocalFilters] = useState<LocalFilterState>(filters);
+  const [isSearchPopoverOpen, setIsSearchPopoverOpen] = useState(false);
 
-  const [search, setSearch] = useState('');
-  const [open, setOpen] = useState<Record<FilterSections, boolean>>({
-    availability: true,
-    year: true,
-    mileage: true,
-    make: true,
-    bodyType: true,
-    driveAndFeatures: true,
-    price: true, // Set to true to open price filter by default
-  });
 
-  const [draftPrice, setDraftPrice] = useState({
-    min: filters.priceMin?.toString() ?? '',
-    max: filters.priceMax?.toString() ?? '',
-  });
+  useEffect(() => {
+    setLocalFilters(filters);
+  }, [filters]);
 
-  // détecte qu’on tape encore
-  const editingPrice =
-    draftPrice.min !== (filters.priceMin?.toString() ?? '') ||
-    draftPrice.max !== (filters.priceMax?.toString() ?? '');
-
-  // ---- commit ----
-  const applyPrice = () => {
-    setFilter('priceMin', draftPrice.min ? Number(draftPrice.min) : undefined);
-    setFilter('priceMax', draftPrice.max ? Number(draftPrice.max) : undefined);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setLocalFilters((prev) => ({ ...prev, [name]: value }));
   };
 
-useEffect(() => {
-  if (editingPrice) return;
+  const handleNumberInputChange = (name: keyof LocalFilterState, value: string) => {
+    setLocalFilters((prev) => ({
+      ...prev,
+      [name]: value === "" ? undefined : Number(value),
+    }));
+  };
 
-  const params = new URLSearchParams();
-  Object.entries(filters).forEach(([key, value]) => {
-    if (value != null && value !== '') {
-      params.set(key, String(value));
+  const handleSelectChange = (name: keyof LocalFilterState, value: any) => {
+    setLocalFilters((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleCheckboxChange = (name: keyof LocalFilterState, checked: boolean) => {
+    setLocalFilters((prev) => ({ ...prev, [name]: checked }));
+  };
+
+  const handleSearchSuggestion = (fullQuery: string, make?: string) => {
+    setLocalFilters((prev) => ({
+      ...prev,
+      searchQuery: fullQuery,
+      make: make,
+    }));
+  };
+
+  const handleApplyFilters = () => {
+    for (const key in localFilters) {
+      if (Object.prototype.hasOwnProperty.call(localFilters, key)) {
+        if (key !== 'page' && key !== 'limit') {
+           setFilter(key as keyof Omit<VariantFilterInput, 'page' | 'limit'>, localFilters[key as keyof LocalFilterState]);
+        }
+      }
     }
-  });
-
-  // On retire shallow, et on garde scroll uniquement si besoin
-  router.replace(`/search?${params.toString()}`, { scroll: false });
-}, [filters, editingPrice, router]);
-
-  const availabilityOptions = ['ALL', 'STOCK', 'ORDER'] as const;
-  const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: currentYear - 2011 + 1 }, (_, i) => 2011 + i).reverse(); // From 2011 to currentYear
-  const mileageSteps = [0, 5000, 10000, 20000, 30000, 40000, 50000, 75000, 100000, 150000, 200000, 250000]; // Increased granularity for slider
-
-  // Helper to render filter section
-  const FilterSection = ({
-    title,
-    filterKey,
-    children,
-    currentValueDisplay,
-    icon: Icon, // Optional icon for the title
-  }: {
-    title: string;
-    filterKey: FilterSections;
-    children: React.ReactNode;
-    currentValueDisplay?: string;
-    icon?: React.ElementType; // Type for Lucide React icons
-  }) => (
-    <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
-      <button
-        onClick={() => setOpen(p => ({ ...p, [filterKey]: !p[filterKey] }))}
-        className="flex justify-between w-full text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2 items-center"
-        aria-expanded={open[filterKey]}
-        aria-controls={`${filterKey}-filter-content`}
-      >
-        <span className="flex items-center gap-2">
-          {Icon && <Icon className="w-5 h-5 text-gray-600 dark:text-gray-400" />}
-          {title}
-          {currentValueDisplay && (
-            <span className="ml-1 text-gray-500 dark:text-gray-400 text-sm font-normal">
-              ({currentValueDisplay})
-            </span>
-          )}
-        </span>
-        {open[filterKey] ? <ChevronUp className="w-5 h-5 text-gray-600 dark:text-gray-400" /> : <ChevronDown className="w-5 h-5 text-gray-600 dark:text-gray-400" />}
-      </button>
-      {open[filterKey] && (
-        <div id={`${filterKey}-filter-content`} className="mt-4 px-2"> {/* Added horizontal padding */}
-          {children}
-        </div>
-      )}
-    </div>
-  );
+    onApply?.();
+  };
 
   const handleResetFilters = () => {
     resetAllFilters();
-    // Also reset local states for debounced inputs
-    // Optionally, if `inDrawer` is true and you want to close the drawer after reset
-    if (inDrawer && onApply) {
-      onApply();
-    }
+    setLocalFilters(useFilterStore.getState().filters);
+    onApply?.();
   };
 
-  return (
+  const bodyTypeOptions = [
+    "Sedan", "SUV", "Hatchback", "Coupe", "Wagon", "Minivan", "Pickup",
+  ];
+  const driveOptions = ["FWD", "RWD", "AWD", "4WD"];
+  const seatsOptions = [2, 4, 5, 7];
+  const currentYear = useMemo(() => new Date().getFullYear(), []);
+
+
+  return ( // <-- ADD THIS RETURN STATEMENT
     <aside
-      className={cn(
-        inDrawer ? 'fixed inset-0 z-50 bg-white dark:bg-gray-900 overflow-y-auto transform transition-transform ease-in-out duration-300 translate-x-0' : 'sticky top-20 hidden md:block',
-        'max-w-xs w-full h-full md:h-auto' // Ensures it takes full height in drawer, auto otherwise
-      )}
-      aria-label="Barre latérale des filtres de recherche de véhicules"
+      className={`relative w-64 flex-shrink-0 p-4 rounded-2xl bg-white dark:bg-gray-800 shadow-xl transition-all ${
+        inDrawer ? "" : "hidden md:block"
+      }`}
+      tabIndex={inDrawer ? 0 : -1}
     >
-      <div className="rounded-2xl border border-gray-200 bg-white dark:bg-gray-850 dark:border-gray-700 px-5 py-6 shadow-lg space-y-6 h-full"> {/* Increased shadow and dark mode adjustments */}
-        {/* Header section for filters */}
-        <div className="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Filtres</h2>
-          <div className="flex items-center gap-3">
-            {inDrawer && onApply && (
-              <Button size="sm" onClick={onApply} className="bg-blue-600 hover:bg-blue-700 text-white dark:bg-blue-700 dark:hover:bg-blue-800">
-                Appliquer
-              </Button>
-            )}
-            <Button
-              variant="ghost"
-              onClick={handleResetFilters} // Use the new handler
-              className="text-red-600 hover:text-red-700 dark:text-red-500 dark:hover:text-red-600 flex items-center gap-1 font-semibold text-sm"
-              aria-label="Réinitialiser tous les filtres"
-            >
-              <RefreshCcw className="w-4 h-4" /> Réinitialiser
-            </Button>
-          </div>
-        </div>
-
-        {/* Display result count (if provided) */}
-        {resultCount !== undefined && (
-          <div className="text-center py-2 text-md font-medium text-gray-700 dark:text-gray-300 border-b border-gray-200 dark:border-gray-700">
-            {resultCount} Résultats trouvés
-          </div>
-        )}
-
-        {/* --- NEW: Price Filter Section (using Input for debouncing) --- */}
-        <FilterSection
-          title="Prix"
-          filterKey="price"
-          icon={DollarSign}
-          currentValueDisplay={`${filters.priceMin?.toLocaleString('fr-FR') ?? 'Min'} - ${filters.priceMax?.toLocaleString('fr-FR') ?? 'Max'} €`}
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Filters</h2>
+        <Button
+          variant="ghost"
+          onClick={handleResetFilters}
+          className="text-sm text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 transition-colors"
         >
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="sr-only">Prix minimal</label>
-              <Input
-                type="number"
-                value={draftPrice.min}
-                onChange={e => setDraftPrice(p => ({ ...p, min: e.target.value }))}
-                onBlur={applyPrice}
-                onKeyDown={e => e.key === 'Enter' && applyPrice()}
-                placeholder="Min"
-              />
-            </div>
-            <div>
-              <label className="sr-only">Prix maximal</label>
-<Input
-  type="number"
-  value={draftPrice.max}
-  onChange={e => setDraftPrice(p => ({ ...p, max: e.target.value }))}
-  onBlur={applyPrice}
-  onKeyDown={e => e.key === 'Enter' && applyPrice()}
-  placeholder="Max"
-/>
+          Reset
+        </Button>
+      </div>
 
-<Button size="sm" className="mt-3 w-full" onClick={applyPrice}>
-  Apply
-</Button>
-            </div>
-          </div>
-        </FilterSection>
+      <div className="mb-6 z-20">
+        <SearchInputWithSuggestions
+          initialSearchQuery={localFilters.searchQuery}
+          onSelectSuggestion={handleSearchSuggestion}
+          onOpenChange={setIsSearchPopoverOpen}
+        />
+      </div>
 
-        {/* Availability Filter Section (No change needed, uses buttons/discrete selection) */}
-        <FilterSection
-          title="Condition"
-          filterKey="availability"
-          currentValueDisplay={filters.availability ? (filters.availability === 'ALL' ? 'Toutes' : filters.availability === 'STOCK' ? 'En stock' : 'Sur commande') : ''}
-        >
-          <div className="grid grid-cols-3 gap-3">
-            {availabilityOptions.map(status => (
-              <button
-                key={status}
-                onClick={() => setFilter('availability', status)}
-                className={cn(
-                  'flex flex-col items-center justify-center px-3 py-4 rounded-xl border-2 text-sm font-medium transition-all duration-200 ease-in-out',
-                  filters.availability === status
-                    ? 'bg-blue-600 text-white border-blue-600 dark:bg-blue-700 dark:border-blue-700 shadow-md'
-                    : 'bg-white text-gray-700 border-gray-300 hover:bg-blue-50 hover:border-blue-200 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:border-gray-600'
-                )}
-                aria-pressed={filters.availability === status}
-                aria-label={status === 'ALL' ? 'Toutes les voitures' : status === 'STOCK' ? 'Voitures en stock' : 'Voitures sur commande'}
+      <div className={isSearchPopoverOpen ? "opacity-50 pointer-events-none" : ""}>
+        <Accordion type="multiple" defaultValue={["price", "condition", "year"]} className="w-full">
+          <FilterSection title="Condition" value="condition">
+            <div className="flex items-center space-x-4">
+              <RadioGroup
+                value={localFilters.condition || ""}
+                onValueChange={(value: "NEW" | "USED") =>
+                  handleSelectChange("condition", value)
+                }
+                className="flex space-x-4"
               >
-                {status === 'ALL' ? (
-                  <Box className="w-5 h-5 mb-1 text-inherit" />
-                ) : status === 'STOCK' ? (
-                  <ShoppingCart className="w-5 h-5 mb-1 text-inherit" />
-                ) : (
-                  <Clock className="w-5 h-5 mb-1 text-inherit" />
-                )}
-                <span>
-                  {status === 'ALL' ? 'Toutes' : status === 'STOCK' ? 'En stock' : 'Sur commande'}
-                </span>
-              </button>
-            ))}
-          </div>
-        </FilterSection>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="NEW" id="condition-new" />
+                  <Label htmlFor="condition-new">New</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="USED" id="condition-used" />
+                  <Label htmlFor="condition-used">Used</Label>
+                </div>
+              </RadioGroup>
+            </div>
+          </FilterSection>
 
-        {/* Year Filter Section (No debouncing for selects is usually needed) */}
-        <FilterSection
-          title="Année"
-          filterKey="year"
-          currentValueDisplay={`${filters.yearMin ?? 'Min'} - ${filters.yearMax ?? 'Max'}`}
-        >
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label htmlFor="year-min-select" className="sr-only">Année minimale</label>
-              <select
-                id="year-min-select"
-                className="w-full border border-gray-300 px-3 py-2 rounded-md text-sm bg-white dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                value={filters.yearMin ?? ''}
-                onChange={e => setFilter('yearMin', e.target.value ? Number(e.target.value) : undefined)}
-                aria-label="Année minimale"
-              >
-                <option value="">Min</option>
-                {years.map(y => (
-                  <option key={y} value={y}>
-                    {y}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label htmlFor="year-max-select" className="sr-only">Année maximale</label>
-              <select
-                id="year-max-select"
-                className="w-full border border-gray-300 px-3 py-2 rounded-md text-sm bg-white dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                value={filters.yearMax ?? ''}
-                onChange={e => setFilter('yearMax', e.target.value ? Number(e.target.value) : undefined)}
-                aria-label="Année maximale"
-              >
-                <option value="">Max</option>
-                {years.map(y => (
-                  <option key={y} value={y}>
-                    {y}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </FilterSection>
-
-        {/* Mileage Filter Section (No debouncing for selects is usually needed) */}
-        <FilterSection
-          title="Kilométrage"
-          filterKey="mileage"
-          icon={Gauge}
-          currentValueDisplay={`${filters.mileageMin?.toLocaleString('fr-FR') ?? 'Min'} - ${filters.mileageMax?.toLocaleString('fr-FR') ?? 'Max'} km`}
-        >
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label htmlFor="mileage-min-select" className="sr-only">Kilométrage minimal</label>
-              <select
-                id="mileage-min-select"
-                className="w-full border border-gray-300 px-3 py-2 rounded-md text-sm bg-white dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                value={filters.mileageMin ?? ''}
-                onChange={e => setFilter('mileageMin', e.target.value ? Number(e.target.value) : undefined)}
-                aria-label="Kilométrage minimal"
-              >
-                <option value="">Min</option>
-                {mileageSteps.map(m => (
-                  <option key={m} value={m}>
-                    {m.toLocaleString('fr-FR')} km
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label htmlFor="mileage-max-select" className="sr-only">Kilométrage maximal</label>
-              <select
-                id="mileage-max-select"
-                className="w-full border border-gray-300 px-3 py-2 rounded-md text-sm bg-white dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                value={filters.mileageMax ?? ''}
-                onChange={e => setFilter('mileageMax', e.target.value ? Number(e.target.value) : undefined)}
-                aria-label="Kilométrage maximal"
-              >
-                <option value="">Max</option>
-                {mileageSteps.map(m => (
-                  <option key={m} value={m}>
-                    {m.toLocaleString('fr-FR')} km
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </FilterSection>
-
-        {/* Make Filter Section (Search input does not need debouncing here as it filters local list, not API) */}
-        <FilterSection
-          title="Marque"
-          filterKey="make"
-          icon={ShoppingCart}
-        >
-          <div className="relative mb-3">
-            <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
-            <input
-              type="text"
-              placeholder="Rechercher des marques"
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 rounded-md border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300 dark:focus:ring-blue-600"
-              aria-label="Rechercher des marques"
+          <FilterSection title={<div className="flex items-center gap-2"><DollarSign size={16} /> Price Range</div>} value="price">
+            <PriceRangeSlider
+              min={localFilters.priceMin}
+              max={localFilters.priceMax}
+              onMinChange={(val) => setLocalFilters((prev) => ({ ...prev, priceMin: val }))}
+              onMaxChange={(val) => setLocalFilters((prev) => ({ ...prev, priceMax: val }))}
+              minLimit={0}
+              maxLimit={200000}
+              step={1000}
             />
-          </div>
-          <div className="max-h-64 overflow-y-auto space-y-2 pr-2 custom-scrollbar">
-            {isLoadingBrands ? (
-              <div className="text-gray-500 dark:text-gray-400 text-sm text-center py-4">Chargement des marques...</div>
-            ) : brands?.length === 0 ? (
-              <div className="text-gray-500 dark:text-gray-400 text-sm text-center py-4">Aucune marque trouvée.</div>
-            ) : (
-              brands
-                ?.filter(brand => brand.name.toLowerCase().includes(search.toLowerCase()))
-                .map(brand => (
-                  <button
-                    key={brand.id}
-                    onClick={() => setFilter('make', filters.make === brand.id ? undefined : brand.id)} // Toggle selection
-                    className={cn(
-                      'w-full flex justify-between items-center px-4 py-2 rounded-md border-2 text-left transition-all duration-200 ease-in-out',
-                      filters.make === brand.id
-                        ? 'bg-blue-600 text-white border-blue-600 dark:bg-blue-700 dark:border-blue-700 shadow-md'
-                        : 'bg-white text-gray-800 border-gray-200 hover:bg-blue-50 hover:border-blue-200 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:border-gray-600'
-                    )}
-                    aria-pressed={filters.make === brand.id}
-                  >
-                    <div className="flex items-center gap-3">
-                      {brand.logo && <img src={brand.logo} alt={`Logo ${brand.name}`} className="h-6 w-auto object-contain" />}
-                      <span className="text-sm font-medium">{brand.name}</span>
-                    </div>
-                    <span className="text-xs font-bold text-inherit">{brand.count?.toLocaleString() ?? 0}</span>
-                  </button>
-                ))
-            )}
-          </div>
-        </FilterSection>
+          </FilterSection>
 
-        {/* Body style Filter Section (No change needed, uses radio buttons/discrete selection) */}
-        <FilterSection
-          title="Carrosserie"
-          filterKey="bodyType"
-          icon={Box}
-        >
-          <div className="max-h-64 overflow-y-auto border border-gray-300 dark:border-gray-700 rounded-lg p-3 space-y-2 bg-white dark:bg-gray-900 custom-scrollbar">
-            {isLoadingBodyTypes ? (
-              <div className="text-gray-500 dark:text-gray-400 text-sm text-center py-4">Chargement des types de carrosserie...</div>
-            ) : bodyTypes?.length === 0 ? (
-              <div className="text-gray-500 dark:text-gray-400 text-sm text-center py-4">Aucun type de carrosserie trouvé.</div>
-            ) : (
-              bodyTypes?.map(entry => (
-                <label
-                  key={entry.type}
-                  className="flex items-center justify-between text-sm font-medium cursor-pointer py-1 px-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-150"
-                >
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="radio"
-                      name="bodyType"
-                      value={entry.type}
-                      checked={filters.bodyType === entry.type}
-                      onChange={() => setFilter('bodyType', entry.type)}
-                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600"
-                      aria-label={`Type de carrosserie: ${entry.type}`}
-                    />
-                    <span className="text-gray-800 dark:text-gray-200">{entry.type}</span>
-                  </div>
-                  <span className="text-sm font-semibold text-gray-600 dark:text-gray-400">{entry.count.toLocaleString()}</span>
-                </label>
-              ))
-            )}
-          </div>
-        </FilterSection>
+          <FilterSection title={<div className="flex items-center gap-2"><Calendar size={16} /> Year</div>} value="year">
+            <YearRangeSlider
+              min={localFilters.yearMin}
+              max={localFilters.yearMax}
+              onMinChange={(val) => setLocalFilters((prev) => ({ ...prev, yearMin: val }))}
+              onMaxChange={(val) => setLocalFilters((prev) => ({ ...prev, yearMax: val }))}
+              minLimit={1990}
+              maxLimit={currentYear + 1}
+            />
+          </FilterSection>
 
-        {/* Drive & Features Section (No debouncing needed, uses selects/checkboxes/discrete selection) */}
-        <FilterSection
-          title="Conduite & Fonctionnalités"
-          filterKey="driveAndFeatures"
-          icon={DollarSign}
-        >
-          <div className="space-y-4">
-            {/* Drive type */}
-            <div>
-              <label htmlFor="drive-type-select" className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">Type de transmission</label>
-              <select
-                id="drive-type-select"
-                className="w-full border border-gray-300 px-3 py-2 rounded-md text-sm bg-white dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                value={filters.drive ?? ''}
-                onChange={e => setFilter('drive', e.target.value || undefined)}
-                aria-label="Sélectionner le type de transmission"
-              >
-                <option value="">Tous</option>
-                <option value="FWD">Traction avant (FWD)</option>
-                <option value="RWD">Propulsion arrière (RWD)</option>
-                <option value="AWD">Intégrale (AWD)</option>
-                <option value="4WD">4x4 (4WD)</option>
-              </select>
-            </div>
-
-            {/* Seats */}
-            <div>
-              <label htmlFor="seats-select" className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">Nombre de sièges</label>
-              <select
-                id="seats-select"
-                className="w-full border border-gray-300 px-3 py-2 rounded-md text-sm bg-white dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                value={filters.seats ?? ''}
-                onChange={e => setFilter('seats', e.target.value ? Number(e.target.value) : undefined)}
-                aria-label="Sélectionner le nombre de sièges"
-              >
-                <option value="">Tous</option>
-                {[2, 4, 5, 6, 7, 8, 9].map(s => (
-                  <option key={s} value={s}>
-                    {s} sièges
-                  </option>
+          <FilterSection title={<div className="flex items-center gap-2"><Car size={16} /> Body Type</div>} value="bodyType">
+            <Select
+              value={localFilters.bodyType || ""}
+              onValueChange={(value) => handleSelectChange("bodyType", value)}
+            >
+              <SelectTrigger className="rounded-xl">
+                <SelectValue placeholder="Select Body Type" />
+              </SelectTrigger>
+              <SelectContent className="rounded-xl">
+                {bodyTypeOptions.map((type) => (
+                  <SelectItem key={type} value={type}>
+                    {type}
+                  </SelectItem>
                 ))}
-              </select>
-            </div>
+              </SelectContent>
+            </Select>
+          </FilterSection>
 
-            {/* Binary options (checkboxes) */}
-            <div className="grid grid-cols-2 gap-x-4 gap-y-3">
-              <label className="flex items-center gap-3 text-sm cursor-pointer text-gray-800 dark:text-gray-200">
-                <input
-                  type="checkbox"
-                  checked={filters.towHitchPossible ?? false}
-                  onChange={e => setFilter('towHitchPossible', e.target.checked)}
-                  className="h-4 w-4 text-blue-600 rounded focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600"
-                  aria-label="Option d'attelage remorque"
+          <FilterSection title={<div className="flex items-center gap-2"><Gauge size={16} /> Mileage</div>} value="mileage">
+            <div className="flex space-x-2">
+              <div className="flex-1">
+                <Label htmlFor="mileage-min" className="text-xs">Min (km)</Label>
+                <Input
+                  id="mileage-min"
+                  type="number"
+                  value={localFilters.mileageMin === undefined ? '' : localFilters.mileageMin}
+                  onChange={(e) => handleNumberInputChange("mileageMin", e.target.value)}
+                  placeholder="0"
+                  className="mt-1 rounded-xl"
                 />
-                Attelage remorque
-              </label>
-              <label className="flex items-center gap-3 text-sm cursor-pointer text-gray-800 dark:text-gray-200">
-                <input
-                  type="checkbox"
-                  checked={filters.evDedicatedPlatform ?? false}
-                  onChange={e => setFilter('evDedicatedPlatform', e.target.checked)}
-                  className="h-4 w-4 text-blue-600 rounded focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600"
-                  aria-label="Plateforme EV dédiée"
+              </div>
+              <div className="flex-1">
+                <Label htmlFor="mileage-max" className="text-xs">Max (km)</Label>
+                <Input
+                  id="mileage-max"
+                  type="number"
+                  value={localFilters.mileageMax === undefined ? '' : localFilters.mileageMax}
+                  onChange={(e) => handleNumberInputChange("mileageMax", e.target.value)}
+                  placeholder="200000"
+                  className="mt-1 rounded-xl"
                 />
-                Plateforme EV
-              </label>
-              <label className="flex items-center gap-3 text-sm cursor-pointer text-gray-800 dark:text-gray-200">
-                <input
-                  type="checkbox"
-                  checked={filters.roofRails ?? false}
-                  onChange={e => setFilter('roofRails', e.target.checked)}
-                  className="h-4 w-4 text-blue-600 rounded focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600"
-                  aria-label="Rails de toit"
-                />
-                Rails de toit
-              </label>
-              <label className="flex items-center gap-3 text-sm cursor-pointer text-gray-800 dark:text-gray-200">
-                <input
-                  type="checkbox"
-                  checked={filters.heatPump ?? false}
-                  onChange={e => setFilter('heatPump', e.target.checked)}
-                  className="h-4 w-4 text-blue-600 rounded focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600"
-                  aria-label="Pompe à chaleur"
-                />
-                Pompe à chaleur
-              </label>
+              </div>
             </div>
-          </div>
-        </FilterSection>
+          </FilterSection>
+
+          <FilterSection title={<div className="flex items-center gap-2"><Package size={16} /> Availability</div>} value="availability">
+            <RadioGroup
+              value={localFilters.availability || "ALL"}
+              onValueChange={(value: "ALL" | "STOCK" | "ORDER") =>
+                handleSelectChange("availability", value)
+              }
+              className="flex space-x-4"
+            >
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="ALL" id="availability-all" />
+                <Label htmlFor="availability-all">All</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="STOCK" id="availability-stock" />
+                <Label htmlFor="availability-stock">In Stock</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="ORDER" id="availability-order" />
+                <Label htmlFor="availability-order">On Order</Label>
+              </div>
+            </RadioGroup>
+          </FilterSection>
+
+          <FilterSection title={<div className="flex items-center gap-2"><CarFront size={16} /> Drive Type</div>} value="drive">
+            <Select
+              value={localFilters.drive || ""}
+              onValueChange={(value) => handleSelectChange("drive", value)}
+            >
+              <SelectTrigger className="rounded-xl">
+                <SelectValue placeholder="Select Drive Type" />
+              </SelectTrigger>
+              <SelectContent className="rounded-xl">
+                {driveOptions.map((drive) => (
+                  <SelectItem key={drive} value={drive}>
+                    {drive}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </FilterSection>
+
+          <FilterSection title={<div className="flex items-center gap-2"><Armchair size={16} /> Seats</div>} value="seats">
+            <Select
+              value={localFilters.seats?.toString() || ""}
+              onValueChange={(value) => handleSelectChange("seats", Number(value))}
+            >
+              <SelectTrigger className="rounded-xl">
+                <SelectValue placeholder="Number of Seats" />
+              </SelectTrigger>
+              <SelectContent className="rounded-xl">
+                {seatsOptions.map((seats) => (
+                  <SelectItem key={seats} value={seats.toString()}>
+                    {seats}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </FilterSection>
+
+          <FilterSection title={<div className="flex items-center gap-2"><HardHat size={16} /> Features</div>} value="features">
+            <div className="space-y-3">
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="towHitchPossible"
+                  checked={localFilters.towHitchPossible || false}
+                  onCheckedChange={(checked: boolean) =>
+                    handleCheckboxChange("towHitchPossible", checked)
+                  }
+                  className="rounded"
+                />
+                <Label htmlFor="towHitchPossible">Tow Hitch Possible</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="evDedicatedPlatform"
+                  checked={localFilters.evDedicatedPlatform || false}
+                  onCheckedChange={(checked: boolean) =>
+                    handleCheckboxChange("evDedicatedPlatform", checked)
+                  }
+                  className="rounded"
+                />
+                <Label htmlFor="evDedicatedPlatform">EV Dedicated Platform</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="roofRails"
+                  checked={localFilters.roofRails || false}
+                  onCheckedChange={(checked: boolean) =>
+                    handleCheckboxChange("roofRails", checked)
+                  }
+                  className="rounded"
+                />
+                <Label htmlFor="roofRails">Roof Rails</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="heatPump"
+                  checked={localFilters.heatPump || false}
+                  onCheckedChange={(checked: boolean) =>
+                    handleCheckboxChange("heatPump", checked)
+                  }
+                  className="rounded"
+                />
+                <Label htmlFor="heatPump">Heat Pump</Label>
+              </div>
+            </div>
+          </FilterSection>
+        </Accordion>
+      </div>
+
+      <div className="mt-8 flex flex-col space-y-4">
+        <Button
+          onClick={handleApplyFilters}
+          className="w-full py-3 text-lg font-semibold rounded-2xl shadow-lg transition-all hover:scale-[1.01]"
+        >
+          Apply Filters
+        </Button>
+        <Button
+          variant="outline"
+          onClick={handleResetFilters}
+          className="w-full py-3 text-lg font-semibold rounded-2xl transition-all hover:scale-[1.01]"
+        >
+          Clear All Filters
+        </Button>
       </div>
     </aside>
-  );
+  ); // <-- END OF RETURN STATEMENT
 }

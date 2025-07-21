@@ -349,7 +349,7 @@ export const variantRouter = router({
       });
     }),
 
-  filterVariants: publicProcedure
+filterVariants: publicProcedure
     .input(
       z.object({
         condition: z.enum(["NEW", "USED"]).optional(),
@@ -361,7 +361,7 @@ export const variantRouter = router({
         mileageMin: z.number().optional(),
         mileageMax: z.number().optional(),
         availability: z.enum(["ALL", "STOCK", "ORDER"]).optional(),
-        make: z.string().optional(),
+        make: z.string().optional(), // Ce sera l'ID de la marque si sélectionné depuis les suggestions
         drive: z.string().optional(),
         seats: z.number().optional(),
         towHitchPossible: z.boolean().optional(),
@@ -370,6 +370,7 @@ export const variantRouter = router({
         heatPump: z.boolean().optional(),
         page: z.number().min(1).default(1),
         limit: z.number().min(1).max(100).default(10),
+        searchQuery: z.string().optional(), // <-- NOUVEAU: pour la recherche texte libre
       })
     )
     .query(async ({ input }) => {
@@ -387,54 +388,56 @@ export const variantRouter = router({
 
           (input.priceMin || input.priceMax)
             ? {
-              prices: {
-                some: {
-                  country: {
-                    in: ["Germany", "United Kingdom", "Netherlands"],
+                prices: {
+                  some: {
+                    country: {
+                      in: ["Germany", "United Kingdom", "Netherlands"],
+                    },
+                    ...(input.priceMin ? { price: { gte: input.priceMin } } : {}),
+                    ...(input.priceMax ? { price: { lte: input.priceMax } } : {}),
                   },
-                  ...(input.priceMin ? { price: { gte: input.priceMin } } : {}),
-                  ...(input.priceMax ? { price: { lte: input.priceMax } } : {}),
                 },
-              },
-            }
+              }
             : {},
           input.condition || input.mileageMin || input.mileageMax
             ? {
-              carListings: {
-                some: {
-                  status: "ACTIVE",
-                  seller: { isActive: true },
-                  ...(input.condition && {
-                    car: {
-                      condition: input.condition,
-                    },
-                  }),
-                  ...(input.mileageMin || input.mileageMax
-                    ? {
+                carListings: {
+                  some: {
+                    status: "ACTIVE",
+                    seller: { isActive: true },
+                    ...(input.condition && {
                       car: {
-                        mileage: {
-                          ...(input.mileageMin
-                            ? { gte: input.mileageMin }
-                            : {}),
-                          ...(input.mileageMax
-                            ? { lte: input.mileageMax }
-                            : {}),
-                        },
+                        condition: input.condition,
                       },
-                    }
-                    : {}),
+                    }),
+                    ...(input.mileageMin || input.mileageMax
+                      ? {
+                          car: {
+                            mileage: {
+                              ...(input.mileageMin
+                                ? { gte: input.mileageMin }
+                                : {}),
+                              ...(input.mileageMax
+                                ? { lte: input.mileageMax }
+                                : {}),
+                            },
+                          },
+                        }
+                      : {}),
+                  },
                 },
-              },
-            }
+              }
             : {},
+          // Remplacer input.make par une condition pour l'ID si la suggestion fournit l'ID de la marque
+          // Si input.make est le nom de la marque, utilisez le filtre 'name'
           input.make
             ? {
-              model: {
-                brand: {
-                  id: input.make,
+                model: {
+                  brand: {
+                    name: input.make, // Utiliser le nom de la marque
+                  },
                 },
-              },
-            }
+              }
             : {},
           {
             dimensionSpec: {
@@ -453,6 +456,16 @@ export const variantRouter = router({
               }),
             },
           },
+          // <-- NOUVEAU: Logique pour searchQuery
+          input.searchQuery
+            ? {
+                OR: [
+                  { name: { contains: input.searchQuery, mode: 'insensitive' } }, // Nom de la variante
+                  { model: { name: { contains: input.searchQuery, mode: 'insensitive' } } }, // Nom du modèle
+                  { model: { brand: { name: { contains: input.searchQuery, mode: 'insensitive' } } } }, // Nom de la marque
+                ],
+              }
+            : {},
         ],
       };
 
@@ -484,6 +497,96 @@ export const variantRouter = router({
         variants: variants.map(mapVariantToCardPreview),
         total,
       };
+    }),
+
+    getSearchSuggestions: publicProcedure
+    .input(z.object({
+      query: z.string().min(2), // Minimum 2 caractères pour déclencher la recherche
+    }))
+    .query(async ({ input }) => {
+      const { query } = input;
+
+      const variants = await prisma.variant.findMany({
+        where: {
+          OR: [
+            { name: { contains: query, mode: 'insensitive' } },
+            { model: { name: { contains: query, mode: 'insensitive' } } },
+            { model: { brand: { name: { contains: query, mode: 'insensitive' } } } },
+          ],
+        },
+        select: {
+          id: true,
+          name: true,
+          year: true,
+          slug: true,
+          model: {
+            select: {
+              name: true,
+              brand: {
+                select: {
+                  name: true,
+                  // Si vous avez un champ pour le logo de la marque
+                  // logoUrl: true,
+                },
+              },
+            },
+          },
+        },
+        take: 10, // Limiter les suggestions
+        distinct: ['modelId'], // Pour éviter les doublons de modèles si plusieurs variantes correspondent
+      });
+
+      // Maintenant, vous pouvez également chercher directement dans les marques et modèles
+      const brands = await prisma.brand.findMany({
+        where: { name: { contains: query, mode: 'insensitive' } },
+        select: { id: true, name: true, slug: true /*, logoUrl: true */ },
+        take: 5,
+      });
+
+      const models = await prisma.model.findMany({
+        where: { name: { contains: query, mode: 'insensitive' } },
+        select: { id: true, name: true, slug: true, brand: { select: { name: true , logo: true  } } },
+        take: 5,
+      });
+
+      const formattedSuggestions: { id: string; label: string; value: string; logoUrl?: string | null; type: string }[] = [];
+
+      // Ajouter les marques
+      brands.forEach(brand => {
+        formattedSuggestions.push({
+          id: `brand-${brand.id}`,
+          label: brand.name,
+          value: brand.name, // Utilisez le nom de la marque comme valeur de filtre 'make'
+          type: 'brand',
+        });
+      });
+
+      // Ajouter les modèles
+      models.forEach(model => {
+        formattedSuggestions.push({
+          id: `model-${model.id}`,
+          label: `${model.brand.name} ${model.name}`,
+          value: model.brand.name, // Associe le modèle à sa marque pour le filtre 'make'
+          logoUrl: model.brand.logo || null, // Si le logo est sur la marque
+          type: 'model',
+        });
+      });
+
+
+      // Ajouter les variantes
+      variants.forEach(variant => {
+        formattedSuggestions.push({
+          id: `variant-${variant.id}`,
+          label: `${variant.model.brand.name} ${variant.model.name} ${variant.name} (${variant.year})`,
+          value: variant.model.brand.name, // La marque associée à la variante
+          type: 'variant',
+        });
+      });
+
+      // Optionnel: Dédupliquer les suggestions si une marque/modèle apparaît plusieurs fois
+      const uniqueSuggestions = Array.from(new Map(formattedSuggestions.map(item => [item.label, item])).values());
+
+      return uniqueSuggestions;
     }),
 
   getBodyTypesWithCounts: publicProcedure.query(async () => {
