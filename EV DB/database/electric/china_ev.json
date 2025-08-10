@@ -1,0 +1,3393 @@
+[
+  {
+    "brand": "AIWAYS",
+    "model": "AIWAYS U5 (EV)",
+    "year": "2020",
+    "price_rmb": "197900.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H) (mm)": "4680×1865×1700",
+        "Wheelbase (mm)": "2800",
+        "Max. Speed (km/h)": "160",
+        "Acceleration 0-100 km/h|(0 to 62 mph) (s)": "10",
+        "Fuel Consumption (L/100km)": "13.8 kWh/100km",
+        "Curb Weight (kg)": "1700/1750/1890",
+        "Trunk / Boot capacity (L)": "432/1555"
+      },
+      "Engine": {
+        "Max. Power": "190PS or 140kW",
+        "Max. Torque": "315N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "MacPherson independent suspension",
+        "Rear Suspension": "Multi-link Independent",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "235/50 R19",
+        "Rear Tyres": "235/50 R19",
+        "Range": "403/503/623km, battery capacity: 53/65/83kWh, battery type: ternary lithium battery, battery energy density: 145/181Wh/kg, fast charging time: 0.45hour, slow charging: 10.5hours (to 80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-aiways-u5-ev-technical-specs/"
+  },
+  {
+    "brand": "AIWAYS",
+    "model": "AIWAYS U6 (EV)",
+    "year": "2021",
+    "price_rmb": null,
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H) (mm)": "4805×1880×1641",
+        "Wheelbase (mm)": "2800",
+        "Max. Speed (km/h)": "160",
+        "Acceleration 0-100 km/h|(0 to 62 mph) (s)": "7",
+        "Curb Weight (kg)": "1790/1820/1900"
+      },
+      "Engine": {
+        "Max. Power": "218PS or 160kW",
+        "Max. Torque": "315N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "MacPherson independent suspension",
+        "Rear Suspension": "Multi-link Independent",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "235/45 R20",
+        "Rear Tyres": "235/45 R20",
+        "Range": "503/580/650km, battery capacity: 63/72/88kWh, battery type: ternary lithium battery, fast charging time: 0.5/0.67/0.45hour, slow charging: 14.5hours (to 80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2021-aiways-u6-ev-technical-specs/"
+  },
+  {
+    "brand": "ZOTYE",
+    "model": "Zotye T300 EV",
+    "year": "2018",
+    "price_rmb": "179900.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H)": "4405×1830×1665mm",
+        "Wheelbase": "2610mm",
+        "Max. Speed (km/h)": "140",
+        "Acceleration 0-100 km/h|(0 to 62 mph)": "12s",
+        "Curb Weight (kg)": "1598"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "95kW",
+        "Max. Torque": "260N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Compound torsion beam non-independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "205/65 R16, 215/55 R17",
+        "Rear Tyres": "205/65 R16, 215/55 R17",
+        "Range": "250km, battery capacity: 42.7kWh, batery type: ternary lithium battery, charging time: fast:0.5hour, slow: 14hours (to 80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2018-zotye-t300-ev-technical-specs/"
+  },
+  {
+    "brand": "XPENG",
+    "model": "Xpeng P7 (EV)",
+    "year": "2020",
+    "price_rmb": "229900.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Num. of Doors/Seats & Body Type": "4/5 Sedan",
+        "Body Size (L*W*H)": "4880×1896×1450mm",
+        "Wheelbase": "2998",
+        "Max. Speed (km/h)": "170",
+        "Acceleration 0-100 km/h|(0 to 62 mph)": "4.3-6.7",
+        "Curb Weight (kg)": "1865-2060",
+        "Trunk / Boot capacity (L)": "440"
+      },
+      "Engine": {
+        "Engine Code": "E-motor",
+        "Max. Power": "Single E-motor: 267PS or 196kW; Dual-E-motor 4WD: Max. 430PS or 316kW, front: 120kW, rear: 196kW",
+        "Max. Torque": "Single E-motor: 390N.m; Dual-E-motor 4WD: Max.655N.m, front: 265N.m, rear: 390N.m",
+        "Fuel Type": "Pure Electric"
+      },
+      "Body": {
+        "Drive wheels - Traction": "RR or Dual E-motor 4WD",
+        "Front Suspension": "Double wishbone independent suspension",
+        "Rear Suspension": "Five-link independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Vented discs",
+        "Front Tyres": "245/50 R18, 245/45 R19",
+        "Rear Tyres": "245/50 R18, 245/45 R19",
+        "Range": "562/586/670/706km, battery capacity: 70.8kWh/80.9kWh, Batery type: Ternary lithium battery. Charging time: fast:0.47-0.52hour, 5.7-6.5hours (80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-xpeng-p7-technical-specs/"
+  },
+  {
+    "brand": "WM-MOTOR",
+    "model": "Weltmeister EX5-Z (WM EX5)",
+    "year": "2020",
+    "price_rmb": "149800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H)": "4585×1835×1672mm",
+        "Wheelbase": "2703",
+        "Acceleration 0-100 km/h|(0 to 62 mph)": "8.3-8.5",
+        "Trunk / Boot capacity (L)": "488"
+      },
+      "Engine": {
+        "Engine Code": "E-motor",
+        "Max. Power": "218PS or 160kW",
+        "Max. Torque": "315N.m",
+        "Fuel Type": "Pure Electric"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "MacPherson independent suspension",
+        "Rear Suspension": "Torsion beam non-independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "225/55 R18",
+        "Rear Tyres": "225/55 R18",
+        "Range": "400/520km, battery capacity: 52.56kWh/69kWh, Batery type: Ternary lithium battery. Charging time: fast:0.5-0.58hour, 8.4-11.2hours (80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-weltmeister-ex5-z-wm-ex5-technical-specs/"
+  },
+  {
+    "brand": "WM-MOTOR",
+    "model": "Weltmeister EX6 Plus (WM EX6)",
+    "year": "2020",
+    "price_rmb": "239900.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H)": "4802×1839×1710",
+        "Wheelbase": "2715",
+        "Acceleration 0-100 km/h|(0 to 62 mph)": "9.5",
+        "Trunk / Boot capacity (L)": "-"
+      },
+      "Engine": {
+        "Engine Code": "TZ242XS003 (E-motor)",
+        "Max. Power": "218PS or 160kW",
+        "Max. Torque": "315N.m",
+        "Fuel Type": "Pure Electric"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "MacPherson independent suspension",
+        "Rear Suspension": "Variable cross-section trailing arm torsion beam suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "225/55 R18",
+        "Rear Tyres": "225/55 R18",
+        "Range": "408/505km, battery capacity: 54/69kWh, Batery type: Ternary lithium battery. Charging time: fast:0.5-0.58hour, 9-11.2hours (80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-weltmeister-ex6-plus-wm-ex6-technical-specs/"
+  },
+  {
+    "brand": "XPENG",
+    "model": "Xpeng G3",
+    "year": "2020",
+    "price_rmb": "146800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H)": "4450×1820×1600",
+        "Wheelbase": "2625",
+        "Max. Speed (km/h)": "170",
+        "Acceleration 0-100 km/h|(0 to 62 mph)": "8.6",
+        "Curb Weight (kg)": "1609-1637",
+        "Trunk / Boot capacity (L)": "380"
+      },
+      "Engine": {
+        "Engine Code": "E-motor",
+        "Max. Power": "197PS or 145kW",
+        "Max. Torque": "300N.m",
+        "Fuel Type": "Pure Electric"
+      },
+      "Body": {
+        "Drive wheels - Traction": "RR or Dual E-motor 4WD",
+        "Front Suspension": "Double wishbone independent suspension",
+        "Rear Suspension": "Torsion beam non-independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "215/55 R17",
+        "Rear Tyres": "215/55 R17",
+        "Range": "460/520km, battery capacity: 57.5kWh/66.5kWh, Batery type: Ternary lithium battery. Charging time: fast:0.47-0.5-0.63hour, 4.3-5.5hours (80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-xpeng-g3-technical-specs/"
+  },
+  {
+    "brand": "XPENG",
+    "model": "Xpeng G3i (EV)",
+    "year": "2022",
+    "price_rmb": "149800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H)": "4495×1820×1610",
+        "Wheelbase": "2625",
+        "Max. Speed (km/h)": "170",
+        "Acceleration 0-100 km/h|(0 to 62 mph)": "8.6",
+        "Curb Weight (kg)": "1630-1680",
+        "Trunk / Boot capacity (L)": "380 (760)"
+      },
+      "Engine": {
+        "Engine Code": "E-motor",
+        "Max. Power": "197PS or 145kW",
+        "Max. Torque": "300N.m",
+        "Fuel Type": "Pure Electric"
+      },
+      "Body": {
+        "Drive wheels - Traction": "Single E-motor, front-wheel drive",
+        "Front Suspension": "MacPherson independent suspension",
+        "Rear Suspension": "Torsion beam non-independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "215/55 R17",
+        "Rear Tyres": "215/55 R17",
+        "Range": "460/520km, battery capacity: 55/57/66kWh, Batery type: Lithium iron phosphate battery. Charging time: fast charging:0.58hour, slow charging: 4.3-5.5hours (80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2022-xpeng-g3i-technical-specs/"
+  },
+  {
+    "brand": "XPENG",
+    "model": "Xpeng P5 (EV)",
+    "year": "2021",
+    "price_rmb": "157900.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Num. of Doors/Seats & Body Type": "4/5 Sedan",
+        "Body Size (L*W*H)": "4808×1840×1520mm",
+        "Wheelbase": "2768",
+        "Max. Speed (km/h)": "170",
+        "Acceleration 0-100 km/h|(0 to 62 mph)": "7.5",
+        "Trunk / Boot capacity (L)": "450"
+      },
+      "Engine": {
+        "Engine Code": "E-motor",
+        "Max. Power": "Single E-motor: 155kW or 211PS;",
+        "Max. Torque": "Single E-motor: 310N.m",
+        "Fuel Type": "Pure Electric"
+      },
+      "Body": {
+        "Drive wheels - Traction": "Front Wheel Drive",
+        "Front Suspension": "MacPherson independent suspension",
+        "Rear Suspension": "Torsion beam non-independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "215/55 R17",
+        "Rear Tyres": "215/55 R17",
+        "Range": "460/550/600km, battery capacity: 55.9/66.2/71.4kWh, Batery type: Lithium iron phosphate battery (for 460km 55.9kWh model) / Ternary lithium battery (for 550/600km 66.2/71.4kWh models) . Fast charging time: 0.5/0.58/0.63hours (From 0 to 80% of battery capacity), Slow Charging: not available"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2021-xpeng-p5-technical-specs/"
+  },
+  {
+    "brand": "SKYWELL",
+    "model": "Skyworth EV6 (EV)",
+    "year": "2021",
+    "price_rmb": "152800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H) (mm)": "4698×1908×1696",
+        "Wheelbase (mm)": "2800",
+        "Max. Speed (km/h)": "150",
+        "Acceleration 0-100 km/h|(0 to 62 mph)": "7.9s",
+        "Curb Weight (kg)": "1820-1920",
+        "Trunk / Boot capacity (L)": "467-1141"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "150kW",
+        "Max. Torque": "320N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "235/55 R18 235/50 R19",
+        "Rear Tyres": "235/55 R18 235/50 R19",
+        "Range": "410/520km, battery capacity:55.33/71.98kWh, charging time: fast: 0.5hour, slow: 9/11hours (to 80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2021-skyworth-ev6-ev-technical-specs/"
+  },
+  {
+    "brand": "SOUEAST",
+    "model": "Soueast DX3 EV",
+    "year": "2019",
+    "price_rmb": "171500.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H)": "4354×1840×1648mm",
+        "Wheelbase": "2610mm",
+        "Max. Speed (km/h)": "125",
+        "Curb Weight (kg)": "1640"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "122PS or 90kW",
+        "Max. Torque": "280N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "215/60 R17",
+        "Rear Tyres": "215/60 R17",
+        "Range": "351km, battery capacity: 50.12kWh, Battery type: ternary lithium battery, charging time: fast:0.5hour, slow: 7.5hours"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2019-soueast-dx3-ev-technical-specs/"
+  },
+  {
+    "brand": "SGMW",
+    "model": "Baojun E300 (EV)",
+    "year": "2020",
+    "price_rmb": "64800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "E-motor",
+        "Aspiration": "Electric",
+        "Gearbox": "-",
+        "Num. of Doors/Seats & Body Type": "3/3, 3/4hatchback",
+        "Body Size (L*W*H)": "2625×1647×1588, 2894×1655×1595",
+        "Wheelbase": "1750, 2020",
+        "Max. Speed (km/h)": "100",
+        "Acceleration 0-100 km/h|(0 to 62 mph)": "-",
+        "Fuel Consumption (L/100km)": "-",
+        "Curb Weight (kg)": "920-940, 1040-1052",
+        "Fuel Tank Capacity (L)": "-",
+        "Trunk / Boot capacity (L)": "-"
+      },
+      "Engine": {
+        "Engine Code": "TZ154X140,",
+        "Max. Power": "54PS or 40kW",
+        "Max. Torque": "150N.m",
+        "Num. of Cylinder": "-",
+        "Num. of Valves": "-",
+        "Fuel Type": "-",
+        "Fuel System": "-"
+      },
+      "Body": {
+        "Drive wheels - Traction": "RR",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Double wishbone independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "145/70 R12, 155/70 R13",
+        "Rear Tyres": "145/70 R12, 155/70 R13",
+        "Range": "305km, 2hours in fast charging, 4.5-15hours in slow charging time (for 80% of battery capacity), battery type: Ternary lithium battery, battery capacity: 31kWh"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-baojun-e300-ev-technical-specs/"
+  },
+  {
+    "brand": "SGMW",
+    "model": "Wuling Hongguang MINIEV (EV)",
+    "year": "2022",
+    "price_rmb": "32800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "Pure Electric",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "3/4 mini ev",
+        "Body Size (L*W*H)": "2920×1493×1621mm (120km/170km), 3061×1520×1665mm(200km), 3061×1520×1659mm (300km)",
+        "Wheelbase": "1960mm (120/170km), 2010mm(200km/300km)",
+        "Max. Speed (km/h)": "100",
+        "Curb Weight (kg)": "665kg (120km version), 700kg (170km version), 772kg(200km version) , 822kg(300km version)"
+      },
+      "Engine": {
+        "Engine Code": "E-motor",
+        "Max. Power": "27 PS or 20 kW (120km & 170km version), 41PS or 30kW (200km & 300km version)",
+        "Max. Torque": "85N.m(120km & 170km version), 110N.m(200km & 300km version)",
+        "Fuel Type": "Pure Electric"
+      },
+      "Body": {
+        "Drive wheels - Traction": "RR",
+        "Front Suspension": "McPherson struts.",
+        "Rear Suspension": "Three-link dependent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Disc",
+        "Rear Brakes": "Drums",
+        "Front Tyres": "145/70 R12",
+        "Rear Tyres": "145/70 R12",
+        "Range": "120km in NEDC standard",
+        "Battery": "Battery type: Lithium iron phosphate or Ternary lithium battery, capacity: 9.2-9.3kWh (120km version), 13.8kWh (170km version), 17.3kWh(200km version), 26.5kWh(300km version), slow charging time: 5 hours)",
+        "Charging Time (Hour))": "Slow charging: 6.5 Hours (120km version), 9Hours  (170km version), 5.5Hours(300km version), 8Hours(300km version)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2022-wuling-hongguang-miniev-ev-technical-specs/"
+  },
+  {
+    "brand": "NIO",
+    "model": "NIO ES8",
+    "year": "2018",
+    "price_rmb": "448000.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Num. of Doors/Seats & Body Type": "5/6, 5/7 SUV",
+        "Body Size (L*W*H)": "5022×1962×1756mm",
+        "Wheelbase": "3010",
+        "Max. Speed (km/h)": "200",
+        "Acceleration 0-100 km/h|(0 to 62 mph)": "4.4",
+        "Fuel Consumption (L/100km)": "21kWh/100km. Fast charging: 1.5Hours (100%)",
+        "Curb Weight (kg)": "2460",
+        "Trunk / Boot capacity (L)": "312"
+      },
+      "Engine": {
+        "Engine Code": "E-motor",
+        "Max. Power": "Max. 653PS or 480kW, Front: 240kW, Rear: 240kW",
+        "Max. Torque": "Max. 840N.m, Front: 420N.m, Rear: 420N.m",
+        "Fuel Type": "Pure Electric",
+        "Fuel System": "Dual E-motor"
+      },
+      "Body": {
+        "Drive wheels - Traction": "Dual E-motor 4WD",
+        "Front Suspension": "Double wishbone independent suspension",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Vented discs",
+        "Front Tyres": "255/55 R19",
+        "Rear Tyres": "255/55 R19",
+        "Range": "355km/425km, battery capacity: 70kWh/84kWh, battery, Battery energy density: 135.65 (Wh/kg), Batery type: Ternary lithium battery."
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2018-nio-es8-technical-specs/"
+  },
+  {
+    "brand": "NIO",
+    "model": "NIO ES8",
+    "year": "2020",
+    "price_rmb": "468000.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Num. of Doors/Seats & Body Type": "5/6, 5/7 SUV",
+        "Body Size (L*W*H)": "5022×1962×1756mm",
+        "Wheelbase": "3010",
+        "Max. Speed (km/h)": "200",
+        "Acceleration 0-100 km/h|(0 to 62 mph)": "4.9",
+        "Fuel Consumption (L/100km)": "- , fast charging: 0.8-1.5hours, slow charging: 7.5-8hours (100% of battery capacity)",
+        "Curb Weight (kg)": "2425",
+        "Trunk / Boot capacity (L)": "310"
+      },
+      "Engine": {
+        "Engine Code": "E-motor",
+        "Max. Power": "Max. 544PS or 400kW, Front: 160kW, Rear: 240kW",
+        "Max. Torque": "Max. 725N.m",
+        "Fuel Type": "Pure Electric",
+        "Fuel System": "Dual E-motor"
+      },
+      "Body": {
+        "Drive wheels - Traction": "Dual E-motor 4WD",
+        "Front Suspension": "Double wishbone independent suspension",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Vented discs",
+        "Front Tyres": "255/55 R19, 265/45 R21",
+        "Rear Tyres": "255/55 R19, 265/45 R21",
+        "Range": "415km/485km/580km, battery capacity: 70kWh/84kWh/100kWh, Batery type: Ternary lithium battery."
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-nio-es8-technical-specs/"
+  },
+  {
+    "brand": "NIO",
+    "model": "NIO ES6",
+    "year": "2020",
+    "price_rmb": "358000.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H)": "4850×1965×1758",
+        "Wheelbase": "2900",
+        "Max. Speed (km/h)": "200",
+        "Acceleration 0-100 km/h|(0 to 62 mph)": "4.7-5.6",
+        "Fuel Consumption (L/100km)": "- , fast charging: 0.8hours, slow charging: 10hours (80% of battery capacity)",
+        "Curb Weight (kg)": "2200",
+        "Trunk / Boot capacity (L)": "584"
+      },
+      "Engine": {
+        "Engine Code": "E-motor",
+        "Max. Power": "Max. 435PS or 320kW, Front: 160kW, Rear: 160kW",
+        "Max. Torque": "Max. 610N.m",
+        "Fuel Type": "Pure Electric",
+        "Fuel System": "Dual E-motor"
+      },
+      "Body": {
+        "Drive wheels - Traction": "Dual E-motor 4WD",
+        "Front Suspension": "Double wishbone independent suspension",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Vented discs",
+        "Front Tyres": "255/55 R19, 255/50 R20",
+        "Rear Tyres": "255/55 R19, 255/50 R20",
+        "Range": "420/430/490/510km, battery capacity: 70kWh/84kWh battery, Batery type: Ternary lithium battery."
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-nio-es6-technical-specs/"
+  },
+  {
+    "brand": "NIO",
+    "model": "NIO EC6",
+    "year": "2020",
+    "price_rmb": "368000.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H)": "4850×1965×1731",
+        "Wheelbase": "2900",
+        "Max. Speed (km/h)": "200",
+        "Acceleration 0-100 km/h|(0 to 62 mph)": "4.5-5.4",
+        "Fuel Consumption (L/100km)": "- , fast charging: 1.5-1.6hours, slow charging: 10-15hours (100% of battery capacity)",
+        "Curb Weight (kg)": "-",
+        "Trunk / Boot capacity (L)": "510"
+      },
+      "Engine": {
+        "Engine Code": "E-motor",
+        "Max. Power": "Max. 435PS or 320kW, Front: 160kW, Rear: 160kW",
+        "Max. Torque": "Max. 610N.m",
+        "Fuel Type": "Pure Electric",
+        "Fuel System": "Dual E-motor"
+      },
+      "Body": {
+        "Drive wheels - Traction": "Dual E-motor 4WD",
+        "Front Suspension": "MacPherson independent suspension",
+        "Rear Suspension": "Double wishbone independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Vented discs",
+        "Front Tyres": "255/55 R19, 255/50 R20",
+        "Rear Tyres": "255/55 R19, 255/50 R20",
+        "Range": "430/440/605/615km, battery capacity: 70kWh/100kWh battery, Batery type: Ternary lithium battery."
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-nio-ec6-technical-specs/"
+  },
+  {
+    "brand": "NIO",
+    "model": "NIO ES8",
+    "year": "2023",
+    "price_rmb": "528000.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Num. of Doors/Seats & Body Type": "5/6 SUV",
+        "Body Size (L*W*H)": "5099×1989×1750mm",
+        "Wheelbase": "3070",
+        "Max. Speed (km/h)": "200",
+        "Acceleration 0-100 km/h|(0 to 62 mph)": "4.1",
+        "Fuel Consumption (L/100km)": "-",
+        "Curb Weight (kg)": "-",
+        "Trunk / Boot capacity (L)": "552"
+      },
+      "Engine": {
+        "Engine Code": "E-motor",
+        "Max. Power": "Max. 653PS or 480kW, Front: 180kW, Rear: 300kW",
+        "Max. Torque": "850N.m (Front 350N.m, Rear: 500N.m)",
+        "Fuel Type": "Pure Electric",
+        "Fuel System": "Dual E-motor"
+      },
+      "Body": {
+        "Drive wheels - Traction": "Dual E-motor 4WD",
+        "Front Suspension": "Double wishbone independent suspension",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Load bearing",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Vented discs",
+        "Front Tyres": "255/50 R20, 265/45 R21",
+        "Rear Tyres": "255/50 R20, 265/45 R21",
+        "Range": "435km/565km, battery capacity: 75kWh/100kWh, Batery type: Ternary lithium + lithium iron phosphate or Ternary lithium",
+        "Autopilot chip": "NVIDIA Drive Orin ×4",
+        "Chip computing power": "1016 TOPS"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2023-nio-es8-technical-specs/"
+  },
+  {
+    "brand": "NIO",
+    "model": "NIO ET5",
+    "year": "2022",
+    "price_rmb": "328000.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Num. of Doors/Seats & Body Type": "4/5 Sedan",
+        "Body Size (L*W*H)": "4790×1960×1499",
+        "Wheelbase": "2888",
+        "Max. Speed (km/h)": "200",
+        "Acceleration 0-100 km/h|(0 to 62 mph)": "4",
+        "Power Consumption (kWh/100km)": "15.1 - 15.3",
+        "Curb Weight (kg)": "2165-2185"
+      },
+      "Engine": {
+        "Engine Code": "E-motor",
+        "Max. Power": "Max. 489PS or 360kW, Front: 150kW, Rear: 210kW",
+        "Max. Torque": "Max. 700N.m (front: 280N.m, rear: 420N.m)",
+        "Fuel Type": "Pure electric, ternary lithium + lithium iron phosphate battery or ternary lithium battery group",
+        "Fuel System": "Dual E-motor"
+      },
+      "Body": {
+        "Drive wheels - Traction": "Dual E-motor 4WD",
+        "Front Suspension": "Five-link independent suspension",
+        "Rear Suspension": "Five-link independent suspension",
+        "Body structure": "Integral body",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Vented discs",
+        "Front Tyres": "245/45 R19",
+        "Rear Tyres": "245/45 R19",
+        "Range": "560/710km, battery capacity: 75kWh/100kWh battery",
+        "Autopilot chip": "NVIDIA Drive Orin ×4",
+        "Chip computing power": "1016 TOPS"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2022-nio-et5-technical-specs/"
+  },
+  {
+    "brand": "NIO",
+    "model": "NIO ET7",
+    "year": "2021",
+    "price_rmb": "458000.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Num. of Doors/Seats & Body Type": "4/5 Sedan",
+        "Body Size (L*W*H)": "5101×1987×1509",
+        "Wheelbase": "3060",
+        "Max. Speed (km/h)": "200",
+        "Acceleration 0-100 km/h|(0 to 62 mph)": "3.8",
+        "Power Consumption (kWh/100km)": "16-16.2",
+        "Curb Weight (kg)": "2349 - 2379"
+      },
+      "Engine": {
+        "Engine Code": "E-motor",
+        "Max. Power": "Max. 653PS or 480kW, Front: 180kW, Rear: 300kW",
+        "Max. Torque": "Max. 850N.m (front: 350N.m, rear: 500N.m)",
+        "Fuel Type": "Pure electric, ternary lithium + lithium iron phosphate battery or ternary lithium battery group",
+        "Fuel System": "Dual E-motor"
+      },
+      "Body": {
+        "Drive wheels - Traction": "Dual E-motor 4WD",
+        "Front Suspension": "Five-link independent suspension",
+        "Rear Suspension": "Multi-link independent suspension",
+        "Body structure": "Integral body",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Vented discs",
+        "Front Tyres": "245/50 R19, 245/45 R20",
+        "Rear Tyres": "245/50 R19, 245/45 R20",
+        "Range": "530/675km, battery capacity: 75kWh/100kWh",
+        "Autopilot chip": "NVIDIA Drive Orin ×4",
+        "Chip computing power": "1016 TOPS"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2021-nio-et7-technical-specs/"
+  },
+  {
+    "brand": "NIO",
+    "model": "NIO ES7",
+    "year": "2022",
+    "price_rmb": "468000.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H)": "4912×1987×1720mm",
+        "Wheelbase": "2960",
+        "Max. Speed (km/h)": "200",
+        "Acceleration 0-100 km/h|(0 to 62 mph)": "3.9",
+        "Power Consumption (kWh/100km)": "17.6 - 19.1",
+        "Curb Weight (kg)": "2361 - 2400",
+        "Trunk / Boot capacity (L)": "570"
+      },
+      "Engine": {
+        "Engine Code": "E-motor",
+        "Max. Power": "Max. 653PS or 480kW, Front: 180kW, Rear: 300kW",
+        "Max. Torque": "850N.m (Front 350N.m, Rear: 500N.m)",
+        "Fuel Type": "Pure Electric ternary lithium + lithium iron phosphate or ternary lithium battery group",
+        "Fuel System": "Dual E-motor"
+      },
+      "Body": {
+        "Drive wheels - Traction": "Dual E-motor 4WD",
+        "Front Suspension": "Double wishbone independent suspension",
+        "Rear Suspension": "Multi-link independent suspension",
+        "Body structure": "Load bearing",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Vented discs",
+        "Front Tyres": "255/50 R20, 265/45 R21",
+        "Rear Tyres": "255/50 R20, 265/45 R21",
+        "Range": "485km/575km/620, battery capacity: 75kWh/100kWh",
+        "Autopilot chip": "NVIDIA Drive Orin ×4",
+        "Chip computing power": "1016 TOPS"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2022-nio-es7-technical-specs/"
+  },
+  {
+    "brand": "NIO",
+    "model": "NIO EC7",
+    "year": "2022",
+    "price_rmb": "468000.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H)": "4968×1974×1714mm",
+        "Wheelbase": "2960",
+        "Max. Speed (km/h)": "200",
+        "Acceleration 0-100 km/h|(0 to 62 mph)": "3.8",
+        "Power Consumption (kWh/100km)": "-",
+        "Curb Weight (kg)": "-",
+        "Trunk / Boot capacity (L)": "442"
+      },
+      "Engine": {
+        "Engine Code": "E-motor",
+        "Max. Power": "Max. 653PS or 480kW, Front: 180kW, Rear: 300kW",
+        "Max. Torque": "850N.m (Front 350N.m, Rear: 500N.m)",
+        "Fuel Type": "Pure Electric ternary lithium + lithium iron phosphate or ternary lithium battery group",
+        "Fuel System": "Dual E-motor"
+      },
+      "Body": {
+        "Drive wheels - Traction": "Dual E-motor 4WD",
+        "Front Suspension": "Double wishbone independent suspension",
+        "Rear Suspension": "Multi-link independent suspension",
+        "Body structure": "Load bearing",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Vented discs",
+        "Front Tyres": "255/50 R20, 265/45 R21",
+        "Rear Tyres": "255/50 R20, 265/45 R21",
+        "Range": "490km/635km, battery capacity: 75kWh/100kWh (Fast charging: 0.33 - 0.5hours to 80% of battery capacity)",
+        "Autopilot chip": "NVIDIA Drive Orin ×4",
+        "Chip computing power": "1016 TOPS"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2022-nio-ec7-technical-specs/"
+  },
+  {
+    "brand": "MAXUS",
+    "model": "SAIC MAXUS EUNIQ 6 EV",
+    "year": "2020",
+    "price_rmb": "175800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speek",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H) (mm)": "4735×1860×1736",
+        "Wheelbase (mm)": "2760"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "E-motor: 178PS or 130kW",
+        "Max. Torque": "310N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "MacPherson independent suspension",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "215/65 R17 235/55 R18 235/50 R19",
+        "Rear Tyres": "215/65 R17 235/55 R18 235/50 R19",
+        "Range": "350/510km, battery capacity: 52.5/70kWh, battery energy density: 164/186Wh/kg, fast charging: 0.5hour, slow charging time: 9.5/11hours."
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-saic-maxus-euniq-6-ev-technical-specs-2/"
+  },
+  {
+    "brand": "MAXUS",
+    "model": "SAIC MAXUS EUNIQ 5 EV",
+    "year": "2020",
+    "price_rmb": "166800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speek",
+        "Num. of Doors/Seats & Body Type": "5/5,6,7 MPV",
+        "Body Size (L*W*H) (mm)": "4825×1825×1778",
+        "Wheelbase (mm)": "2800",
+        "Max. Speed (km/h)": "170"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "E-motor: 116PS or 85W, 177PS or 130kW",
+        "Max. Torque": "250/310N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "MacPherson independent suspension",
+        "Rear Suspension": "Torsion beam non-independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "205/60 R16 215/55 R17",
+        "Rear Tyres": "205/60 R16 215/55 R17",
+        "Range": "350/420km, battery capacity: 52.5/71kWh, battery energy density: 162/178Wh/kg, fast charging: 0.75hour (to 80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-saic-maxus-euniq-5-ev-technical-specs/"
+  },
+  {
+    "brand": "MAXUS",
+    "model": "SAIC MAXUS EG10 (EV)",
+    "year": "2019",
+    "price_rmb": "302800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speek",
+        "Num. of Doors/Seats & Body Type": "4/7, 5/7 MPV",
+        "Body Size (L*W*H) (mm)": "5168×1980×1928",
+        "Wheelbase (mm)": "3198",
+        "Max. Speed (km/h)": "150",
+        "Acceleration 0-100 km/h|(0 to 62 mph) (s)": "14"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "E-motor: 102PS or 75W",
+        "Max. Torque": "380N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FR",
+        "Front Suspension": "MacPherson independent suspension",
+        "Rear Suspension": "Five-link non-independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "215/70 R16 225/55 R18",
+        "Rear Tyres": "215/70 R16 225/55 R18",
+        "Range": "300km, battery capacity: 71.8kWh, battery type: ternary lithium battery, fast charging: 1.5shour, slow charging time: 10hours"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2019-saic-maxus-eg10-ev-technical-specs/"
+  },
+  {
+    "brand": "LIFAN",
+    "model": "Lifan 820 EV",
+    "year": "2019",
+    "price_rmb": "256800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "4/5 Sedan",
+        "Body Size (L*W*H) (mm)": "4865×1835×1500",
+        "Wheelbase (mm)": "2775",
+        "Max. Speed (km/h)": "105",
+        "Curb Weight (kg)": "1850"
+      },
+      "Engine": {
+        "Max. Power": "82PS or 60kW",
+        "Max. Torque": "300N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "215/55 R17 235/45 R18",
+        "Rear Tyres": "215/55 R17 235/45 R18",
+        "Range": "330km, battery energy density: 143Wh/kg, battery type: ternary lithium battery"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2019-lifan-820-ev-technical-specs/"
+  },
+  {
+    "brand": "LEVDEO",
+    "model": "Levdeo i3 (EV)",
+    "year": "2019",
+    "price_rmb": "49800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/4 hatchback",
+        "Body Size (L*W*H) (mm)": "3420×1500×1570",
+        "Wheelbase (mm)": "2297",
+        "Max. Speed (km/h)": "80/100",
+        "Curb Weight (kg)": "830"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "14PS or 10kW",
+        "Max. Torque": "14N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Trailing arm non-independent",
+        "Body structure": "Integral",
+        "Front Brakes": "Discs",
+        "Rear Brakes": "Drum",
+        "Front Tyres": "155/70 R13",
+        "Rear Tyres": "155/70 R13",
+        "Range": "100/150km, battery capacity:10.78/15.33kWh, battery type: Lithium iron phosphate battery, charging time: slow: 6.5hours"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2019-levdeo-i3-ev-technical-specs/"
+  },
+  {
+    "brand": "LEVDEO",
+    "model": "Levdeo i9 (EV)",
+    "year": "2020",
+    "price_rmb": "139900.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H) (mm)": "4360×1830×1660",
+        "Wheelbase (mm)": "2550",
+        "Max. Speed (km/h)": "105",
+        "Acceleration 0-100 km/h|(0 to 62 mph) (s)": "16",
+        "Fuel Consumption (L/100km)": "13.3kWh/100km",
+        "Curb Weight (kg)": "1595"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "95PS or 70kW",
+        "Max. Torque": "180N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Torsion beam non-independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "205/65 R16",
+        "Rear Tyres": "205/65 R16",
+        "Range": "470km, battery capacity:59.13kWh, battery type: Ternary Lithium battery, charging time: fast: 0.67hour (to 80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-levdeo-i9-ev-technical-specs/"
+  },
+  {
+    "brand": "LEVDEO",
+    "model": "Levdeo i5 (EV)",
+    "year": "2019",
+    "price_rmb": "75800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "4/4 Sedan",
+        "Body Size (L*W*H) (mm)": "4055×1630×1510",
+        "Wheelbase (mm)": "2400",
+        "Max. Speed (km/h)": "100",
+        "Curb Weight (kg)": "1010"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "20PS or 15kW",
+        "Max. Torque": "-",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Trailing arm non-independent",
+        "Body structure": "Integral",
+        "Front Brakes": "Discs",
+        "Rear Brakes": "Drum",
+        "Front Tyres": "165/65 R14",
+        "Rear Tyres": "165/65 R14",
+        "Range": "255km, battery capacity:25.55kWh, battery type: Ternary Lithium battery"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2019-levdeo-i5-ev-technical-specs/"
+  },
+  {
+    "brand": "LEVDEO",
+    "model": "Levdeo D70 (EV)",
+    "year": "2015",
+    "price_rmb": "39900.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "hatchback",
+        "Body Size (L*W*H) (mm)": "3320×1540×1480",
+        "Wheelbase (mm)": "2260"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "7PS or 5kW",
+        "Max. Torque": "-",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "-",
+        "Body structure": "Integral",
+        "Range": "180km"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2015-levdeo-d70-ev-technical-specs/"
+  },
+  {
+    "brand": "LEVDEO",
+    "model": "Levdeo D50 (EV)",
+    "year": "2014",
+    "price_rmb": "33800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 hatchback",
+        "Body Size (L*W*H) (mm)": "3320×1540×1480",
+        "Wheelbase (mm)": "2260"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "4PS or 3kW",
+        "Max. Torque": "48N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Torsion beam non-independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Discs",
+        "Rear Brakes": "Drum",
+        "Front Tyres": "145/70 R12",
+        "Rear Tyres": "145/70 R12",
+        "Range": "90km, charging time: slow: 10-12hours"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2014-levdeo-d50-ev-technical-specs/"
+  },
+  {
+    "brand": "LEVDEO",
+    "model": "LETIN MENGO Pro (Levdeo Mengo Pro) (EV)",
+    "year": "2022",
+    "price_rmb": "39800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/4 hatchback",
+        "Body Size (L*W*H) (mm)": "3620×1610×1525",
+        "Wheelbase (mm)": "2440",
+        "Max. Speed (km/h)": "100",
+        "Acceleration 0-100 km/h|(0 to 62 mph) (s)": "20s, 30s",
+        "Fuel Consumption (L/100km)": "9.3-9.5kWh/100km",
+        "Curb Weight (kg)": "820/860/995kg"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "34PS or 25kW, 48ps or 35kW",
+        "Max. Torque": "105N.m, 125N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD, RR",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Drum",
+        "Front Tyres": "165/65 R14",
+        "Rear Tyres": "165/65 R14",
+        "Range": "130/200/335km, battery capacity:12.1/17.27/29.44kWh, battery type: Lithium iron phosphate battery, charging time: slow charging: 8/10/13hours; fast charging: 0.5hour (to 80% of battery capacity, fast charging is only available for the 335km-range version)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2022-levdeo-mengo-pro-ev-technical-specs/"
+  },
+  {
+    "brand": "LEVDEO",
+    "model": "LETIN MENGO (Levdeo Mengo) (EV)",
+    "year": "2022",
+    "price_rmb": "29800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/4 hatchback",
+        "Body Size (L*W*H) (mm)": "3620×1610×1525",
+        "Wheelbase (mm)": "2440",
+        "Max. Speed (km/h)": "100",
+        "Fuel Consumption (L/100km)": "9.3-9.5kWh/100km",
+        "Curb Weight (kg)": "820/860/965kg"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "34PS or 25kW",
+        "Max. Torque": "105N.m, 125N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FR, FF",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Trailing arm dependent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Drum",
+        "Front Tyres": "165/65 R14",
+        "Rear Tyres": "165/65 R14",
+        "Range": "130/200/335km (NEDC standard), battery capacity:11.52/12.1/17.28/29.44kWh, battery type: Lithium iron phosphate battery, charging time: slow charging: 8/10/13hours; fast charging: 0.5hour (to 80% of battery capacity, fast charging is only available for the 335km-range version)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2022-levdeo-mengo-ev-technical-specs/"
+  },
+  {
+    "brand": "KANDI",
+    "model": "KANDI EX3 (EV)",
+    "year": "2018",
+    "price_rmb": "76800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H) (mm)": "4005×1760×1575",
+        "Wheelbase (mm)": "2480",
+        "Max. Speed (km/h)": "100",
+        "Curb Weight (kg)": "1310"
+      },
+      "Engine": {
+        "Max. Power": "67PS or 49kW",
+        "Max. Torque": "175N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "MacPherson independent suspension",
+        "Rear Suspension": "Torsion beam non-independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "195/65 R16",
+        "Rear Tyres": "195/65 R16",
+        "Range": "302km, battery capacity: 41.5kWh, battery type: ternary lithium battery."
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2018-kandi-ex3-ev-technical-specs/"
+  },
+  {
+    "brand": "KANDI",
+    "model": "KANDI K27 (EV)",
+    "year": "2019",
+    "price_rmb": "62800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Num. of Doors/Seats & Body Type": "5/5 hatchback",
+        "Body Size (L*W*H) (mm)": "3971×1745×1496",
+        "Wheelbase (mm)": "2461",
+        "Max. Speed (km/h)": "102",
+        "Curb Weight (kg)": "1180/1290"
+      },
+      "Engine": {
+        "Max. Power": "67PS or 49kW",
+        "Max. Torque": "175N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "MacPherson independent suspension",
+        "Rear Suspension": "Torsion beam non-independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "175/65 R15",
+        "Rear Tyres": "175/65 R15",
+        "Range": "202km, battery capacity: 25.9/41.8kWh, battery type: ternary lithium battery."
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2019-kandi-k27-ev-technical-specs/"
+  },
+  {
+    "brand": "KANDI",
+    "model": "KANDI K17AS (EV)",
+    "year": "2017",
+    "price_rmb": "164800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Num. of Doors/Seats & Body Type": "5/5 hatchback",
+        "Body Size (L*W*H) (mm)": "3971×1745×1496",
+        "Wheelbase (mm)": "2461",
+        "Max. Speed (km/h)": "102",
+        "Curb Weight (kg)": "970"
+      },
+      "Engine": {
+        "Max. Power": "48PS or 35kW",
+        "Max. Torque": "165N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "MacPherson independent suspension",
+        "Rear Suspension": "Torsion beam non-independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "175/65 R15",
+        "Rear Tyres": "175/65 R15",
+        "Range": "151km, battery capacity: 20kWh, battery type: ternary lithium battery, charging time: fast: 2hours, slow: 8-10hours."
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2017-kandi-k17-ev-technical-specs/"
+  },
+  {
+    "brand": "KANDI",
+    "model": "KANDI K12 (EV)",
+    "year": "2016",
+    "price_rmb": "158800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Num. of Doors/Seats & Body Type": "3/2 hatchback",
+        "Body Size (L*W*H) (mm)": "2770×1560×1610",
+        "Wheelbase (mm)": "1880",
+        "Max. Speed (km/h)": "102",
+        "Curb Weight (kg)": "970"
+      },
+      "Engine": {
+        "Max. Power": "48PS or 35kW",
+        "Max. Torque": "165N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "RR",
+        "Front Suspension": "MacPherson independent suspension",
+        "Rear Suspension": "Integral bridge suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Discs",
+        "Rear Brakes": "Drum",
+        "Front Tyres": "165/70 R13",
+        "Rear Tyres": "165/70 R13",
+        "Range": "152km, battery capacity: 20kWh, charging time: slow: 10.5hours."
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2016-kandi-k12-ev-technical-specs/"
+  },
+  {
+    "brand": "JETOUR",
+    "model": "Chery Jetour X70S EV",
+    "year": "2019",
+    "price_rmb": "177900.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5-7 SUV",
+        "Body Size (L*W*H) (mm)": "4750×1910×1710",
+        "Wheelbase (mm)": "2745",
+        "Max. Speed (km/h)": "140",
+        "Trunk / Boot capacity (L)": "89-1290 (seats folded down)"
+      },
+      "Engine": {
+        "Max. Power": "170PS or 125kW",
+        "Max. Torque": "300N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "MacPherson independent suspension",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "235/60 R18",
+        "Rear Tyres": "235/60 R18",
+        "Range": "401km, battery capacity: 56kWh, battery type: Lithium iron phosphate battery, fast charging time: 0.5hour, slow charging time: 8hours (to 80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2019-chery-jetour-x70s-ev-technical-specs/"
+  },
+  {
+    "brand": "HYCAN",
+    "model": "HYCAN 007 (EV)",
+    "year": "2020",
+    "price_rmb": "259800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H) (mm)": "4879×1937×1680",
+        "Wheelbase (mm)": "2919",
+        "Max. Speed (km/h)": "170",
+        "Acceleration 0-100 km/h|(0 to 62 mph) (s)": "7.9-8.2",
+        "Fuel Consumption (L/100km)": "15.9/16.7 (kWh/100km)",
+        "Curb Weight (kg)": "1920-2030"
+      },
+      "Engine": {
+        "Max. Power": "184PS or 135kW; 204PS or 150kW",
+        "Max. Torque": "350N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "245/55 R19 245/50 R20",
+        "Rear Tyres": "245/55 R19 245/50 R20",
+        "Range": "523/643km, battery capacity: 73/93kWh, battery type:ternary lithium battery, charging time, slow: 6.2/8hours, fast: 0.55/0.58hours (full charge time)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-hycan-007-ev-technical-specs/"
+  },
+  {
+    "brand": "HYCAN",
+    "model": "HYCAN Z03 (EV)",
+    "year": "2021",
+    "price_rmb": "132800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H) (mm)": "4602×1900×1645",
+        "Wheelbase (mm)": "2750",
+        "Acceleration 0-100 km/h|(0 to 62 mph) (s)": "7.1-7.9",
+        "Fuel Consumption (L/100km)": "13.5/13.6 (kWh/100km)",
+        "Curb Weight (kg)": "1740-1750"
+      },
+      "Engine": {
+        "Max. Power": "184PS or 135kW; 217PS or 160kW",
+        "Max. Torque": "225N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Torsion beam non-independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "215/55 R17 215/50 R18",
+        "Rear Tyres": "215/55 R17 215/50 R18",
+        "Range": "510/620km, battery capacity: 64.6/76.8kWh, battery type: Lithium Iron Phosphate battery, charging time, slow: 10.7/12.9hours, fast: 0.6/0.68hours (to 80%)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2021-hycan-z03-ev-technical-specs/"
+  },
+  {
+    "brand": "HOZON",
+    "model": "Hozon Nezha U (EV)",
+    "year": "2020",
+    "price_rmb": "139800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H) (mm)": "4530×1860×1628",
+        "Wheelbase (mm)": "2770",
+        "Max. Speed (km/h)": "150",
+        "Acceleration 0-100 km/h|(0 to 62 mph) (s)": "7s/10s"
+      },
+      "Engine": {
+        "Max. Power": "163PS or 120kW; 204PS or 150kW",
+        "Max. Torque": "210N.m; 310N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "225/60 R18 225/55 R19",
+        "Rear Tyres": "225/60 R18 225/55 R19",
+        "Range": "400/500km, battery type: ternary lithium battery, charging time: fast:0.5hour, slow:8.5hours (to 80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-hozon-nezha-u-ev-technical-specs/"
+  },
+  {
+    "brand": "HANTENG",
+    "model": "Hanteng X5 EV",
+    "year": "2019",
+    "price_rmb": "189800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H) (mm)": "4501×1820×1648",
+        "Wheelbase (mm)": "2600",
+        "Max. Speed (km/h)": "140",
+        "Acceleration 0-100 km/h|(0 to 62 mph) (s)": "11.9",
+        "Curb Weight (kg)": "1620",
+        "Trunk / Boot capacity (L)": "475"
+      },
+      "Engine": {
+        "Max. Power": "129PS or 95kW",
+        "Max. Torque": "260N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Torsion beam non-independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "215/55 R17",
+        "Rear Tyres": "215/55 R17",
+        "Range": "230/252km, battery type:ternary lithium battery, charging time, slow: 14hours, fast: 0.5hour (to 80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2019-hanteng-x5-ev-technical-specs/"
+  },
+  {
+    "brand": "HOZON",
+    "model": "Hozon Nezha N01 (EV)",
+    "year": "2020",
+    "price_rmb": "116800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/4 SUV",
+        "Body Size (L*W*H) (mm)": "3872×1648×1571",
+        "Wheelbase (mm)": "2370",
+        "Max. Speed (km/h)": "102",
+        "Fuel Consumption (L/100km)": "35 (kWh/100km)",
+        "Curb Weight (kg)": "1176",
+        "Trunk / Boot capacity (L)": "279"
+      },
+      "Engine": {
+        "Max. Power": "75PS or 55kW",
+        "Max. Torque": "175N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Trailing arm independent",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Drum",
+        "Front Tyres": "185/65 R15",
+        "Rear Tyres": "185/65 R15",
+        "Range": "301/351km, battery type: ternary lithium battery, battery energy density: 120wh/kg, charging time: fast:0.5hour, slow:6-8hours (to 80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-hozon-nezha-n01-ev-technical-specs/"
+  },
+  {
+    "brand": "HOZON",
+    "model": "Hozon NETA V (EV)",
+    "year": "2021",
+    "price_rmb": "59900.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/4, 5/5 SUV",
+        "Body Size (L*W*H) (mm)": "4070×1690×1540",
+        "Wheelbase (mm)": "2420",
+        "Max. Speed (km/h)": "100"
+      },
+      "Engine": {
+        "Max. Power": "54PS or 40kW; 75PS or 55kW",
+        "Max. Torque": "110N.m; 175N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Trailing arm type dependent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "185/65 R15",
+        "Rear Tyres": "185/65 R15",
+        "Range": "301/401km, charging time: fast :0.5 hour (to 80% of battery capacity), slow: 6-12hours"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2021-hozon-neta-v-technical-specs/"
+  },
+  {
+    "brand": "HOZON",
+    "model": "Hozon NETA U Pro (EV)",
+    "year": "2021",
+    "price_rmb": "99800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H) (mm)": "4530×1860×1628",
+        "Wheelbase (mm)": "2770",
+        "Max. Speed (km/h)": "150",
+        "Acceleration 0-100 km/h|(0 to 62 mph) (s)": "7s/9.5s"
+      },
+      "Engine": {
+        "Max. Power": "163PS or 120kW; 204PS or 150kW",
+        "Max. Torque": "210N.m; 310N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "225/65 R17 225/60 R18 225/55 R19",
+        "Rear Tyres": "225/65 R17 225/60 R18 225/55 R19",
+        "Range": "400/500/610km, battery type: ternary lithium battery, charging time: fast: 0.5hour (to 80% of battery capacity), slow:8.5-13 hours"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2021-hozon-nezha-u-pro-technical-specs/"
+  },
+  {
+    "brand": "GEOMETRY",
+    "model": "Geely Geometry A (Jihe A) (EV)",
+    "year": "2019",
+    "price_rmb": "150000.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "4/5 Sedan",
+        "Body Size (L*W*H) (mm)": "4736×1804×1503",
+        "Wheelbase (mm)": "2700",
+        "Max. Speed (km/h)": "150",
+        "Acceleration 0-100 km/h|(0 to 62 mph) (s)": "8.8",
+        "Curb Weight (kg)": "1650",
+        "Trunk / Boot capacity (L)": "430"
+      },
+      "Engine": {
+        "Max. Power": "163PS or 120kW",
+        "Max. Torque": "250N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Torsion beam non-independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "205/60 R16",
+        "Rear Tyres": "205/60 R16",
+        "Range": "410/500km, battery capacity: 51.9/61.9kWh, battery type:ternary lithium battery, Battery energy density: 142(Wh/kg) charging time, slow: 8/11hours, fast: 0.5/0.55hours (to 80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2019-geely-geometry-a-jihe-a-ev-technical-specs/"
+  },
+  {
+    "brand": "GEOMETRY",
+    "model": "Geely Geometry C (Jihe C) (EV)",
+    "year": "2020",
+    "price_rmb": null,
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H) (mm)": "4432×1833×1560",
+        "Wheelbase (mm)": "2700",
+        "Fuel Consumption (L/100km)": "14 (kWh/100km)",
+        "Curb Weight (kg)": "1665"
+      },
+      "Engine": {
+        "Max. Power": "204PS or 150kW",
+        "Max. Torque": "310N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Torsion beam non-independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "205/60 R16",
+        "Rear Tyres": "205/60 R16",
+        "Range": "550km, battery capacity: 70kWh, battery type:ternary lithium battery"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-geely-geometry-c-jihe-c-ev-technical-specs/"
+  },
+  {
+    "brand": "GWM",
+    "model": "GWM ORA White Cat",
+    "year": "2020",
+    "price_rmb": "75800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "E-motor",
+        "Charging Time": "fast: 0.67/0.75hours (80%)",
+        "Num. of Doors/Seats & Body Type": "5/4 hatchback",
+        "Body Size (L*W*H)": "3625×1660×1530mm",
+        "Wheelbase": "2490mm",
+        "Max. Speed (km/h)": "102",
+        "Range": "360/401km",
+        "Battery Capacity": "34/38kWh (Ternary lithium)",
+        "Curb Weight (kg)": "1010-1032"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "48 PS or 35 kW",
+        "Max. Torque": "125N.m"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson struts.",
+        "Rear Suspension": "Longitudinal arm torsion beam type composite suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented disc",
+        "Rear Brakes": "Drums/Discs",
+        "Front Tyres": "165/65 R15",
+        "Rear Tyres": "165/65 R15",
+        "Range": "360/401km"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-gwm-ora-white-cat-technical-specs/"
+  },
+  {
+    "brand": "GWM",
+    "model": "GWM ORA IQ",
+    "year": "2021",
+    "price_rmb": "127300.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "E-motor",
+        "Charging Time": "fast: 0.67 hour (80%), slow: 8hours",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H)": "4460×1735×1567mm",
+        "Wheelbase": "2650mm",
+        "Max. Speed (km/h)": "150",
+        "Range": "421km",
+        "Battery Capacity": "54.35kWh (Ternary lithium)",
+        "Curb Weight (kg)": "1465",
+        "0-100km/h Acceleration (S)": "10"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "163 PS or 120 kW",
+        "Max. Torque": "280N.m"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson struts.",
+        "Rear Suspension": "Torsion beam dependent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented disc",
+        "Rear Brakes": "Drums/Discs",
+        "Front Tyres": "205/50 R17",
+        "Rear Tyres": "205/50 R17",
+        "Range": "421km"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2021-gwm-ora-iq-technical-specs/"
+  },
+  {
+    "brand": "GWM",
+    "model": "GWM ORA Good Cat",
+    "year": "2021",
+    "price_rmb": "103900.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "E-motor",
+        "Charging Time": "fast: 0.5hour (80%)",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H)": "4235×1825×1596mm",
+        "Wheelbase": "2650mm",
+        "Max. Speed (km/h)": "150",
+        "Range": "401/501km",
+        "Battery Capacity": "47.8/59.1kWh (Lithium iron phosphate battery)",
+        "Curb Weight (kg)": "1510",
+        "Trunk / Boot capacity (L)": "228"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "143 PS or 105 kW",
+        "Max. Torque": "210N.m"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson struts.",
+        "Rear Suspension": "Torsion beam dependent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented disc",
+        "Rear Brakes": "Drums/Discs",
+        "Front Tyres": "205/55 R17 215/50 R18",
+        "Rear Tyres": "205/55 R17 215/50 R18",
+        "Range": "401/501km"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2021-gwm-ora-good-cat-technical-specs/"
+  },
+  {
+    "brand": "GWM",
+    "model": "GWM ORA Black Cat (R1)",
+    "year": "2021",
+    "price_rmb": "69800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "E-motor",
+        "Charging Time": "fast: 0.5hour (80%)",
+        "Num. of Doors/Seats & Body Type": "5/4 hatchback",
+        "Body Size (L*W*H)": "3495×1660×1560mm",
+        "Wheelbase": "2475mm",
+        "Max. Speed (km/h)": "102",
+        "Range": "301/351/405km",
+        "Battery Capacity": "28.5/33/37kWh (Ternary lithium battery)",
+        "Curb Weight (kg)": "977-1000",
+        "Trunk / Boot capacity (L)": "200-872"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "48 PS or 35 kW or 61PS",
+        "Max. Torque": "125/130N.m"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson struts.",
+        "Rear Suspension": "Torsion beam dependent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented disc",
+        "Rear Brakes": "Drums",
+        "Front Tyres": "165/65 R15, 175/55 R16",
+        "Rear Tyres": "165/65 R15, 175/55 R16",
+        "Range": "301/351/405km"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2021-gwm-ora-black-cat-technical-specs/"
+  },
+  {
+    "brand": "GEELY",
+    "model": "Geely Emgrand EV",
+    "year": "2019",
+    "price_rmb": "135800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "E-motor",
+        "Charging Time (Hour))": "0.5H (fast) / 9Hours (Slow)",
+        "Gearbox": "-",
+        "Num. of Doors/Seats & Body Type": "4/5 sedan",
+        "Body Size (L*W*H)": "4631×1789×1495mm",
+        "Wheelbase": "2650mm",
+        "Max. Speed (km/h)": "140",
+        "Acceleration 0-100 km/h|(0 to 62 mph)": "9.3s",
+        "Range (km)": "400/500",
+        "Curb Weight (kg)": "1570",
+        "Fuel Tank Capacity (L)": "-",
+        "Trunk / Boot capacity (L)": "680"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "163 PS or 120 kW",
+        "Max. Torque": "250N.m",
+        "Fuel System": "MPI / Turbo"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson struts.",
+        "Rear Suspension": "Torsion bar",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented disc",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "205/50 R17",
+        "Rear Tyres": "205/50 R17",
+        "Range": "400-500km"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2019-geely-emgrand-ev-technical-specs/"
+  },
+  {
+    "brand": "GAC-NE",
+    "model": "GAC Aion S (EV)",
+    "year": "2020",
+    "price_rmb": "139800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "4/5 Sedan",
+        "Body Size (L*W*H)": "4768×1880×1530mm",
+        "Wheelbase": "2750mm",
+        "Max. Speed (km/h)": "130",
+        "Fuel Consumption (L/100km)": "12.9/13.1 (kWh/100km)",
+        "Curb Weight (kg)": "1610-1650",
+        "Trunk / Boot capacity (L)": "453"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "184PS or 135kW",
+        "Max. Torque": "300N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Torsion beam non-independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "215/55 R17, 235/45 R18",
+        "Rear Tyres": "215/55 R17, 235/45 R18",
+        "Range": "460/510km, battery type: ternary lithium battery, charging time: fast: 0.78hour, slow: 10hours (80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-gac-aion-s-ev-technical-specs/"
+  },
+  {
+    "brand": "HONGQI",
+    "model": "FAW Hongqi E-HS3",
+    "year": "2019",
+    "price_rmb": "225800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "3.0T V6",
+        "Aspiration": "Turbo",
+        "Gearbox": "8AT",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H) (mm)": "4490×1874×1613",
+        "Wheelbase (mm)": "2750",
+        "Max. Speed (km/h)": "160",
+        "Acceleration 0-100 km/h|(0 to 62 mph) (s)": "6s/10s",
+        "Fuel Consumption (L/100km)": "13.6/16 kWh/100km",
+        "Curb Weight (kg)": "1742-1890"
+      },
+      "Engine": {
+        "Max. Power": "Single E-motor version: 155PS or 114kW; Dual E-motor: comprehensive: 310PS or 228kW, front motor: 114kW, rear: 114kW",
+        "Max. Torque": "Single E-motor: 340N.m; Dual E-motor: comprehensive: 680N.m, front:340N.m, rear: 340N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD/4WD",
+        "Front Suspension": "MacPherson independent suspension",
+        "Rear Suspension": "Multi-link independent rear suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "235/50 R18 245/45 R19",
+        "Rear Tyres": "235/50 R18 245/45 R19",
+        "Range": "407km (single E-motor version, 344km (dual E-motor version); Battery capacity: 52.5kWh; Battery type: lithium battery"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2019-faw-hongqi-e-hs3-technical-specs/"
+  },
+  {
+    "brand": "GAC-NE",
+    "model": "GAC Aion V (EV)",
+    "year": "2020",
+    "price_rmb": "159600.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H)": "4586×1920×1728mm",
+        "Wheelbase": "2830mm",
+        "Fuel Consumption (L/100km)": "14.3-14.9 (kWh/100km)",
+        "Curb Weight (kg)": "1725-1930",
+        "Trunk / Boot capacity (L)": "trunk size: 790×960×740mm"
+      },
+      "Engine": {
+        "Engine Code": "TZ180XYA1202",
+        "Max. Power": "184PS or 135kW",
+        "Max. Torque": "350N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Torsion beam non-independent suspension/Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "235/55 R19, 255/45 R20",
+        "Rear Tyres": "235/55 R19, 255/45 R20",
+        "Range": "400/500/530/600km, battery type: ternary lithium battery, battery capacity: 73/80kWh, charging time: fast: 0.58hour"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-gac-aion-v-ev-technical-specs/"
+  },
+  {
+    "brand": "GAC-NE",
+    "model": "GAC Aion LX (EV)",
+    "year": "2019",
+    "price_rmb": "259600.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H)": "4786×1935×1685mm",
+        "Wheelbase": "2920mm",
+        "Acceleration 0-100 km/h|(0 to 62 mph)": "4.58-7.86s",
+        "Fuel Consumption (L/100km)": "15.5-17.1 (kWh/100km)",
+        "Curb Weight (kg)": "1900-2180",
+        "Trunk / Boot capacity (L)": "trunk size: 900×970×710mm"
+      },
+      "Engine": {
+        "Max. Power": "AION LX 70: 184PS or 135kW; Aion LX 80: 204PS or 150kW; Aion LX 80D, 80D MAX: Comprehensive 408PS or 300kW, front e-motor:150kW, rear: 150kW",
+        "Max. Torque": "Aion LX 70/80: 350N.m; Aion LX 80D, 80D MAX: comprehensive: 700N.m, front: 350N.m, rear:350N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD/Dual-Emotor 4WD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "245/55 R19, 245/50 R20",
+        "Rear Tyres": "245/55 R19, 245/50 R20",
+        "Range": "520/600/650km, battery type: ternary lithium battery"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2019-gac-aion-lx-ev-technical-specs/"
+  },
+  {
+    "brand": "GAC-NE",
+    "model": "GAC Aion LX (EV)",
+    "year": "2020",
+    "price_rmb": "229600.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H)": "4786×1935×1685mm",
+        "Wheelbase": "2920mm",
+        "Fuel Consumption (L/100km)": "15.5 (kWh/100km)",
+        "Curb Weight (kg)": "1900",
+        "Trunk / Boot capacity (L)": "trunk size: 900×970×710mm"
+      },
+      "Engine": {
+        "Max. Power": "AION LX 70 Lite: 184PS or 135kW",
+        "Max. Torque": "Aion LX 70 Lite: 350N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD/Single-E-motor",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "245/55 R19",
+        "Rear Tyres": "245/55 R19",
+        "Range": "520km, battery type: ternary lithium battery"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-gac-aion-lx-ev-technical-specs/"
+  },
+  {
+    "brand": "GAC-NE",
+    "model": "GAC Trumpchi GE3 (EV)",
+    "year": "2020",
+    "price_rmb": "129800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H)": "4337×1825×1658mm",
+        "Wheelbase": "2560mm",
+        "Max. Speed (km/h)": "156",
+        "Fuel Consumption (L/100km)": "14.7 (kWh/100km)",
+        "Curb Weight (kg)": "1648",
+        "Trunk / Boot capacity (L)": "370"
+      },
+      "Engine": {
+        "Max. Power": "179PS or 132kW",
+        "Max. Torque": "290N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD/Single-E-motor",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Torsion beam non-independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "215/55 R18",
+        "Rear Tyres": "215/55 R18",
+        "Range": "410km, battery type: ternary lithium battery, battery capacity: 54.75kWh, Battery energy density:212 (Wh/kg), charging time: fast: 0.5hour, slow:8hours (to 80% of battery capacity)."
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-gac-trumpchi-ge3-ev-technical-specs/"
+  },
+  {
+    "brand": "GAC-NE",
+    "model": "GAC Aion Y (EV)",
+    "year": "2023",
+    "price_rmb": "139800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H)": "4535×1870×1650mm",
+        "Wheelbase": "2750mm",
+        "Max. Speed (km/h)": "150",
+        "Power Consumption (kWh/100km)": "13.8",
+        "Curb Weight (kg)": "1735-1765"
+      },
+      "Engine": {
+        "Engine Code": "Pure electric E-motor",
+        "Max. Power": "204PS or 1505kW",
+        "Max. Torque": "225N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Torsion beam non-independent suspension/Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "215/55 R17, 215/50 R18",
+        "Rear Tyres": "215/55 R17, 215/50 R18",
+        "Battery & Range": "510km/610 in CLTC condition; battery type: Lithium iron phosphate battery or ternary lithium battery; battery capacity: 63.98/76.8kWh"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2023-gac-aion-y-ev-technical-specs/"
+  },
+  {
+    "brand": "ENOVATE",
+    "model": "Enovate ME7 (EV)",
+    "year": "2019",
+    "price_rmb": "366800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H) (mm)": "4655×1963×1640",
+        "Wheelbase (mm)": "2825",
+        "Max. Speed (km/h)": "160",
+        "Acceleration 0-100 km/h|(0 to 62 mph) (s)": "4.9s"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "231PS or 170kW",
+        "Max. Torque": "330N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "4WD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "245/45 R21",
+        "Rear Tyres": "245/45 R21",
+        "Range": "500km, battery energy density: 160Wh/kg, charging time: fast: 0.8hour (to 80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2019-enovate-me7-ev-technical-specs/"
+  },
+  {
+    "brand": "FENGGUANG-DFSK",
+    "model": "Dongfeng Fengguang MINIEV (EV)",
+    "year": "2022",
+    "price_rmb": "32600.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "Pure Electric",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "3/4hatchback",
+        "Body Size (L*W*H)": "2995×1495×1640mm",
+        "Wheelbase": "1960mm"
+      },
+      "Engine": {
+        "Engine Code": "E-motor",
+        "Max. Power": "34 PS or 25 kW",
+        "Max. Torque": "100N.m",
+        "Num. of Cylinder": "4",
+        "Num. of Valves": "4"
+      },
+      "Body": {
+        "Drive wheels - Traction": "RR",
+        "Front Suspension": "McPherson struts.",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral / Semi-integral /body on frame",
+        "Front Brakes": "Disc",
+        "Rear Brakes": "Drums",
+        "Front Tyres": "145/70 R12",
+        "Rear Tyres": "145/70 R12",
+        "Range": "120km in NEDC standard (Battery type: Lithium iron phosphate battery, slow charging time: 5 hours)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2022-dongfeng-fengguang-miniev-ev-technical-specs/"
+  },
+  {
+    "brand": "VENUCIA",
+    "model": "Dongfeng Venucia Chenfeng (EV)",
+    "year": "2017",
+    "price_rmb": "261800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "E-motor, Battery type:Lithium manganese battery",
+        "Aspiration": "Charging time: slow: 4hours (80%)",
+        "Num. of Doors/Seats & Body Type": "5/5 hatchback",
+        "Body Size (L*W*H)": "4467×1771×1549",
+        "Wheelbase": "2700",
+        "Max. Speed (km/h)": "144",
+        "Fuel Consumption (L/100km)": "14.6(kWh/100km)",
+        "Curb Weight (kg)": "1494",
+        "Trunk / Boot capacity (L)": "370"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "109PS or 80kW",
+        "Max. Torque": "254N.m",
+        "Fuel Type": "Electric"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent + stabilizer bar",
+        "Rear Suspension": "Torsion beam non-independent",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Vented discs",
+        "Front Tyres": "205/55R16",
+        "Rear Tyres": "205/55R16",
+        "Range": "175km"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2017-dongfeng-venucia-chenfeng-ev-technical-specs/"
+  },
+  {
+    "brand": "VENUCIA",
+    "model": "Dongfeng Venucia e30 (EV)",
+    "year": "2020",
+    "price_rmb": "61800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "E-motor, battery type: Ternary lithium battery",
+        "Aspiration": "Charging time: fast:0.5h, slow: 4hours (80%)",
+        "Num. of Doors/Seats & Body Type": "5/4 SUV",
+        "Body Size (L*W*H)": "3732×1579×1515",
+        "Wheelbase": "2423",
+        "Max. Speed (km/h)": "105",
+        "Fuel Consumption (L/100km)": "10.8(kWh/100km)",
+        "Curb Weight (kg)": "921",
+        "Trunk / Boot capacity (L)": "300"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "45PS or 33kW",
+        "Max. Torque": "125N.m",
+        "Fuel Type": "Electric"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Torsion beam non-independent",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Drum",
+        "Front Tyres": "165/70 R14",
+        "Rear Tyres": "165/70 R14",
+        "Range": "271km"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-dongfeng-venucia-e30-ev-technical-specs/"
+  },
+  {
+    "brand": "VENUCIA",
+    "model": "Dongfeng Venucia T60EV",
+    "year": "2020",
+    "price_rmb": "138800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "E-motor, battery type: Ternary lithium battery",
+        "Aspiration": "Charging time: fast:0.5h, slow: 6.8hours (80%)",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H)": "4415×1820×1668",
+        "Wheelbase": "2640",
+        "Max. Speed (km/h)": "125",
+        "Fuel Consumption (L/100km)": "14.7(kWh/100km)",
+        "Curb Weight (kg)": "1590",
+        "Trunk / Boot capacity (L)": "508"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "120kW",
+        "Max. Torque": "250N.m",
+        "Fuel Type": "Pure Electric"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Torsion beam non-independent",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Drum",
+        "Front Tyres": "215/60 R17",
+        "Rear Tyres": "215/60 R17",
+        "Range": "442km"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-dongfeng-venucia-t60ev-technical-specs/"
+  },
+  {
+    "brand": "FENGSHEN",
+    "model": "Dongfeng Fengshen (AEOLUS) E70 (EV)",
+    "year": "2020",
+    "price_rmb": "155800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "E-motor, Charging time: 0.33hour(fast), 8hours (slow) (80% capacity)",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "4/5 sedan",
+        "Body Size (L*W*H)": "4680×1720×1530",
+        "Wheelbase": "2700",
+        "Max. Speed (km/h)": "150",
+        "Acceleration 0-100 km/h|(0 to 62 mph)": "9.9",
+        "Curb Weight (kg)": "1550-1555",
+        "Trunk / Boot capacity (L)": "502"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "150PS or 110kW",
+        "Max. Torque": "260N.m",
+        "Fuel Type": "Pure Electric, Ternary lithium battery"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Torsion beam non-independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "205/50 R17",
+        "Rear Tyres": "205/50 R17",
+        "Range": "401km, 508km"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-dongfeng-fengshen-aeolus-e70-ev-technical-specs/"
+  },
+  {
+    "brand": "FENGSHEN",
+    "model": "Dongfeng Fengshen (AEOLUS) E30 (EV)",
+    "year": "2016",
+    "price_rmb": "164800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "E-motor, Charging time: 6hours (slow)",
+        "Num. of Doors/Seats & Body Type": "2/4 hatchback",
+        "Body Size (L*W*H)": "2995×1560×1595",
+        "Wheelbase": "2160",
+        "Max. Speed (km/h)": "100",
+        "Curb Weight (kg)": "1010"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "34PS or 25kW",
+        "Fuel Type": "Pure Electric, Ternary lithium battery"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "McPherson Independent",
+        "Body structure": "Integral",
+        "Front Brakes": "Discs",
+        "Rear Brakes": "Drum",
+        "Front Tyres": "165/60 R14",
+        "Rear Tyres": "165/60 R14",
+        "Range": "150km"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2016-dongfeng-fengshen-aeolus-e30-ev-technical-specs/"
+  },
+  {
+    "brand": "DONGFENG-FENGXING",
+    "model": "Dongfeng Fengxing (Forthing) Lingzhi M5EV",
+    "year": "2020",
+    "price_rmb": "157900.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "E-motor",
+        "Aspiration": "Charging time: 1hour (fast), 10hours (slow) (80%)",
+        "Gearbox": "Single-speed",
+        "Num. of Doors/Seats & Body Type": "4/5, 4/7, 4/9 MPV",
+        "Body Size (L*W*H)": "5145×1720×1995",
+        "Wheelbase": "3000",
+        "Max. Speed (km/h)": "105",
+        "Acceleration 0-100 km/h|(0 to 62 mph)": "18",
+        "Curb Weight (kg)": "1720-1820"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "122PS or 90kW",
+        "Max. Torque": "300N.m",
+        "Fuel Type": "Pure Electric, Ternary lithium battery"
+      },
+      "Body": {
+        "Drive wheels - Traction": "RR",
+        "Front Suspension": "Double wishbone independent suspension",
+        "Rear Suspension": "Leaf spring non-independent suspension, Five-link independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Discs",
+        "Rear Brakes": "Drum",
+        "Front Tyres": "195 R15C",
+        "Rear Tyres": "195 R15C",
+        "Range": "310km, 420km"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-dongfeng-fengxing-forthing-lingzhi-m5ev-technical-specs/"
+  },
+  {
+    "brand": "DONGFENG-FENGXING",
+    "model": "Dongfeng Fengxing (Forthing) S60EV",
+    "year": "2022",
+    "price_rmb": "159900.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "E-motor",
+        "Aspiration": "Charging time: 0.5hour (fast), 11hours (slow) (80%)",
+        "Gearbox": "Single-speed",
+        "Num. of Doors/Seats & Body Type": "4/5 sedan",
+        "Body Size (L*W*H)": "4745×1790×1550mm",
+        "Wheelbase": "2700mm",
+        "Max. Speed (km/h)": "140",
+        "Acceleration 0-100 km/h|(0 to 62 mph)": "11",
+        "Electric Consumption (kWh/100km)": "12.3",
+        "Curb Weight (kg)": "1658"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "120kW",
+        "Max. Torque": "280N.m"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "205/55 R17",
+        "Rear Tyres": "205/55 R17",
+        "Range": "415km (NEDC standard), battery type: Ternary lithium battery, battery type: 57.2kWh"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2022-dongfeng-fengxing-forthing-s60ev-technical-specs/"
+  },
+  {
+    "brand": "CHERY-AUTO",
+    "model": "Chery Arrizo e (EV)",
+    "year": "2020",
+    "price_rmb": "10980.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Aspiration": "-",
+        "Gearbox": "-",
+        "Num. of Doors/Seats & Body Type": "4/5 sedan",
+        "Body Size (L*W*H)": "4572×1825×1496mm",
+        "Wheelbase": "2670mm",
+        "Max. Speed (km/h)": "152",
+        "Range (km)": "401",
+        "Charging Time (Hour))": "0.5hour (Fast) / 7-9 hours (Slow) - 80%"
+      },
+      "Engine": {
+        "Motor": "Single E-Motor",
+        "Max. Power": "163PS or 120kW",
+        "Max. Torque": "250 N.m",
+        "Battery Type": "Ternary Lithium",
+        "Battery Capacity": "54.3kWh"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson struts.",
+        "Rear Suspension": "Torsion bar",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented disc",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "205/55 R16",
+        "Rear Tyres": "205/55 R16"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-chery-arrizo-e-ev-technical-specs/"
+  },
+  {
+    "brand": "DENZA",
+    "model": "Denza X EV",
+    "year": "2020",
+    "price_rmb": "319800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/7 SUV",
+        "Body Size (L*W*H) (mm)": "4890×1950×1725",
+        "Wheelbase (mm)": "2820",
+        "Max. Speed (km/h)": "160",
+        "Acceleration 0-100 km/h|(0 to 62 mph) (s)": "4.3-8.5s",
+        "Fuel Consumption (L/100km)": "17.3/17.9kWh"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "Single E-motor version: 245PS or 180kW; Dual E-motor version: comprehensive: 489PS or 360kW, front: 180kW, rear: 180kW",
+        "Max. Torque": "Single E-motor version: 330N.m; Dual E-motor: comprehensive: 660N.m, front: 330N.m, rear: 330N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "Dual E-motor 4WD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Vented discs",
+        "Front Tyres": "255/50 R20 265/40 R22",
+        "Rear Tyres": "255/50 R20 265/40 R22",
+        "Range": "500/520km, battery type: ternary lithium battery,battery capacity: 82.8kWH"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-denza-x-ev-technical-specs/"
+  },
+  {
+    "brand": "DENZA",
+    "model": "Denza 500 (EV)",
+    "year": "2018",
+    "price_rmb": "298800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "4/5 Sedan",
+        "Body Size (L*W*H) (mm)": "4672×1850×1642",
+        "Wheelbase (mm)": "2880",
+        "Max. Speed (km/h)": "150",
+        "Acceleration 0-100 km/h|(0 to 62 mph) (s)": "10.5-14s",
+        "Fuel Consumption (L/100km)": "15.9kWh",
+        "Curb Weight (kg)": "2120"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "117PS or 86kW; 184PS or 135kW",
+        "Max. Torque": "290N.m or 300N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "Dual E-motor 4WD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Torsion beam non-independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "215/55 R18",
+        "Rear Tyres": "215/55 R18",
+        "Range": "451km, battery type: Lithium iron phosphate battery,battery capacity: 70kWH, battery energy density: 105.72Wh/kg"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2018-denza-500-ev-technical-specs/"
+  },
+  {
+    "brand": "BYD",
+    "model": "BYD YUAN EV",
+    "year": "2019",
+    "price_rmb": "105800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H) (mm)": "4360×1785×1680",
+        "Wheelbase (mm)": "2535",
+        "Max. Speed (km/h)": "101/120/140",
+        "Fuel Consumption (L/100km)": "13/13.6/13.9kWh/100km",
+        "Curb Weight (kg)": "1495-1695"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "95PS or 70kW",
+        "Max. Torque": "180N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "MacPherson independent suspension",
+        "Rear Suspension": "Torsion beam non-independent",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "205/60 R16",
+        "Rear Tyres": "205/60 R16",
+        "Range": "305/410km, battery capacity: 40.62/42/43.2/53.22kWH, battery energy density: 146.27kWH, fast charging time: 0.5/1.1hours, slow charging: 7hours (to 80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2019-byd-yuan-ev-technical-specs/"
+  },
+  {
+    "brand": "BYD",
+    "model": "BYD SONG Pro EV",
+    "year": "2019",
+    "price_rmb": "179800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H) (mm)": "4650×1860×1700",
+        "Wheelbase (mm)": "2712",
+        "Acceleration 0-100 km/h|(0 to 62 mph) (s)": "9.28s (high power version)",
+        "Trunk / Boot capacity (L)": "520"
+      },
+      "Engine": {
+        "Max. Power": "163PS or 120kW, 184PS or 135kW",
+        "Max. Torque": "280N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "MacPherson independent suspension",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "235/50 R19",
+        "Rear Tyres": "235/50 R19",
+        "Range": "405/502km, battery capacity: 59.1/71kWH, fast charging time: 0.5hour (to 80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2019-byd-song-pro-ev-technical-specs/"
+  },
+  {
+    "brand": "BYD",
+    "model": "BYD TANG EV (EV600, EV600D)",
+    "year": "2019",
+    "price_rmb": "284900.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H) (mm)": "4870×1950×1725",
+        "Wheelbase (mm)": "2820",
+        "Acceleration 0-100 km/h|(0 to 62 mph) (s)": "8.5/4.6/4.4s",
+        "Fuel Consumption (L/100km)": "17.3/17.9 kWh/100km.",
+        "Trunk / Boot capacity (L)": "940"
+      },
+      "Engine": {
+        "Max. Power": "Single E-motor version: 245PS or 180kW, Dual E-motor version: comprehensive: 489PS or 360kW, front: 180kW, rear: 180kW",
+        "Max. Torque": "Single E-motor version: 330N.m, Dual E-motor: comprehensive: 660N.m, front:330N.m, rear: 330N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD / Dual E-motor 4WD",
+        "Front Suspension": "MacPherson independent suspension",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Vented discs",
+        "Front Tyres": "255/50 R20",
+        "Rear Tyres": "255/50 R20",
+        "Range": "500/520km, battery type: ternary lithium battery, battery capacity: 82.8kWh, fast charging time: 1.4hours (to 80%)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2019-byd-tang-ev-ev600-ev600d-technical-specs/"
+  },
+  {
+    "brand": "BYD",
+    "model": "BYD SONG MAX EV",
+    "year": "2019",
+    "price_rmb": "179800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/6 MPV",
+        "Body Size (L*W*H) (mm)": "4680×1810×1690",
+        "Wheelbase (mm)": "2785",
+        "Acceleration 0-100 km/h|(0 to 62 mph) (s)": "9.28s (high power version)"
+      },
+      "Engine": {
+        "Max. Power": "163PS or 120kW",
+        "Max. Torque": "280N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "MacPherson independent suspension",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "225/50 R18",
+        "Rear Tyres": "225/50 R18",
+        "Range": "401km, battery capacity: 59.1kWH, fast charging time: 1.5hours (to 80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2019-byd-song-max-ev-technical-specs/"
+  },
+  {
+    "brand": "BYD",
+    "model": "BYD Dolphin (EV)",
+    "year": "2023",
+    "price_rmb": "116800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 Hatchback",
+        "Body Size (L*W*H) (mm)": "4125×1770×1570",
+        "Wheelbase (mm)": "2700",
+        "Max. Speed (km/h)": "150",
+        "Acceleration 0-100 km/h|(0 to 62 mph) (s)": "7.5s, 10.9s",
+        "Power Consumption (kWh/100km)": "10.5-11.3 kWH/100km",
+        "Curb Weight (kg)": "1405-1450kg",
+        "Trunk / Boot capacity (L)": "345"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "95PS/177PS or 70/130kW",
+        "Max. Torque": "180/290N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "MacPherson independent suspension",
+        "Rear Suspension": "Torsion beam non-independent",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "195/60 R16, 205/50 R17",
+        "Rear Tyres": "195/60 R16, 205/50 R17",
+        "Range": "401/420km, battery type: Lithium iron phosphate battery, battery capacity: 44.93kWH, fast charging time: 0.5hour (to 80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2023-byd-dolphin-ev-technical-specs/"
+  },
+  {
+    "brand": "BYD",
+    "model": "BYD Seal (EV)",
+    "year": "2022",
+    "price_rmb": "212800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "4/5 sedan",
+        "Body Size (L*W*H) (mm)": "4800×1875×1460",
+        "Wheelbase (mm)": "2920",
+        "Max. Speed (km/h)": "180",
+        "Acceleration 0-100 km/h|(0 to 62 mph) (s)": "7.5s, 5.9s, 3.8s",
+        "Power Consumption (kWh/100km)": "12.6-14.6 kWH/100km",
+        "Curb Weight (kg)": "1885-2150kg",
+        "Trunk / Boot capacity (L)": "-"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "204/313/530PS or 150/230/390kW",
+        "Max. Torque": "310/360/670N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD / 4WD (Dual E-Motor)",
+        "Front Suspension": "Double wishbone independent suspension",
+        "Rear Suspension": "Five-link independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Vented discs",
+        "Front Tyres": "225/50 R18, 235/45 R19",
+        "Rear Tyres": "225/50 R18, 235/45 R19",
+        "Range & Battery": "550/650/700km, battery type: Lithium iron phosphate battery, battery capacity: 61.4/82.5kWH, fast charging time: 0.5hour (to 80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2022-byd-seal-ev-technical-specs/"
+  },
+  {
+    "brand": "CHANGAN-AUTO",
+    "model": "Changan CS55 EV (E-Rock) Technical Specs",
+    "year": "",
+    "price_rmb": "159900.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "E-motor",
+        "Charging Time": "Fast: 0.58hour, slow: 9 hours (14.5hours for long ranger version)",
+        "Battery Capacity": "52.7 / 84.2 (kWh) (Ternary lithium battery)",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H)": "4515×1860×1690mm",
+        "Wheelbase": "2650mm",
+        "Range": "403km / 605km",
+        "Curb Weight (kg)": "1660-1880"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "218 PS or 160 kW",
+        "Max. Torque": "300N.m"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson struts.",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented disc",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "225/55 R18",
+        "Rear Tyres": "225/55 R18",
+        "Range": "403km / 605km"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/changan-cs55-ev-e-rock-technical-specs/"
+  },
+  {
+    "brand": "BAIC-MOTOR",
+    "model": "BAIC Beijing EU5 (EV)",
+    "year": "2020",
+    "price_rmb": "132900.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "4/5 Sedan",
+        "Body Size (L*W*H) (mm)": "4650×1820×1510",
+        "Wheelbase (mm)": "2670",
+        "Max. Speed (km/h)": "155",
+        "Acceleration 0-100 km/h|(0 to 62 mph) (s)": "9.01s",
+        "Curb Weight (kg)": "1640-1680"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "218PS or 160kW",
+        "Max. Torque": "300N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "215/50 R17",
+        "Rear Tyres": "215/50 R17",
+        "Range": "416/460/501km, battery type: Ternary lithium battery, charging time: fast: 0.5hour ( to 80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-baic-beijing-eu5-ev-technical-specs/"
+  },
+  {
+    "brand": "BAIC-MOTOR",
+    "model": "BAIC Beijing EU7 (EV)",
+    "year": "2019",
+    "price_rmb": "159900.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "4/5 Sedan",
+        "Body Size (L*W*H) (mm)": "4805×1835×1528",
+        "Wheelbase (mm)": "2785",
+        "Max. Speed (km/h)": "155",
+        "Curb Weight (kg)": "1725"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "218PS or 160kW",
+        "Max. Torque": "300N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "225/45 R18",
+        "Rear Tyres": "225/45 R18",
+        "Range": "451km, battery type: Ternary lithium battery, charging time: fast: 0.5hour ( to 80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2019-baic-beijing-eu7-ev-technical-specs/"
+  },
+  {
+    "brand": "BAIC-MOTOR",
+    "model": "BAIC Beijing EX3 (EV)",
+    "year": "2020",
+    "price_rmb": "119900.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H) (mm)": "4200×1780×1638",
+        "Wheelbase (mm)": "2538",
+        "Max. Speed (km/h)": "150",
+        "Curb Weight (kg)": "1640",
+        "Trunk / Boot capacity (L)": "300"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "218PS or 160kW",
+        "Max. Torque": "300N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Torsion beam non-independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "215/50 R17",
+        "Rear Tyres": "215/50 R17",
+        "Range": "421km, battery capacity: 52.56kWh, battery energy density: 144.55 Wh/kg, battery type: Ternary lithium battery, charging time: fast: 0.5hour, slow: 8.5hours ( to 80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-baic-beijing-ex3-ev-technical-specs/"
+  },
+  {
+    "brand": "BAIC-MOTOR",
+    "model": "BAIC Beijing EX5 (EV)",
+    "year": "2019",
+    "price_rmb": "169900.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H) (mm)": "4480×1837×1673",
+        "Wheelbase (mm)": "2665",
+        "Max. Speed (km/h)": "160",
+        "Acceleration 0-100 km/h|(0 to 62 mph) (s)": "8.1s",
+        "Curb Weight (kg)": "1762-1770"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "218PS or 160kW",
+        "Max. Torque": "300N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Torsion beam non-independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "215/50 R17",
+        "Rear Tyres": "215/50 R17",
+        "Range": "415km, battery type: Ternary lithium battery, charging time: fast: 0.5hour ( to 80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2019-baic-beijing-ex5-ev-technical-specs/"
+  },
+  {
+    "brand": "BAIC-MOTOR",
+    "model": "BAIC Beijing LITE R300 (EV)",
+    "year": "2019",
+    "price_rmb": "110800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "2/2 Hatchback",
+        "Body Size (L*W*H) (mm)": "2986×1676×1517",
+        "Wheelbase (mm)": "1870",
+        "Max. Speed (km/h)": "120",
+        "Curb Weight (kg)": "1030",
+        "Trunk / Boot capacity (L)": "115"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "49PS or 40kW",
+        "Max. Torque": "140N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "RR",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Trailing arm",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "155/60 R15",
+        "Rear Tyres": "175/55 R15",
+        "Range": "300km, battery capacity: 30kWh, battery type: Ternary lithium battery, charging time: fast: 0.5hour, slow: 11hours ( to 80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2019-baic-beijing-lite-r300-ev-technical-specs/"
+  },
+  {
+    "brand": "BAIC-MOTOR",
+    "model": "BAIC Beijing EC220 (EV)",
+    "year": "2018",
+    "price_rmb": "55800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/4 hatchback",
+        "Body Size (L*W*H) (mm)": "3675×1630×1518",
+        "Wheelbase (mm)": "2360",
+        "Max. Speed (km/h)": "100",
+        "Trunk / Boot capacity (L)": "115"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "41PS or 30kW",
+        "Max. Torque": "140N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Trailing arm",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Drum",
+        "Front Tyres": "165/60 R14",
+        "Rear Tyres": "165/60 R14",
+        "Range": "206km, battery type: Lithium iron phosphate battery"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2018-baic-beijing-ec220-ev-technical-specs/"
+  },
+  {
+    "brand": "BAIC-MOTOR",
+    "model": "BAIC Beijing EC3 (EV)",
+    "year": "2019",
+    "price_rmb": "73800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/4 hatchback",
+        "Body Size (L*W*H) (mm)": "3684×1630×1518",
+        "Wheelbase (mm)": "2360",
+        "Max. Speed (km/h)": "120",
+        "Trunk / Boot capacity (L)": "115"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "49PS or 45kW",
+        "Max. Torque": "150N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Trailing arm",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Drum",
+        "Front Tyres": "165/60 R14",
+        "Rear Tyres": "165/60 R14",
+        "Range": "301km,ternary lithium battery, fast charging: 0.6hour (to 80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2019-baic-beijing-ec3-ev-technical-specs/"
+  },
+  {
+    "brand": "BAIC-MOTOR",
+    "model": "BAIC Beijing EH300 (EV)",
+    "year": "2017",
+    "price_rmb": "345800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "4/4 Sedan",
+        "Body Size (L*W*H) (mm)": "4946×1860×1483",
+        "Wheelbase (mm)": "2830",
+        "Max. Speed (km/h)": "140"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "136PS or 100kW",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "235/45 R18",
+        "Rear Tyres": "235/45 R18",
+        "Range": "380km,battery capacity: 54.6 kWh, battery type: ternary lithium battery, fast charging: 0.75hour, slow charging: 10hours (to 80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2017-baic-beijing-eh300-ev-technical-specs/"
+  },
+  {
+    "brand": "BAIC-MOTOR",
+    "model": "BAIC Beijing E150 EV",
+    "year": "2014",
+    "price_rmb": "220800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 Hatchback",
+        "Body Size (L*W*H) (mm)": "3998×1720×1503",
+        "Wheelbase (mm)": "2500",
+        "Max. Speed (km/h)": "120",
+        "Curb Weight (kg)": "1370"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "61PS or 45kW",
+        "Max. Torque": "144N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Type-H Torsion beam non-independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Drum",
+        "Front Tyres": "185/65 R14",
+        "Rear Tyres": "185/65 R14",
+        "Range": "200km"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2014-baic-beijing-e150-ev-technical-specs/"
+  },
+  {
+    "brand": "BAIC-MOTOR",
+    "model": "BAIC Beijing EU260 (EV)",
+    "year": "2017",
+    "price_rmb": "205900.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 Sedan",
+        "Body Size (L*W*H) (mm)": "4582×1794×1515",
+        "Wheelbase (mm)": "2650",
+        "Max. Speed (km/h)": "140",
+        "Acceleration 0-100 km/h|(0 to 62 mph) (s)": "9s",
+        "Curb Weight (kg)": "1583"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "136PS or 100kW",
+        "Max. Torque": "260N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "205/60 R16",
+        "Rear Tyres": "205/60 R16",
+        "Range": "260km,battery capacity: 41.4 kWh, battery type: ternary lithium battery, fast charging: 0.5hour, slow charging: 6-7hours (to 80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2017-baic-beijing-eu260-ev-technical-specs/"
+  },
+  {
+    "brand": "BAIC-MOTOR",
+    "model": "BAIC Beijing EC5 (EV)",
+    "year": "2019",
+    "price_rmb": "99900.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H) (mm)": "4122×1750×1583",
+        "Wheelbase (mm)": "2519",
+        "Max. Speed (km/h)": "130",
+        "Curb Weight (kg)": "1430"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "95PS or 70kW",
+        "Max. Torque": "200N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Torsion beam non-independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "205/60 R16",
+        "Rear Tyres": "205/60 R16",
+        "Range": "403km, battery type: ternary lithium battery, fast charging: 0.5hour, slow charging: 9hours (to 80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2019-baic-beijing-ec5-ev-technical-specs/"
+  },
+  {
+    "brand": "BAIC-MOTOR",
+    "model": "BAIC Beijing EX360 (EV)",
+    "year": "2019",
+    "price_rmb": "183900.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H) (mm)": "4110×1750×1543",
+        "Wheelbase (mm)": "2519",
+        "Max. Speed (km/h)": "125",
+        "Fuel Consumption (L/100km)": "16.4 kWh/100km",
+        "Curb Weight (kg)": "1480"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "109PS or 80kW",
+        "Max. Torque": "230N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Torsion beam non-independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "205/50 R16",
+        "Rear Tyres": "205/50 R16",
+        "Range": "318km, battery energy density: 122.68Wh/kg, battery type: ternary lithium battery, fast charging: 0.5hour (to 80% of battery capacity)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2019-baic-beijing-ex360-ev-technical-specs/"
+  },
+  {
+    "brand": "HANTENG",
+    "model": "Xingfu e+ (EV)",
+    "year": "2019",
+    "price_rmb": "59800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Gearbox": "Single speed",
+        "Num. of Doors/Seats & Body Type": "5/4 hatchback",
+        "Body Size (L*W*H) (mm)": "3721×1658×1522",
+        "Wheelbase (mm)": "2360",
+        "Max. Speed (km/h)": "100",
+        "Fuel Consumption (L/100km)": "12.2 (kWh/100km)",
+        "Curb Weight (kg)": "1089",
+        "Trunk / Boot capacity (L)": "140"
+      },
+      "Engine": {
+        "Max. Power": "57PS or 42kW",
+        "Max. Torque": "180N.m",
+        "Fuel Type": "Electricity"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Trailing arm type dependent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Drum",
+        "Front Tyres": "175/65 R14",
+        "Rear Tyres": "175/65 R14",
+        "Range": "310km, battery capacity: 30.75kWh, battery type:ternary lithium battery, charging time, slow: 10hours, fast: 2hours (full charge time)"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2019-xingfu-e-ev-technical-specs/"
+  },
+  {
+    "brand": "AVATR-3",
+    "model": "AVATR 11 (EV)",
+    "year": "2022",
+    "price_rmb": "349900.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "EV",
+        "Num. of Doors/Seats & Body Type": "4/5 or 4/4 SUV",
+        "Body Size (L*W*H)": "4880×1970×1601mm",
+        "Wheelbase": "2975",
+        "Max. Speed (km/h)": "200",
+        "Acceleration 0-100 km/h|(0 to 62 mph)": "3.98s, 4.5s",
+        "Power Consumption (kWh/100km)": "18.03 - 19.03",
+        "Curb Weight (kg)": "2280 - 2425kg",
+        "Trunk / Boot capacity (L)": "394"
+      },
+      "Engine": {
+        "Engine Code": "E-motor",
+        "Max. Power": "Max. 578PS or 425kW (Front: 195kW, Rear: 230kW)",
+        "Max. Torque": "650N.m (Front 280N.m, Rear: 370N.m)",
+        "Fuel Type": "Pure Electric ternary lithium battery (from CATL)",
+        "Fuel System": "Dual E-motor"
+      },
+      "Body": {
+        "Drive wheels - Traction": "Dual E-motor 4WD",
+        "Front Suspension": "Double wishbone independent suspension",
+        "Rear Suspension": "Five-link independent suspension",
+        "Body structure": "Load bearing",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Vented discs",
+        "Front Tyres": "265/45 R21, 265/40 R22",
+        "Rear Tyres": "265/45 R21, 265/40 R22",
+        "Battery & Range": "Range: 555km/680km, battery capacity: 90.38kWh/116.79kWh; Charging Time: Fast charging: 0.25 - 0.42hours to 80% of battery capacity, slow charging: 10.5 - 13.5hours",
+        "Autopilot chip": "MDC810",
+        "Chip computing power": "400 TOPS"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2022-avatr-11-ev-technical-specs/"
+  }
+]

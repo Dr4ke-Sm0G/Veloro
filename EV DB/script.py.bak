@@ -1,0 +1,109 @@
+from __future__ import annotations
+import pathlib
+from datetime import datetime
+from typing import Dict, List
+
+import scrapy
+import nodriver as uc
+
+
+class UltimateSpecsSpider(scrapy.Spider):
+    name = "ultimatespecs_nodriver"
+
+    # --- Chemins absolus ---
+    base_dir = pathlib.Path("/home/silent/ultimatespecs")  # <- ADAPTE ICI
+    visited_file: pathlib.Path = base_dir / "visited_urls_ultimatespecs.txt"
+    src_file: pathlib.Path = base_dir / "src/urls.txt"
+
+    custom_settings = {
+        "USER_AGENT": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/125.0.0.0 Safari/537.36"
+        ),
+        "DOWNLOAD_DELAY": 1,
+    }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.visited: set[str] = set()
+        if self.visited_file.exists():
+            with self.visited_file.open() as fp:
+                self.visited = {url.strip() for url in fp if url.strip()}
+        self.browser = None
+
+    async def _ensure_browser(self):
+        """Lance Nodriver si pas déjà démarré."""
+        if self.browser is None:
+            self.browser = await uc.start(
+                headless=True,
+                browser_executable_path="/usr/bin/google-chrome"
+            )
+
+    async def _fetch_with_nodriver(self, url: str) -> str:
+        """Récupère le HTML complet avec Nodriver."""
+        await self._ensure_browser()
+        page = await self.browser.get(url)
+        await page.sleep(1.5)
+        return await page.get_content()
+
+    async def parse(self, response: scrapy.http.Response):
+        url = response.url
+
+        # Si page nécessite JS
+        if "Mild-Hybrid" in url:
+            self.logger.info(f"Rendering via Nodriver: {url}")
+            html = await self._fetch_with_nodriver(url)
+            response = response.replace(body=html)
+
+        # Extraction des données
+        item: Dict[str, Dict[str, Dict[str, str]]] = {
+            "url": url,
+            "scraped_at": datetime.utcnow().isoformat(timespec="seconds"),
+            "specs": {},
+        }
+
+        selector = (
+            "div.ficha_specs_left table.content_text, "
+            "div.ficha_specs_right table.content_text"
+        )
+
+        for table in response.css(selector):
+            section = (
+                table.css("td.spec_title span.spec_title_text::text").get(default="")
+            ).strip()
+            if not section:
+                continue
+
+            for row in table.css("tr"):
+                label = row.css("td.tabletd::text").get()
+                if not label:
+                    continue
+                label = label.rstrip(" :").strip()
+                value_parts: List[str] = [
+                    t.strip()
+                    for t in row.css("td.tabletd_right *::text").getall()
+                ]
+                value = " ".join(part for part in value_parts if part)
+                item["specs"].setdefault(section, {})[label] = value
+
+        yield item
+
+        # Sauvegarde l'URL visitée
+        with self.visited_file.open("a") as fp:
+            fp.write(url + "\n")
+
+    def start_requests(self):
+        """Lit la liste d'URLs depuis un chemin absolu."""
+        if not self.src_file.exists():
+            self.logger.error(f"Fichier introuvable: {self.src_file}")
+            return
+        with self.src_file.open() as fp:
+            for url in map(str.strip, fp):
+                if url and url not in self.visited:
+                    yield scrapy.Request(url)
+
+    def close(self, reason):
+        """Arrête Nodriver correctement."""
+        if self.browser:
+            self.browser.stop()

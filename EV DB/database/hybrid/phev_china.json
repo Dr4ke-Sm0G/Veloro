@@ -1,0 +1,162 @@
+[
+  {
+    "brand": "MAXUS",
+    "model": "SAIC MAXUS EUNIQ 6 PHEV",
+    "year": "2020",
+    "price_rmb": "165800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "1.3T + E-motor",
+        "Aspiration": "Turbo",
+        "Gearbox": "10AMT",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H) (mm)": "4720×1860×1736",
+        "Wheelbase (mm)": "2760"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "Engine: 163PS or 120kW, E-motor: 82PS or 60kW",
+        "Max. Torque": "Engine: 230N.m, E-motor: 155N.m",
+        "Num. of Cylinder": "3",
+        "Num. of Valves": "4",
+        "Fuel Type": "Gasoline",
+        "Fuel System": "MPI"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "MacPherson independent suspension",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "215/65 R17 235/55 R18",
+        "Rear Tyres": "215/65 R17 235/55 R18",
+        "Range": "62km in pure electric drive, battery capacity: 13kWh, slow charging time: 3.5hours."
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-saic-maxus-euniq-6-phev-technical-specs-2/"
+  },
+  {
+    "brand": "MAXUS",
+    "model": "SAIC MAXUS EUNIQ 5 PHEV",
+    "year": "2020",
+    "price_rmb": "165800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "1.3T + E-motor",
+        "Aspiration": "Turbo",
+        "Gearbox": "10AMT",
+        "Num. of Doors/Seats & Body Type": "5/6 MPV",
+        "Body Size (L*W*H) (mm)": "4825×1825×1778",
+        "Wheelbase (mm)": "2800"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "Engine: 163PS or 120kW, E-motor: 60kW",
+        "Max. Torque": "Engine: 230N.m, E-motor: 155N.m",
+        "Num. of Cylinder": "3",
+        "Num. of Valves": "4",
+        "Fuel Type": "Gasoline",
+        "Fuel System": "MPI"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "MacPherson independent suspension",
+        "Rear Suspension": "Torsion beam non-independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "205/60 R16 215/55 R17",
+        "Rear Tyres": "205/60 R16 215/55 R17",
+        "Range": "64km in pure electric drive, battery capacity: 13kWh, battery type: lithium battery"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-saic-maxus-euniq-5-phev-technical-specs/"
+  },
+  {
+    "brand": "FENGGUANG-DFSK",
+    "model": "Dongfeng Fengguang E3 (EVR)",
+    "year": "2020",
+    "price_rmb": "139800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "E-motor + 1.5L L4 Gasoline Engine",
+        "Aspiration": "Natural",
+        "Num. of Doors/Seats & Body Type": "5/5 SUV",
+        "Body Size (L*W*H)": "4385×1850×1650",
+        "Wheelbase": "2655",
+        "Max. Speed (km/h)": "155",
+        "Acceleration 0-100 km/h|(0 to 62 mph)": "9.5",
+        "Curb Weight (kg)": "1740",
+        "Fuel Tank Capacity (L)": "56"
+      },
+      "Engine": {
+        "Engine Code": "-",
+        "Max. Power": "84PS or 62kW (Engine), 163PS or 120kW (E-motor)",
+        "Max. Torque": "300N.m (E-motor)",
+        "Num. of Cylinder": "4",
+        "Num. of Valves": "4",
+        "Fuel Type": "Gasoline",
+        "Fuel System": "MPI"
+      },
+      "Body": {
+        "Drive wheels - Traction": "RR",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "225/55 R18",
+        "Rear Tyres": "225/55 R18",
+        "Range": "100km in pure electric driving"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-dongfeng-fengguang-e3-evr-technical-specs/"
+  },
+  {
+    "brand": "FENGGUANG-DFSK",
+    "model": "Dongfeng Fengguang 580 (PHEV)",
+    "year": "2019",
+    "price_rmb": "169900.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "E-motor + 1.8L L4 Engine",
+        "Aspiration": "Natural",
+        "Gearbox": "E-CVT",
+        "Num. of Doors/Seats & Body Type": "5/7 SUV",
+        "Body Size (L*W*H)": "4680×1845×1715",
+        "Wheelbase": "2780",
+        "Max. Speed (km/h)": "170",
+        "Fuel Consumption (L/100km)": "1.4",
+        "Curb Weight (kg)": "1740",
+        "Fuel Tank Capacity (L)": "58",
+        "Trunk / Boot capacity (L)": "375"
+      },
+      "Engine": {
+        "Engine Code": "SFG18H",
+        "Max. Power": "133PS or 98kW @6000 (Engine), 92PS or 68kW (E-motor)",
+        "Max. Torque": "178N.m @3800 (Engine), 246N.m (E-motor)",
+        "Num. of Cylinder": "4",
+        "Num. of Valves": "4",
+        "Fuel Type": "Gasoline",
+        "Fuel System": "MPI"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Torsion beam non-independent suspension",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "225/55 R18",
+        "Rear Tyres": "225/55 R18",
+        "Range": "70km"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2019-dongfeng-fengguang-580-phev-technical-specs/"
+  }
+]

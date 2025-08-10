@@ -1,0 +1,83 @@
+[
+  {
+    "brand": "LYNK-CO",
+    "model": "Lynk & Co 09",
+    "year": "2021",
+    "price_rmb": "270000.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "2.0T",
+        "Aspiration": "Turbo",
+        "Gearbox": "8AT",
+        "Num. of Doors/Seats & Body Type": "5/6 | 5/7 SUV",
+        "Body Size (L*W*H)": "5042×1977×1780",
+        "Wheelbase": "2984",
+        "Max. Speed (km/h)": "215",
+        "Acceleration 0-100 km/h|(0 to 62 mph)": "8",
+        "Fuel Consumption (L/100km)": "9",
+        "Curb Weight (kg)": "2120",
+        "Fuel Tank Capacity (L)": "71"
+      },
+      "Engine": {
+        "Engine Code": "JLH-3G15TD",
+        "Max. Power": "254PS or 187kW @5500",
+        "Max. Torque": "350N.m @1800-4800",
+        "Num. of Cylinder": "4",
+        "Num. of Valves": "4",
+        "Fuel Type": "Gasoline + 48V HEV",
+        "Fuel System": "Direct Injection"
+      },
+      "Body": {
+        "Drive wheels - Traction": "Front AWD",
+        "Front Suspension": "Double wishbone independent suspension",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Vented discs",
+        "Front Tyres": "275/45 R20",
+        "Rear Tyres": "275/45 R20"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2021-lynk-co-09-technical-specs/"
+  },
+  {
+    "brand": "HONGQI",
+    "model": "FAW Hongqi H5",
+    "year": "2020",
+    "price_rmb": "145800.00",
+    "specs": {
+      "Basic Specs": {
+        "Engine Displacement": "1.5T, 1.8T+48V MHEV",
+        "Aspiration": "Turbo",
+        "Gearbox": "7DCT, 6AT",
+        "Num. of Doors/Seats & Body Type": "4/5 Sedan",
+        "Body Size (L*W*H) (mm)": "4945×1845×1470mm",
+        "Wheelbase (mm)": "2875mm",
+        "Acceleration 0-100 km/h|(0 to 62 mph) (s)": "8-9.2s",
+        "Fuel Consumption (L/100km)": "6.2-6.4"
+      },
+      "Engine": {
+        "Engine Code": "CA4GB15TD-30 (1.5T), CA4GB18TD-30 (1.8T)",
+        "Max. Power": "169PS or 124kW (1.5T), 197PS or 145kW (1.8T)",
+        "Max. Torque": "258N.m (1.5T), 320N.m (1.8T)",
+        "Num. of Cylinder": "4",
+        "Num. of Valves": "4",
+        "Fuel Type": "Gasoline",
+        "Fuel System": "Direct Injection"
+      },
+      "Body": {
+        "Drive wheels - Traction": "FWD",
+        "Front Suspension": "McPherson Independent",
+        "Rear Suspension": "Multi-link",
+        "Body structure": "Integral",
+        "Front Brakes": "Vented Discs",
+        "Rear Brakes": "Discs",
+        "Front Tyres": "225/55 R17, 225/45 R19",
+        "Rear Tyres": "225/55 R17, 225/45 R19"
+      },
+      "Disclaimer": {}
+    },
+    "url": "https://www.chinapev.com/specs/2020-faw-hongqi-h5-technical-specs/"
+  }
+]
